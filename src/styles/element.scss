@@ -1,0 +1,50 @@
+@import "@/styles/variables.scss";
+
+.el-menu {
+  background: transparent;
+  border-bottom: none !important;
+  .el-menu-item {
+    border-bottom: none;
+    color: $font-color-dark;
+    font-size: $font-size-body;
+    font-weight: $font-weight-big;
+    padding: 0 10px;
+    background-color: transparent;
+  }
+  .el-menu-item.is-active {
+    color: transparent !important;
+    background-image: $font-color-selected-dark;
+    background-clip: text;
+    border-bottom: none;
+  }
+  .el-menu-item:not(.is-disabled):focus,
+  .el-menu-item:not(.is-disabled):hover {
+    color: transparent !important;
+    background-image: $font-color-selected-dark;
+    background-clip: text;
+    background-color: transparent;
+  }
+}
+
+.el-button {
+  color: $font-color-dark;
+  background-color: $button-bacc;
+  border: none;
+}
+.el-button:hover {
+  background-color: $button-bacc-hover;
+  border: none;
+}
+
+.description-container:deep(.el-descriptions__title) {
+  color: $font-color-dark; 
+}
+.description-container:deep(.el-descriptions__body) {
+  background-color: transparent;
+}
+.description-container:deep(.el-descriptions__label) {
+  color: $font-color-dark;
+}
+.description-container:deep(.el-descriptions__content) {
+  color: $font-color-dark;
+}

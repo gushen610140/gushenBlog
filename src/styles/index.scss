@@ -1,0 +1,25 @@
+@import "@/styles/variables.scss";
+
+:root {
+  // 遵循了 ElementPlus 的字体家族
+  font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC','Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  line-height: $font-line-height-regular;
+
+  color: $font-color-dark;
+  font-weight: $font-weight-regular;
+  background-color: $background-color-dark;
+
+  // 浏览器自动优化字体
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  // 弹性布局使 layout 居中
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}

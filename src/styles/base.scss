@@ -1,0 +1,10 @@
+ul {
+  list-style: none; /* 清除列表标记 */
+  padding: 0; /* 清除内边距 */
+  margin: 0; /* 清除外边距 */
+}
+
+a {
+  text-decoration: none; /* 清除下划线 */
+  color: inherit; /* 继承父元素的颜色 */
+}

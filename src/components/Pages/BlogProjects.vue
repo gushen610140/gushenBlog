@@ -1,0 +1,25 @@
+<template>
+  <div class="body-box">
+    <el-row>
+      <el-col :span="1"></el-col>
+      <el-col :span="16">
+        <ProjectsShow></ProjectsShow>
+      </el-col>
+      <el-col :span="1"></el-col>
+      <el-col :span="6">
+        <ProjectsMe></ProjectsMe>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script setup lang="ts">
+import ProjectsShow from "@/components/BlogProjects/ProjectsShow.vue"
+import ProjectsMe from "@/components/BlogProjects/ProjectsMe.vue"
+</script>
+
+<style lang="scss" scoped>
+.body-box {
+  height: 1000px;
+}
+</style>

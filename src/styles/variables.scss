@@ -1,0 +1,31 @@
+// 字体行高
+$font-line-height-compact: 1.3;
+$font-line-height-regular: 1.5;
+$font-line-height-loose: 1.7;
+
+// 字体大小
+$font-size-supplement: 0.5rem;
+$font-size-body-small: 0.8rem;
+$font-size-body: 1rem;
+$font-size-title-small: 1.5rem;
+$font-size-title: 2rem;
+$font-size-title-large: 3rem;
+
+// 字体样式
+$font-weight-small: 200;
+$font-weight-regular: 400;
+$font-weight-big: 600;
+
+// 深色模式下颜色
+$font-color-dark: rgba(255, 255, 255, 0.87);
+$font-color-selected-dark: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%); // 属于background-image 属性，配合 background-clip:text 使用
+$background-color-dark: #242424;
+$box-background-color-dark: #33333330;
+$button-bacc: #909399;
+$button-bacc-hover: #b1b3b8;
+
+// 动画变换标准
+$transition-regular: all 150ms ease;
+
+// 页面布局
+$layout-width: 95vw
