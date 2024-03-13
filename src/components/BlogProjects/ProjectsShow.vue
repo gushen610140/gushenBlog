@@ -1,18 +1,26 @@
 <template>
   <div class="projects-show">
-    <el-card class="cards">
-      <ArticleCard @click="openProjects"></ArticleCard>
+    <el-card class="cards" v-for="project in projectList" :key="project.id" @click="openProjects">
+      <ProjectsCard :projectInfo="project"></ProjectsCard>
     </el-card>
   </div>
 </template>
 
 <script setup lang="ts">
 
-import ArticleCard from "@/components/BlogProjects/ProjectsShow/ArticleCard.vue"
+import ProjectsCard from "@/components/BlogProjects/ProjectsShow/ProjectsCard.vue"
 
 function openProjects() {
   window.open("http://sunway.icu:3000")
 }
+
+const projectList = [
+  {
+    id: 1,
+    title: "outfit-free",
+    content: "由vue重构的商城项目"
+  }
+]
 
 </script>
 

@@ -24,9 +24,6 @@ import BlogInfo from "@/components/BlogProjects/ProjectsMe/BlogInfo.vue"
   border: none;
   background-color: $box-background-color-dark;
   margin: 40px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .cards:hover {
   box-shadow: 0 0 5px $font-color-dark;

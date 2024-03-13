@@ -27,19 +27,24 @@ const {weatherInfo, getWeatherInfo} = useWeather()
 
 let articleNums = 1
 
+let timeInterval = null;
+let weatherInterval = null;
+
 onMounted(() => {
-  const timeInterval = setInterval(() => {
+  timeInterval = setInterval(() => {
     runTime.value = getRunTime()
   }, 1000)
   getWeatherInfo()
-  const weatherInterval = setInterval(() => {
+  weatherInterval = setInterval(() => {
     getWeatherInfo()
   }, 1000 * 3600)
 })
 
 onBeforeUnmount(() => {
-  clearInterval(timeInterval)
-  clearInterval(weatherInterval)
+  if (timeInterval)
+    clearInterval(timeInterval)
+  if (weatherInterval)
+    clearInterval(weatherInterval)
 })
 
 </script>

@@ -1,16 +1,16 @@
 <template>
   <div class="article-card">
     <div class="title">
-      outfit-free
+      {{ projectInfo.title }}
     </div>
     <div class="content">
-      由vue重构的商城项目
+      {{ projectInfo.content }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
+const {projectInfo} = defineProps({projectInfo: Object})
 </script>
 
 <style lang="scss" scoped>
