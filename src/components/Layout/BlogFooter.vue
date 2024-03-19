@@ -31,6 +31,7 @@
 @import "@/styles/element.scss";
 @import "@/styles/variables.scss";
 .blog-footer {
+  margin-top: 5rem;
   width: $layout-width;
   height: 200px;
   background-color: #333;

@@ -2,7 +2,7 @@ import { createApp } from "vue"
 import App from "@/App.vue"
 // 引用 vue-router
 import router from "@/router"
-// 引用ElementPlus
+// 引用 ElementPlus
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 

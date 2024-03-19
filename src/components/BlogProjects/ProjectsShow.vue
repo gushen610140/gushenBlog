@@ -1,6 +1,6 @@
 <template>
   <div class="projects-show">
-    <el-card class="cards" v-for="project in projectList" :key="project.id" @click="openProjects">
+    <el-card class="cards" v-for="project in projectList" :key="project.id" @click="openProjects(project.link)">
       <ProjectsCard :projectInfo="project"></ProjectsCard>
     </el-card>
   </div>
@@ -9,18 +9,18 @@
 <script setup lang="ts">
 
 import ProjectsCard from "@/components/BlogProjects/ProjectsShow/ProjectsCard.vue"
+import axios from 'axios'
+import useRoute from "@/hooks/useRoute.ts";
+import { reactive, ref } from "vue";
 
-function openProjects() {
-  window.open("http://sunway.icu:3000")
+function openProjects(link) {
+  window.open(link)
 }
 
-const projectList = [
-  {
-    id: 1,
-    title: "outfit-free",
-    content: "由vue重构的商城项目"
-  }
-]
+let projectList = ref([])
+axios.get(`${useRoute.BackEnd}/projects`).then(res => {
+  projectList.value = res.data
+})
 
 </script>
 
@@ -34,6 +34,6 @@ const projectList = [
   cursor: pointer;
 }
 .cards:hover {
-  box-shadow: 0 0 5px $font-color-dark;
+  box-shadow: $box-shadow-hover;
 }
 </style>
