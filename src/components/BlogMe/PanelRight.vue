@@ -1,5 +1,6 @@
 <template>
   <div class="panel-body">
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,7 +15,7 @@
   width: inherit;
   height: 800px;
   box-shadow: $box-shadow-normal;
-  transition: 0.3s;
+  transition: $transition-regular;
 }
 .panel-body:hover {
   box-shadow: $box-shadow-hover;

@@ -15,31 +15,31 @@ const routes = [
     component: layout,
     children: [
       {
-        path: "/projects",
+        path: "projects",
         name: "projects",
         component: () => import("@/components/Pages/BlogProjects.vue")
       },
       {
-        path: "/articles",
+        path: "articles",
         name: "articles",
         component: () => import("@/components/Pages/BlogArticles.vue")
       },
       {
-        path: "/mood",
+        path: "mood",
         name: "mood",
         component: () => import("@/components/Pages/BlogMood.vue")
       },
       {
-        path: "/me",
+        path: "me",
         name: "me",
         component: () => import("@/components/Pages/BlogMe.vue"),
         children: [
           {
-            path: "/projects",
+            path: "projects",
             component: () => import("@/components/BlogMe/Panels/PostProjects.vue")
           },
           {
-            path: "/articles",
+            path: "articles",
             component: () => import("@/components/BlogMe/Panels/PostArticles.vue")
           }
         ]
