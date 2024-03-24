@@ -18,7 +18,7 @@
           <el-menu-item index="/mood">
             心情
           </el-menu-item>
-          <el-menu-item index="/me">
+          <el-menu-item index="/me/projects">
             与我
           </el-menu-item>
         </el-menu>

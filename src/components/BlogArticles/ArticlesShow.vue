@@ -8,9 +8,9 @@
 
 <script setup lang="ts">
 import ArticlesCard from "@/components/BlogArticles/ArticlesShow/ArticlesCard.vue"
-import { ref } from "vue";
-import axios from "axios";
-import useRoute from "@/hooks/useRoute.ts";
+import { ref } from "vue"
+import axios from "axios"
+import useRoute from "@/hooks/useRoute.ts"
 
 const articleList = ref([])
 axios.get(`${useRoute.BackEnd}/articles`).then(res => {
