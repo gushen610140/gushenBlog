@@ -69,6 +69,8 @@ const onSubmit = () => {
   border: 2px solid white;
   border-radius: 0;
   color: $font-color-dark;
+  min-height: 30rem !important;
+  max-height: 30rem !important;
 }
 .body:deep(.is-focus) {
   box-shadow: none;

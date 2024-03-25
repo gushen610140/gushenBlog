@@ -19,7 +19,4 @@ import ProjectsMe from "@/components/BlogProjects/ProjectsMe.vue"
 </script>
 
 <style lang="scss" scoped>
-.body-box {
-  height: 1000px;
-}
 </style>

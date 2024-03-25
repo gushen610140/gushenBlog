@@ -5,10 +5,10 @@
     @select="handleSelect"
   >
     <el-menu-item class="menu-items" index="/projects">
-      projects
+      发表项目
     </el-menu-item>
     <el-menu-item class="menu-items" index="/articles">
-      articles
+      发表文章
     </el-menu-item>
   </el-menu>
 </template>
@@ -30,6 +30,8 @@ const handleSelect = (index) => {
   background-color: $box-background-color-dark;
   height: 800px;
   padding-top: 1rem;
+  transition: $transition-regular;
+  box-shadow: $box-shadow-normal;
 }
 .controller-body:hover {
   box-shadow: $box-shadow-hover;

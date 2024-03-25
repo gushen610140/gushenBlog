@@ -7,7 +7,7 @@
       </el-form-item>
     
       <el-form-item label="文章内容">
-        <el-input v-model="form.content" type="textarea" :rows="24" />
+        <el-input class="textarea" v-model="form.content" type="textarea" :rows="24" />
       </el-form-item>
 
       <el-form-item>
@@ -64,6 +64,8 @@ const onSubmit = () => {
   border: 2px solid white;
   border-radius: 0;
   color: $font-color-dark;
+  min-height: 30rem !important;
+  max-height: 30rem !important;
 }
 .body:deep(.is-focus) {
   box-shadow: none;
@@ -86,5 +88,8 @@ const onSubmit = () => {
 }
 .body:deep(.el-button:hover) {
   border-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%) 1;
+}
+.body:deep(.textarea) {
+  min-height: 500px;
 }
 </style>

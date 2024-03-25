@@ -6,8 +6,6 @@
     <el-card class="cards">
       <BlogInfo></BlogInfo>
     </el-card>
-    <el-card class="cards">
-    </el-card>
   </div>
 </template>
 

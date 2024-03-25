@@ -5,7 +5,7 @@
         <el-menu 
           mode="horizontal" 
           class="nav-menu"
-          :default-active="getPath"
+          :default-active="activeMenu"
           @select="handleSelect"
         >
           <div class="flex-grow"></div>
@@ -18,7 +18,7 @@
           <el-menu-item index="/mood">
             心情
           </el-menu-item>
-          <el-menu-item index="/me/projects">
+          <el-menu-item index="/me">
             与我
           </el-menu-item>
         </el-menu>
@@ -35,8 +35,12 @@ const route = useRoute()
 const router = useRouter()
 
 // 菜单默认选择
-const getPath = computed(() => {
-  return route.path
+const activeMenu = computed(() => {
+  let curRoute = route.path
+  if (curRoute === '/me/projects' || curRoute === '/me/articles') {
+    curRoute = '/me'
+  }
+  return curRoute
 })
 
 const headerState = reactive({

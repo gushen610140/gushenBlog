@@ -28,7 +28,7 @@ const navList = [
   },
   {
     label: "与我",
-    path: "/me/projects"
+    path: "/me"
   }
 ]
 

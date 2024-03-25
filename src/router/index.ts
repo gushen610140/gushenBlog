@@ -33,6 +33,7 @@ const routes = [
         path: "me",
         name: "me",
         component: () => import("@/components/Pages/BlogMe.vue"),
+        redirect: "/me/projects",
         children: [
           {
             path: "projects",
