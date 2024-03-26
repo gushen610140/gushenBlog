@@ -22,6 +22,7 @@
 import axios from 'axios'
 import { reactive } from 'vue'
 import useRoute from "@/hooks/useRoute.ts"
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 const form = reactive({
   title: "",
@@ -29,9 +30,31 @@ const form = reactive({
 })
 
 const onSubmit = () => {
-  axios.post(`${useRoute.BackEnd}/articles`,null, 
-  { params: form }).then(res => {
-    console.log(res)
+  ElMessageBox.confirm(
+    `是否确认要添加文章? `, 
+    '提示', 
+    {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    axios.post(`${useRoute.BackEnd}/articles`, null, { params: form })
+    .then(res => {
+      ElMessage({
+        type: 'success',
+        message: '添加成功'
+      })
+    }).catch(err => {
+      ElMessage({
+        type: 'error',
+        message: '抱歉，出了点问题，请稍后再试'
+      })
+    })
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '已取消添加'
+    })
   })
 }
 </script>
@@ -78,16 +101,6 @@ const onSubmit = () => {
 .body:deep(.el-form-item__content) {
   display: flex;
   justify-content: end;
-}
-.body:deep(.el-button) {
-  background-color: transparent;
-  box-shadow: none;
-  border: 2px solid white;
-  border-radius: 0;
-  color: $font-color-dark;
-}
-.body:deep(.el-button:hover) {
-  border-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%) 1;
 }
 .body:deep(.textarea) {
   min-height: 500px;

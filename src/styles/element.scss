@@ -26,14 +26,42 @@
   }
 }
 
-.el-button {
+:global(.el-button) {
   color: $font-color-dark;
   background-color: $button-bacc;
   border: none;
 }
-.el-button:hover {
+:global(.el-button:hover) {
+  color: $font-color-dark;
   background-color: $button-bacc-hover;
   border: none;
+}
+:global(.el-button:focus) {
+  color: $font-color-dark;
+  background-color: $button-bacc-hover;
+  border: none;
+}
+:global(.el-message-box__headerbtn:hover .el-message-box__close) {
+  color: $font-color-dark;
+}
+:global(.el-message) {
+  background-color: $background-color-dark;
+  border: none;
+  box-shadow: $box-shadow-normal;
+}
+:global(.el-drawer__close-btn:hover .el-drawer__close) {
+  color: $font-color-dark;
+}
+:global(.el-drawer) {
+  background-color: $background-color-dark;
+}
+:global(.el-drawer__title) {
+  color: $font-color-dark;
+  font-weight: $font-weight-big;
+  font-size: $font-size-title;
+}
+:global(.el-drawer) {
+  width: 40% !important;
 }
 
 .description-container:deep(.el-descriptions__title) {
@@ -46,5 +74,17 @@
   color: $font-color-dark;
 }
 .description-container:deep(.el-descriptions__content) {
+  color: $font-color-dark;
+}
+
+:global(.el-message-box) {
+  background-color: $background-color-dark;
+}
+
+:global(.el-message-box__title) {
+  color: $font-color-dark;
+}
+
+:global(.el-message-box__content) {
   color: $font-color-dark;
 }

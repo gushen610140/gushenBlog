@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import axios from 'axios'
 import useRoute from "@/hooks/useRoute.ts"
-import { defineProps, defineEmits } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const {projectInfo, hoverState} = defineProps({projectInfo: Object, hoverState: Object})
 
@@ -39,16 +39,42 @@ function openProjects(link) {
 
 const emit = defineEmits(['triggerDeleteProject'])
 const deleteProject = (id) => {
-  axios.delete(`${useRoute.BackEnd}/projects`, {params: {id}})
-  .then(res => {
-    emit('triggerDeleteProject')
+
+  ElMessageBox.confirm(
+    `项目 ${projectInfo.title} 将被删除，是否继续? `, 
+    '提示', 
+    {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    axios.delete(`${useRoute.BackEnd}/projects`, {params: {id}})
+    .then(res => {
+      ElMessage({
+        type: 'success',
+        message: '删除成功'
+      })
+      emit('triggerDeleteProject')
+    }).catch(err => {
+      ElMessage({
+        type: 'error',
+        message: '抱歉，出了点问题，请稍后再试'
+      })
+    })
+  }).catch(() => {
+    ElMessage({
+      type: 'info',
+      message: '已取消删除'
+    })
   })
+  
 }
 
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+@import "@/styles/element.scss";
 .info {
   width: 80%;
   cursor: pointer;
