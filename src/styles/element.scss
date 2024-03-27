@@ -88,3 +88,13 @@
 :global(.el-message-box__content) {
   color: $font-color-dark;
 }
+
+:global(.el-form-item__label) {
+  color: $font-color-dark;
+  font-size: $font-size-body;
+}
+
+:global(.el-input__wrapper) {
+  background-color: $background-color-dark;
+  box-shadow: $box-shadow-normal;
+}

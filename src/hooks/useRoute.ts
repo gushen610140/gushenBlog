@@ -6,5 +6,5 @@ const BackEndSwitcher = {
 
 export default {
   FrontEnd: "http://127.0.0.1:5173",
-  BackEnd: BackEndSwitcher.server
+  BackEnd: BackEndSwitcher.local
 }

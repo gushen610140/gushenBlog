@@ -44,6 +44,22 @@ const routes = [
             component: () => import("@/components/BlogMe/Panels/PostArticles.vue")
           }
         ]
+      },
+      {
+        path: "user",
+        name: "user",
+        component: () => import("@/components/Pages/BlogUser.vue"),
+        redirect: "/user/login",
+        children: [
+          {
+            path: "login",
+            component: () => import("@/components/BlogUser/BlogLogin.vue")
+          },
+          {
+            path: "register",
+            component: () => import("@/components/BlogUser/BlogRegister.vue")
+          }
+        ],
       }
     ]
   }
