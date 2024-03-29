@@ -1,5 +1,8 @@
 <template>
   <div class="projects-me description-container">
+    <el-card class="cards">
+      <UserInfoCard></UserInfoCard>
+    </el-card>
     <el-card class="cards my-info">
       <MyInfo></MyInfo>
     </el-card>
@@ -13,6 +16,7 @@
 
 import MyInfo from "@/components/BlogProjects/ProjectsMe/MyInfo.vue"
 import BlogInfo from "@/components/BlogProjects/ProjectsMe/BlogInfo.vue"
+import UserInfoCard from "@/components/BlogUser/UserInfoCard.vue"
 
 </script>
 
