@@ -1,36 +1,41 @@
 <template>
   <div class="user-body">
-    <el-form :model="form" label-width="5rem" class="form-style">
-      <div>登录</div>
-      <el-form-item label="用户名">
-        <el-input v-model="form.name" />
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="form.name" />
-      </el-form-item>
+
+    <el-switch
+      v-model="isLogin"
+      class="switcher"
+      size="large"
+      inline-prompt
+      style="--el-switch-on-color: #5B5A54; --el-switch-off-color: #443B3A"
+      active-text="登录"
+      inactive-text="注册"
+    />
+
+    <el-form :model="loginForm" label-width="5rem" class="form-style" v-if="isLogin">
+      <div class="input-body">
+        <el-form-item label="用户名">
+          <el-input v-model="loginForm.name" clearable class="input" />
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="loginForm.password" show-password class="input" />
+        </el-form-item>
+      </div>
       
-      
-      <el-form-item>
-        <el-button @click="onSubmit">登录</el-button>
-        <el-button>Cancel</el-button>
+      <el-form-item class="button-body">
+        <el-button @click="onSubmit" class="button">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
-// do not use same name with ref
-const form = reactive({
+let isLogin = ref(true)
+
+const loginForm = reactive({
   name: '',
-  region: '',
-  date1: '',
-  date2: '',
-  delivery: false,
-  type: [],
-  resource: '',
-  desc: '',
+  password: ''
 })
 
 const onSubmit = () => {
@@ -44,11 +49,30 @@ const onSubmit = () => {
 .user-body {
   display: flex;
   justify-content: center;
+  position: relative;
 }
 .form-style {
-  max-width: 40rem;
+  margin-right: 3rem;
+}
+.input-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.input {
+  width: 15rem;
+}
+.button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.button-body {
+  position: relative;
+}
+.switcher {
+  position: absolute;
+  right: 5rem;
+  top: -5px;
 }
 </style>

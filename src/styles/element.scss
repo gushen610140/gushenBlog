@@ -96,5 +96,17 @@
 
 :global(.el-input__wrapper) {
   background-color: $background-color-dark;
-  box-shadow: $box-shadow-normal;
+  box-shadow: $box-shadow-border;
+}
+
+:global(.el-input__wrapper:hover) {
+  box-shadow: $box-shadow-hover;
+}
+
+:global(.el-input__wrapper.is-focus) {
+  box-shadow: $box-shadow-hover;
+}
+
+:global(.el-input__inner) {
+  color: $font-color-dark;
 }

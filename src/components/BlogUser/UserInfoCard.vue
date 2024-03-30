@@ -21,18 +21,14 @@
     title="个人信息"
     direction="rtl"
   >
-    <div class="content">
-      1
-      <el-form>
-        <el-form-item>1</el-form-item>
-      </el-form>
-    </div>
+  <BlogLogin></BlogLogin>
   </el-drawer>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
+import BlogLogin from '@/components/BlogUser/BlogLogin.vue'
 
 const userInfo = {
   username: '夜刀神狗',
