@@ -29,6 +29,7 @@ import { ref } from "vue"
 import axios from "axios"
 import useRoute from "@/hooks/useRoute.ts"
 import { ElMessageBox, ElMessage } from "element-plus"
+import useCheckLogin from "@/hooks/useCheckLogin.ts"
 
 const articleList = ref([])
 axios.get(`${useRoute.BackEnd}/articles`).then(res => {

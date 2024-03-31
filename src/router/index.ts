@@ -54,10 +54,6 @@ const routes = [
           {
             path: "login",
             component: () => import("@/components/BlogUser/BlogLogin.vue")
-          },
-          {
-            path: "register",
-            component: () => import("@/components/BlogUser/BlogRegister.vue")
           }
         ],
       }

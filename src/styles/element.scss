@@ -110,3 +110,8 @@
 :global(.el-input__inner) {
   color: $font-color-dark;
 }
+
+:global(.el-input.is-disabled .el-input__wrapper) {
+  box-shadow: $box-shadow-border;
+  background-color: $background-color-dark-disabled;
+}

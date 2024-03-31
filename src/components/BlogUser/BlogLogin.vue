@@ -22,24 +22,113 @@
       </div>
       
       <el-form-item class="button-body">
-        <el-button @click="onSubmit" class="button">登录</el-button>
+        <el-button @click="onLogin" class="button">登录</el-button>
       </el-form-item>
     </el-form>
+
+    <el-form :model="registerForm" label-width="5rem" class="form-style" v-if="!isLogin">
+      <div class="input-body">
+        <el-form-item label="邮箱">
+          <el-input v-model="registerForm.email" clearable class="input" />
+        </el-form-item>
+        <el-form-item label="验证码">
+          <el-input v-model="registerForm.code" clearable disabled class="input" />
+        </el-form-item>
+        <el-form-item label="用户名">
+          <el-input v-model="registerForm.name" clearable class="input" />
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="registerForm.password" show-password class="input" />
+        </el-form-item>
+      </div>
+      
+      <el-form-item class="button-body">
+        <el-button @click="onRegister" class="button">注册</el-button>
+      </el-form-item>
+    </el-form>
+
   </div>
 </template>
 
 <script setup lang="ts">
+import axios from 'axios';
 import { reactive, ref } from 'vue'
+import useRoute from "@/hooks/useRoute.ts"
+import { ElMessage } from 'element-plus'
 
 let isLogin = ref(true)
+
+const emit = defineEmits(['triggerLogin'])
 
 const loginForm = reactive({
   name: '',
   password: ''
 })
 
-const onSubmit = () => {
-  console.log('submit!')
+const registerForm = reactive({
+  email: '',
+  code: '',
+  name: '',
+  password: ''
+})
+
+const onLogin = () => {
+  axios.get(`${useRoute.BackEnd}/login`, {
+    params: {
+      username: loginForm.name,
+      password: loginForm.password
+    }, 
+    withCredentials: true
+  }).then(res => {
+    if (res.data.status === 200){
+      ElMessage({
+        type: 'success',
+        message: res.data.message
+      })
+      emit('triggerLogin')
+    } else if (res.data.status) {
+      ElMessage({
+        type: 'error',
+        message: res.data.message
+      })
+    }
+  }).catch(err => {
+    ElMessage({
+      type: 'error',
+      message: "出了点错误，请稍后再试"
+    })
+  })
+}
+
+const onRegister = () => {
+  axios.post(`${useRoute.BackEnd}/register`, 
+  null,
+  {
+    params: {
+      username: registerForm.name,
+      password: registerForm.password,
+      email: registerForm.email
+    }, 
+    withCredentials: true
+  }).then(res => {
+    if (res.data.status === 200){
+      ElMessage({
+        type: 'success',
+        message: res.data.message
+      })
+      isLogin.value = true
+    } else if (res.data.status) {
+      ElMessage({
+        type: 'error',
+        message: res.data.message
+      })
+    }
+  }).catch(err => {
+    ElMessage({
+      type: 'error',
+      message: "出了点错误，请稍后再试"
+    })
+  })
 }
 
 </script>

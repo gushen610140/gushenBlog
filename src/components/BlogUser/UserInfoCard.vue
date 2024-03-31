@@ -21,7 +21,7 @@
     title="个人信息"
     direction="rtl"
   >
-  <BlogLogin></BlogLogin>
+  <BlogLogin @triggerLogin="drawer = false"></BlogLogin>
   </el-drawer>
 </template>
 

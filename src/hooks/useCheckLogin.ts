@@ -1,10 +1,9 @@
 const checkLogin = () => {
-  // const token = localStorage.getItem('token');
-  // if (token) {
-  //   return true;
-  // }
-  // return false;
-  return true;
+  const cookie = document.cookie
+  if (cookie.includes('user')) {
+    return true;
+  }
+  return false;
 };
 
 export default checkLogin;
