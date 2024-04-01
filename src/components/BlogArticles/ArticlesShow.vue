@@ -40,8 +40,17 @@ let drawer = ref(false)
 let selectedArticle = ref({})
 
 const handleClick = (id) => {
-  drawer.value = true
-  selectedArticle.value = articleList.value.find(article => article.id === id)
+  useCheckLogin().then((res) => {
+    if (res) {
+      drawer.value = res
+      selectedArticle.value = articleList.value.find(article => article.id === id)
+    } else {
+      ElMessage({
+        type: 'error',
+        message: '请先登录'
+      })
+    }
+  })
 }
 
 const deleteArticle = (id) => {

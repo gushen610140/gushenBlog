@@ -72,18 +72,19 @@ const registerForm = reactive({
   password: ''
 })
 
+// 登录
 const onLogin = () => {
   axios.get(`${useRoute.BackEnd}/login`, {
     params: {
       username: loginForm.name,
       password: loginForm.password
-    }, 
-    withCredentials: true
+    }
   }).then(res => {
     if (res.data.status === 200){
+      localStorage.setItem('token', res.data.message)
       ElMessage({
         type: 'success',
-        message: res.data.message
+        message: "登录成功"
       })
       emit('triggerLogin')
     } else if (res.data.status) {

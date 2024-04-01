@@ -1,9 +1,21 @@
-const checkLogin = () => {
-  const cookie = document.cookie
-  if (cookie.includes('user')) {
-    return true;
-  }
-  return false;
-};
+import axios from 'axios'
+import useRoute from '@/hooks/useRoute.ts'
 
-export default checkLogin;
+const checkLogin = async () => {
+
+  try {
+    const token = localStorage.getItem('token')
+    const response = await axios.get(`${useRoute.BackEnd}/token`,{ params: { token } })
+
+    if (response.data.status === 200) {
+      return true
+    }
+  } catch (error) {
+    return false
+  }
+
+  return false
+
+}
+
+export default checkLogin
