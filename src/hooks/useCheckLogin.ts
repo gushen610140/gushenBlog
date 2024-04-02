@@ -5,6 +5,11 @@ const checkLogin = async () => {
 
   try {
     const token = localStorage.getItem('token')
+
+    if (!token) {
+      return false
+    }
+
     const response = await axios.get(`${useRoute.BackEnd}/token`,{ params: { token } })
 
     if (response.data.status === 200) {

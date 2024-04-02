@@ -9,10 +9,11 @@
       effect="dark"
     >
       <template #reference>
-        <img class="avator" :src=userInfo.avator @click="drawer = true"></img>
+        <img class="avator" :src=userInfo.avator @click="handleDrawer"></img>
       </template>
     </el-popover>
-    <div class="name">欢迎您，{{ userInfo.username }}！</div>
+    <div v-if="isLogin" class="name">欢迎您，{{ userInfo.username }}！</div>
+    <div v-if="!isLogin" class="name">请先点击左侧头像进行登录</div>
   </div>
 
   <el-drawer
@@ -21,23 +22,66 @@
     title="个人信息"
     direction="rtl"
   >
-  <BlogLogin @triggerLogin="drawer = false"></BlogLogin>
+  <BlogLogin @triggerLogin="triggerLogin" v-if="!isLogin"></BlogLogin>
+  <UserInfoTable v-if="isLogin"></UserInfoTable>
   </el-drawer>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
 import BlogLogin from '@/components/BlogUser/BlogLogin.vue'
+import UserInfoTable from '@/components/BlogUser/UserInfoTable.vue'
+import useRoute from '@/hooks/useRoute.ts'
+import axios from 'axios'
 
-const userInfo = {
+const userInfo = reactive({
   username: '夜刀神狗',
   avator: "src/assets/Images/userAvators/userId.jpg"
+})
+
+let token = localStorage.getItem('token')
+if (token) {
+  axios.get(`${useRoute.BackEnd}/user`, {
+    params: {
+      token: localStorage.getItem('token')
+    }
+  }).then(res => {
+    if (res.data.status === 200) {
+      const userData = JSON.parse(res.data.message)
+      userInfo.username = userData.username
+    }
+  })
 }
 
-let drawer = ref(false)
 
-let isLogin = computed(() => useCheckLogin())
+let drawer = ref(false)
+let isLogin = ref(false)
+
+useCheckLogin().then((res) => {
+  if (res) {
+    isLogin.value = true
+  } else {
+    isLogin.value = false
+  }
+})
+
+const handleDrawer = () => {
+  useCheckLogin().then((res) => {
+    if (res) {
+      isLogin.value = true
+    } else {
+      isLogin.value = false
+    }
+  })
+  drawer.value = true
+}
+
+const triggerLogin = () => {
+  drawer.value = false
+  isLogin.value = true
+}
+
 </script>
 
 <style lang="scss" scoped>

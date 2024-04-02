@@ -23,6 +23,7 @@ import axios from 'axios'
 import { reactive } from 'vue'
 import useRoute from "@/hooks/useRoute.ts"
 import { ElMessageBox, ElMessage } from 'element-plus'
+import useCheckLogin from "@/hooks/useCheckLogin.ts"
 
 const form = reactive({
   title: "",
@@ -30,32 +31,43 @@ const form = reactive({
 })
 
 const onSubmit = () => {
-  ElMessageBox.confirm(
-    `是否确认要添加文章? `, 
-    '提示', 
-    {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    axios.post(`${useRoute.BackEnd}/articles`, null, { params: form })
-    .then(res => {
-      ElMessage({
-        type: 'success',
-        message: '添加成功'
+
+  useCheckLogin().then(res => {
+    if (res) {
+      ElMessageBox.confirm(
+        `是否确认要添加文章? `, 
+        '提示', 
+        {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        axios.post(`${useRoute.BackEnd}/articles`, null, { params: form })
+        .then(res => {
+          ElMessage({
+            type: 'success',
+            message: '添加成功'
+          })
+        }).catch(err => {
+          ElMessage({
+            type: 'error',
+            message: '抱歉，出了点问题，请稍后再试'
+          })
+        })
+      }).catch(() => {
+        ElMessage({
+          type: 'info',
+          message: '已取消添加'
+        })
       })
-    }).catch(err => {
+    } else {
       ElMessage({
         type: 'error',
-        message: '抱歉，出了点问题，请稍后再试'
+        message: '请先进行登录'
       })
-    })
-  }).catch(() => {
-    ElMessage({
-      type: 'info',
-      message: '已取消添加'
-    })
+    }
   })
+
 }
 </script>
 

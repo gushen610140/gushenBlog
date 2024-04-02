@@ -30,42 +30,61 @@
 import axios from 'axios'
 import useRoute from "@/hooks/useRoute.ts"
 import { ElMessage, ElMessageBox } from 'element-plus'
+import useCheckLogin from "@/hooks/useCheckLogin.ts"
 
 const {projectInfo, hoverState} = defineProps({projectInfo: Object, hoverState: Object})
 
 function openProjects(link) {
-  window.open(link)
+  useCheckLogin().then(res => {
+    if (res) {
+      window.open(link)
+    } else {
+      ElMessage({
+        type: 'error',
+        message: '请先登录'
+      })
+    }
+  })
 }
 
 const emit = defineEmits(['triggerDeleteProject'])
 const deleteProject = (id) => {
 
-  ElMessageBox.confirm(
-    `项目 ${projectInfo.title} 将被删除，是否继续? `, 
-    '提示', 
-    {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    axios.delete(`${useRoute.BackEnd}/projects`, {params: {id}})
-    .then(res => {
-      ElMessage({
-        type: 'success',
-        message: '删除成功'
+  useCheckLogin().then(res => {
+    if (res) {
+      ElMessageBox.confirm(
+        `项目 ${projectInfo.title} 将被删除，是否继续? `, 
+        '提示', 
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+        axios.delete(`${useRoute.BackEnd}/projects`, {params: {id}})
+        .then(res => {
+          ElMessage({
+            type: 'success',
+            message: '删除成功'
+          })
+          emit('triggerDeleteProject')
+        }).catch(err => {
+          ElMessage({
+            type: 'error',
+            message: '抱歉，出了点问题，请稍后再试'
+          })
+        })
+      }).catch(() => {
+        ElMessage({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
-      emit('triggerDeleteProject')
-    }).catch(err => {
+    } else {
       ElMessage({
         type: 'error',
-        message: '抱歉，出了点问题，请稍后再试'
+        message: '请先登录'
       })
-    })
-  }).catch(() => {
-    ElMessage({
-      type: 'info',
-      message: '已取消删除'
-    })
+    }
   })
   
 }
