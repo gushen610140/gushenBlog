@@ -9,7 +9,7 @@
       effect="dark"
     >
       <template #reference>
-        <img class="avator" :src=userInfo.avator @click="handleDrawer"></img>
+        <img class="avator" src="/userAvatars/1774342760620937218.jpg" @click="handleDrawer"></img>
       </template>
     </el-popover>
     <div v-if="isLogin" class="name">欢迎您，{{ userInfo.username }}！</div>
@@ -37,7 +37,7 @@ import axios from 'axios'
 
 const userInfo = reactive({
   username: '夜刀神狗',
-  avator: "src/assets/Images/userAvators/userId.jpg"
+  avator: ""
 })
 
 let token = localStorage.getItem('token')
