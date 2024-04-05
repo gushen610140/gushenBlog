@@ -6,10 +6,10 @@
       :width="200"
       trigger="hover"
       content="点击此处查看个人信息"
-      effect="dark"
+      :effect="'dark'"
     >
       <template #reference>
-        <img class="avator" src="/userAvatars/1774342760620937218.jpg" @click="handleDrawer"></img>
+        <img class="avatar" src="/userAvatars/1774342760620937218.jpg" @click="handleDrawer" alt="头像">
       </template>
     </el-popover>
     <div v-if="isLogin" class="name">欢迎您，{{ userInfo.username }}！</div>
@@ -23,12 +23,12 @@
     direction="rtl"
   >
   <BlogLogin @triggerLogin="triggerLogin" v-if="!isLogin"></BlogLogin>
-  <UserInfoTable v-if="isLogin"></UserInfoTable>
+  <UserInfoTable @triggerExit="triggerExit" v-if="isLogin"></UserInfoTable>
   </el-drawer>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
 import BlogLogin from '@/components/BlogUser/BlogLogin.vue'
 import UserInfoTable from '@/components/BlogUser/UserInfoTable.vue'
@@ -37,7 +37,7 @@ import axios from 'axios'
 
 const userInfo = reactive({
   username: '夜刀神狗',
-  avator: ""
+  avatar: ""
 })
 
 let token = localStorage.getItem('token')
@@ -58,21 +58,13 @@ if (token) {
 let drawer = ref(false)
 let isLogin = ref(false)
 
-useCheckLogin().then((res) => {
-  if (res) {
-    isLogin.value = true
-  } else {
-    isLogin.value = false
-  }
+useCheckLogin().then((res: boolean) => {
+  isLogin.value = res;
 })
 
 const handleDrawer = () => {
-  useCheckLogin().then((res) => {
-    if (res) {
-      isLogin.value = true
-    } else {
-      isLogin.value = false
-    }
+  useCheckLogin().then((res: boolean) => {
+    isLogin.value = res;
   })
   drawer.value = true
 }
@@ -80,6 +72,11 @@ const handleDrawer = () => {
 const triggerLogin = () => {
   drawer.value = false
   isLogin.value = true
+}
+
+const triggerExit = () => {
+  drawer.value = false
+  isLogin.value = false
 }
 
 </script>
@@ -95,13 +92,13 @@ const triggerLogin = () => {
   display: flex;
   align-items: center;
 }
-.avator {
+.avatar {
   width: 50px;
   border-radius: 25px;
   cursor: pointer;
   transition: $transition-regular;
 }
-.avator:hover {
+.avatar:hover {
   transform: scale(1.1);
 }
 </style>
