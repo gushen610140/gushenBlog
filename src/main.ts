@@ -1,4 +1,4 @@
-import { createApp } from "vue"
+import {createApp} from "vue"
 import App from "@/App.vue"
 // 引用 vue-router
 import router from "@/router"
@@ -17,7 +17,7 @@ app.use(ElementPlus)
 
 // 注册 el-icon
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-  app.component(key, component)
+    app.component(key, component)
 }
 
 // 挂载 DOM

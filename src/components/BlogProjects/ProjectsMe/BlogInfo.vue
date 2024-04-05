@@ -1,8 +1,8 @@
 <template>
   <div class="blog-info description-container">
-    <el-descriptions 
-      title="网站信息"
-      :column="1"
+    <el-descriptions
+        title="网站信息"
+        :column="1"
     >
       <el-descriptions-item label="文章数量">
         {{ articleNums }}
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue"
+import {ref, onMounted, onBeforeUnmount} from "vue"
 import getRunTime from "@/hooks/getRunTime.ts"
 import useWeather from "@/hooks/getMyWeather.ts"
 

@@ -14,12 +14,12 @@
     </div>
 
     <transition name="del">
-      <el-icon 
-        class="delete" 
-        :size="20" 
-        @click="deleteProject(projectInfo.id)" 
-        v-if="hoverState.hover && hoverState.hoverid === projectInfo.id">
-          <Delete />
+      <el-icon
+          class="delete"
+          :size="20"
+          @click="deleteProject(projectInfo.id)"
+          v-if="hoverState.hover && hoverState.hoverid === projectInfo.id">
+        <Delete/>
       </el-icon>
     </transition>
 
@@ -29,8 +29,9 @@
 <script setup lang="ts">
 import axios from 'axios'
 import useRoute from "@/hooks/useRoute.ts"
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import useCheckLogin from "@/hooks/useCheckLogin.ts"
+import {Delete} from "@element-plus/icons-vue";
 
 const {projectInfo, hoverState} = defineProps({projectInfo: Object, hoverState: Object})
 
@@ -53,21 +54,21 @@ const deleteProject = (id) => {
   useCheckLogin().then(res => {
     if (res) {
       ElMessageBox.confirm(
-        `项目 ${projectInfo.title} 将被删除，是否继续? `, 
-        '提示', 
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+          `项目 ${projectInfo.title} 将被删除，是否继续? `,
+          '提示',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
         axios.delete(`${useRoute.BackEnd}/projects`, {params: {id}})
-        .then(res => {
-          ElMessage({
-            type: 'success',
-            message: '删除成功'
-          })
-          emit('triggerDeleteProject')
-        }).catch(err => {
+            .then(() => {
+              ElMessage({
+                type: 'success',
+                message: '删除成功'
+              })
+              emit('triggerDeleteProject')
+            }).catch(() => {
           ElMessage({
             type: 'error',
             message: '抱歉，出了点问题，请稍后再试'
@@ -86,7 +87,7 @@ const deleteProject = (id) => {
       })
     }
   })
-  
+
 }
 
 </script>
@@ -94,11 +95,13 @@ const deleteProject = (id) => {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 @import "@/styles/element.scss";
+
 .info {
   width: 80%;
   cursor: pointer;
   overflow: hidden;
 }
+
 .title {
   background-image: $font-color-selected-dark;
   background-clip: text;
@@ -106,14 +109,17 @@ const deleteProject = (id) => {
   font-size: $font-size-title;
   font-weight: $font-weight-big;
 }
+
 .content {
   color: $font-color-dark;
   font-size: $font-size-body;
   margin-left: 1rem;
 }
+
 .article-card {
   position: relative;
 }
+
 .delete {
   position: absolute;
   top: 0;
@@ -122,6 +128,7 @@ const deleteProject = (id) => {
   cursor: pointer;
   transition: $transition-regular;
 }
+
 .del-enter-active,
 .del-leave-active {
   transition: all 0.5s; /* 使用 all 进行整体过渡效果 */

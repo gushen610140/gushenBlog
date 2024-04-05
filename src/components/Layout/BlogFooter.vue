@@ -3,10 +3,10 @@
     <el-row>
       <el-col :span="4"></el-col>
       <el-col :span="20">
-        <el-descriptions 
-          class="infos"
-          title="帮助中心"
-          :column="1"
+        <el-descriptions
+            class="infos"
+            title="帮助中心"
+            :column="1"
         >
           <el-descriptions-item label="版权归属" :width="1000">
             © 2009-2019 Aliyun.com 版权所有
@@ -30,6 +30,7 @@
 <style lang="scss" scoped>
 @import "@/styles/element.scss";
 @import "@/styles/variables.scss";
+
 .blog-footer {
   margin-top: 5rem;
   width: $layout-width;

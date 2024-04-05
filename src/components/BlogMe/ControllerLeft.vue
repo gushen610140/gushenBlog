@@ -1,8 +1,8 @@
 <template>
-  <el-menu 
-    class="el-menu-vertical-demo controller-body" 
-    default-active="/projects"
-    @select="handleSelect"
+  <el-menu
+      class="el-menu-vertical-demo controller-body"
+      default-active="/projects"
+      @select="handleSelect"
   >
     <el-menu-item class="menu-items" index="/projects">
       发表项目
@@ -14,11 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
+import {useRouter, useRoute} from 'vue-router';
 
 const router = useRouter(), route = useRoute()
 
-const handleSelect = (index) => {  
+const handleSelect = (index) => {
   router.push("/me" + index)
 }
 </script>
@@ -26,6 +26,7 @@ const handleSelect = (index) => {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 @import "@/styles/element.scss";
+
 .controller-body {
   background-color: $box-background-color-dark;
   height: 800px;
@@ -33,6 +34,7 @@ const handleSelect = (index) => {
   transition: $transition-regular;
   box-shadow: $box-shadow-normal;
 }
+
 .controller-body:hover {
   box-shadow: $box-shadow-hover;
 }

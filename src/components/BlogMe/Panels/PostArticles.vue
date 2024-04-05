@@ -3,11 +3,11 @@
     <el-form :model="form" label-width="auto" class="form">
 
       <el-form-item label="文章标题">
-        <el-input v-model="form.title" />
+        <el-input v-model="form.title"/>
       </el-form-item>
-    
+
       <el-form-item label="文章内容">
-        <el-input class="textarea" v-model="form.content" type="textarea" :rows="24" />
+        <el-input class="textarea" v-model="form.content" type="textarea" :rows="24"/>
       </el-form-item>
 
       <el-form-item>
@@ -20,9 +20,9 @@
 
 <script setup lang="ts">
 import axios from 'axios'
-import { reactive } from 'vue'
+import {reactive} from 'vue'
 import useRoute from "@/hooks/useRoute.ts"
-import { ElMessageBox, ElMessage } from 'element-plus'
+import {ElMessageBox, ElMessage} from 'element-plus'
 import useCheckLogin from "@/hooks/useCheckLogin.ts"
 
 const form = reactive({
@@ -35,20 +35,20 @@ const onSubmit = () => {
   useCheckLogin().then(res => {
     if (res) {
       ElMessageBox.confirm(
-        `是否确认要添加文章? `, 
-        '提示', 
-        {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        axios.post(`${useRoute.BackEnd}/articles`, null, { params: form })
-        .then(res => {
-          ElMessage({
-            type: 'success',
-            message: '添加成功'
-          })
-        }).catch(err => {
+          `是否确认要添加文章? `,
+          '提示',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+        axios.post(`${useRoute.BackEnd}/articles`, null, {params: form})
+            .then(() => {
+              ElMessage({
+                type: 'success',
+                message: '添加成功'
+              })
+            }).catch(() => {
           ElMessage({
             type: 'error',
             message: '抱歉，出了点问题，请稍后再试'
@@ -73,26 +73,32 @@ const onSubmit = () => {
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .body {
   display: flex;
   justify-content: center;
   padding-top: 5rem;
 }
+
 .form {
   width: 40rem;
 }
+
 .body:deep(.el-form-item__label) {
   color: $font-color-dark;
 }
+
 .body:deep(.el-input__wrapper) {
   border: 2px solid white;
   border-radius: 0;
   box-shadow: none;
   background-color: transparent;
 }
+
 .body:deep(.el-input__inner) {
   color: $font-color-dark;
 }
+
 .body:deep(.el-textarea__inner) {
   background-color: transparent;
   box-shadow: none;
@@ -102,18 +108,22 @@ const onSubmit = () => {
   min-height: 30rem !important;
   max-height: 30rem !important;
 }
+
 .body:deep(.is-focus) {
   box-shadow: none;
   border: 2px solid;
   border-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%) 1;
 }
+
 .body:deep(.el-textarea__inner:focus) {
   border-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%) 1;
 }
+
 .body:deep(.el-form-item__content) {
   display: flex;
   justify-content: end;
 }
+
 .body:deep(.textarea) {
   min-height: 500px;
 }

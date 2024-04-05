@@ -3,6 +3,7 @@
 .el-menu {
   background: transparent;
   border: none !important;
+
   .el-menu-item {
     border-bottom: none;
     color: $font-color-dark;
@@ -11,12 +12,14 @@
     padding: 0 10px;
     background-color: transparent;
   }
+
   .el-menu-item.is-active {
     color: transparent !important;
     background-image: $font-color-selected-dark;
     background-clip: text;
     border-bottom: none;
   }
+
   .el-menu-item:not(.is-disabled):focus,
   .el-menu-item:not(.is-disabled):hover {
     color: transparent !important;
@@ -31,48 +34,59 @@
   background-color: $button-bacc;
   border: none;
 }
+
 :global(.el-button:hover) {
   color: $font-color-dark;
   background-color: $button-bacc-hover;
   border: none;
 }
+
 :global(.el-button:focus) {
   color: $font-color-dark;
   background-color: $button-bacc-hover;
   border: none;
 }
+
 :global(.el-message-box__headerbtn:hover .el-message-box__close) {
   color: $font-color-dark;
 }
+
 :global(.el-message) {
   background-color: $background-color-dark;
   border: none;
   box-shadow: $box-shadow-normal;
 }
+
 :global(.el-drawer__close-btn:hover .el-drawer__close) {
   color: $font-color-dark;
 }
+
 :global(.el-drawer) {
   background-color: $background-color-dark;
 }
+
 :global(.el-drawer__title) {
   color: $font-color-dark;
   font-weight: $font-weight-big;
   font-size: $font-size-title;
 }
+
 :global(.el-drawer) {
   width: 40% !important;
 }
 
 .description-container:deep(.el-descriptions__title) {
-  color: $font-color-dark; 
+  color: $font-color-dark;
 }
+
 .description-container:deep(.el-descriptions__body) {
   background-color: transparent;
 }
+
 .description-container:deep(.el-descriptions__label) {
   color: $font-color-dark;
 }
+
 .description-container:deep(.el-descriptions__content) {
   color: $font-color-dark;
 }

@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 
-import { useRouter } from "vue-router"
+import {useRouter} from "vue-router"
 
 const router = useRouter()
 
@@ -40,13 +40,16 @@ const goMenu: (path: string) => void = (path) => {
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .welcome {
   padding-top: 40vh;
 }
+
 .title {
   font-size: $font-size-title-large;
   margin-bottom: 1rem;
 }
+
 .nav {
   height: 3rem;
   border: solid 2px $font-color-dark;
@@ -56,10 +59,12 @@ const goMenu: (path: string) => void = (path) => {
   align-items: center;
   font-size: $font-size-body;
   font-weight: $font-weight-big;
+
   li {
     cursor: pointer;
     transition: $transition-regular;
   }
+
   li:hover {
     color: transparent;
     background-image: $font-color-selected-dark;

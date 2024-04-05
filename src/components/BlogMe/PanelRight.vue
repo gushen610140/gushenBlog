@@ -10,6 +10,7 @@
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .panel-body {
   background-color: $box-background-color-dark;
   width: inherit;
@@ -17,6 +18,7 @@
   box-shadow: $box-shadow-normal;
   transition: $transition-regular;
 }
+
 .panel-body:hover {
   box-shadow: $box-shadow-hover;
 }

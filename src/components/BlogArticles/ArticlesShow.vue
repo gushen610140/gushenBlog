@@ -5,30 +5,30 @@
     </el-card>
   </div>
   <el-drawer
-    class="drawer"
-    v-model="drawer"
-    :title="selectedArticle.title"
-    direction="ltr"
+      class="drawer"
+      v-model="drawer"
+      :title="selectedArticle.title"
+      direction="ltr"
   >
     <div class="content">
       {{ selectedArticle.content }}
     </div>
-    <el-icon 
-      class="delete" 
-      :size="20" 
-      @click="deleteArticle(selectedArticle.id)" 
+    <el-icon
+        class="delete"
+        :size="20"
+        @click="deleteArticle(selectedArticle.id)"
     >
-      <Delete />
+      <Delete/>
     </el-icon>
   </el-drawer>
 </template>
 
 <script setup lang="ts">
 import ArticlesCard from "@/components/BlogArticles/ArticlesShow/ArticlesCard.vue"
-import { ref } from "vue"
+import {ref} from "vue"
 import axios from "axios"
 import useRoute from "@/hooks/useRoute.ts"
-import { ElMessageBox, ElMessage } from "element-plus"
+import {ElMessageBox, ElMessage} from "element-plus"
 import useCheckLogin from "@/hooks/useCheckLogin.ts"
 
 const articleList = ref([])
@@ -55,23 +55,23 @@ const handleClick = (id) => {
 
 const deleteArticle = (id) => {
   ElMessageBox.confirm(
-    `文章 ${selectedArticle.value.title} 将被删除，是否继续? `, 
-    '提示', 
-    {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
+      `文章 ${selectedArticle.value.title} 将被删除，是否继续? `,
+      '提示',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
     axios.delete(`${useRoute.BackEnd}/articles`, {params: {id}})
-    .then(res => {
-      ElMessage({
-        type: 'success',
-        message: '删除成功'
-      })
-      articleList.value = articleList.value.filter(article => article.id !== id)
-      drawer.value = false
-      selectedArticle.value = {}
-    }).catch(err => {
+        .then(res => {
+          ElMessage({
+            type: 'success',
+            message: '删除成功'
+          })
+          articleList.value = articleList.value.filter(article => article.id !== id)
+          drawer.value = false
+          selectedArticle.value = {}
+        }).catch(err => {
       ElMessage({
         type: 'error',
         message: '抱歉，出了点问题，请稍后再试'
@@ -90,6 +90,7 @@ const deleteArticle = (id) => {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 @import "@/styles/element.scss";
+
 .card-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -98,20 +99,24 @@ const deleteArticle = (id) => {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+
 .cards {
   border: none;
   background-color: $box-background-color-dark;
   cursor: pointer;
 }
+
 .cards:hover {
   box-shadow: $box-shadow-hover;
 }
+
 .delete {
   position: absolute;
   right: 2rem;
   margin-top: 4rem;
   cursor: pointer;
 }
+
 .drawer {
   position: relative;
 }

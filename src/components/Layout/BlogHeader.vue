@@ -2,11 +2,11 @@
   <div class="header-box" :class="headerState.headerClass">
     <el-row>
       <el-col :span="24">
-        <el-menu 
-          mode="horizontal" 
-          class="nav-menu"
-          :default-active="activeMenu"
-          @select="handleSelect"
+        <el-menu
+            mode="horizontal"
+            class="nav-menu"
+            :default-active="activeMenu"
+            @select="handleSelect"
         >
           <div class="flex-grow"></div>
           <el-menu-item index="/projects">
@@ -28,8 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import {computed, onMounted, reactive} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
@@ -66,7 +66,7 @@ const handleScroll = () => {
   // 向上滚动
   if (headerState.startScrollTop > scrollTop) {
     headerState.headerClass = "fixed-header";
-  // 向下滚动
+    // 向下滚动
   } else if (headerState.startScrollTop <= scrollTop) {
     headerState.headerClass = "hide-header";
   }
@@ -83,22 +83,26 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "@/styles/element.scss";
+
 .nav-menu {
   height: 50px;
   background-color: $box-background-color-dark;
   border-radius: 20px;
 }
+
 // #region 处理 header 的滚动动画与对应类
 .hide-header {
   animation-name: hideHeader;
   animation-duration: 0.8s;
   animation-fill-mode: forwards;
 }
+
 .fixed-header {
   animation-name: showHeader;
   animation-duration: 0.8s;
   animation-fill-mode: forwards;
 }
+
 @keyframes showHeader {
   0% {
     transform: translateY(-52px);
@@ -107,6 +111,7 @@ onMounted(() => {
     transform: translateY(0px);
   }
 }
+
 @keyframes hideHeader {
   0% {
     transform: translateY(0px);
@@ -115,6 +120,7 @@ onMounted(() => {
     transform: translateY(-52px);
   }
 }
+
 // #endregion
 
 </style>

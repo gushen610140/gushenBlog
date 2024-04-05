@@ -3,23 +3,23 @@ import useRoute from '@/hooks/useRoute.ts'
 
 const checkLogin = async () => {
 
-  try {
-    const token = localStorage.getItem('token')
+    try {
+        const token = localStorage.getItem('token')
 
-    if (!token) {
-      return false
+        if (!token) {
+            return false
+        }
+
+        const response = await axios.get(`${useRoute.BackEnd}/token`, {params: {token}})
+
+        if (response.data.status === 200) {
+            return true
+        }
+    } catch (error) {
+        return false
     }
 
-    const response = await axios.get(`${useRoute.BackEnd}/token`,{ params: { token } })
-
-    if (response.data.status === 200) {
-      return true
-    }
-  } catch (error) {
     return false
-  }
-
-  return false
 
 }
 

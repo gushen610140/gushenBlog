@@ -1,12 +1,12 @@
 <template>
   <div class="user-info">
     <el-popover
-      placement="top-start"
-      title="提示"
-      :width="200"
-      trigger="hover"
-      content="点击此处查看个人信息"
-      :effect="'dark'"
+        placement="top-start"
+        title="提示"
+        :width="200"
+        trigger="hover"
+        content="点击此处查看个人信息"
+        :effect="'dark'"
     >
       <template #reference>
         <img class="avatar" src="/userAvatars/1774342760620937218.jpg" @click="handleDrawer" alt="头像">
@@ -17,18 +17,18 @@
   </div>
 
   <el-drawer
-    class="drawer"
-    v-model="drawer"
-    title="个人信息"
-    direction="rtl"
+      class="drawer"
+      v-model="drawer"
+      title="个人信息"
+      direction="rtl"
   >
-  <BlogLogin @triggerLogin="triggerLogin" v-if="!isLogin"></BlogLogin>
-  <UserInfoTable @triggerExit="triggerExit" v-if="isLogin"></UserInfoTable>
+    <BlogLogin @triggerLogin="triggerLogin" v-if="!isLogin"></BlogLogin>
+    <UserInfoTable @triggerExit="triggerExit" v-if="isLogin"></UserInfoTable>
   </el-drawer>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import {ref, reactive} from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
 import BlogLogin from '@/components/BlogUser/BlogLogin.vue'
 import UserInfoTable from '@/components/BlogUser/UserInfoTable.vue'
@@ -84,20 +84,24 @@ const triggerExit = () => {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 @import "@/styles/element.scss";
+
 .name {
   color: $font-color-dark;
   margin-left: 3rem;
 }
+
 .user-info {
   display: flex;
   align-items: center;
 }
+
 .avatar {
   width: 50px;
   border-radius: 25px;
   cursor: pointer;
   transition: $transition-regular;
 }
+
 .avatar:hover {
   transform: scale(1.1);
 }

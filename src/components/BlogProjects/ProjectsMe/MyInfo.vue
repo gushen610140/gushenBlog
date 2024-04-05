@@ -17,12 +17,14 @@ function goGitee() {
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 @import "@/styles/element.scss";
+
 .my-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .name {
   color: $font-color-dark;
   font-weight: $font-weight-small;
@@ -30,6 +32,7 @@ function goGitee() {
   cursor: default;
   user-select: none;
 }
+
 .button {
   margin-top: 10px;
 }

@@ -22,11 +22,13 @@ import UserInfoCard from "@/components/BlogUser/UserInfoCard.vue"
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .cards {
   border: none;
   background-color: $box-background-color-dark;
   margin: 40px 0;
 }
+
 .cards:hover {
   box-shadow: 0 0 5px $font-color-dark;
 }

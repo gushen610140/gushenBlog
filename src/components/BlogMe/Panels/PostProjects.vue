@@ -3,15 +3,15 @@
     <el-form :model="form" label-width="auto" class="form">
 
       <el-form-item label="项目标题">
-        <el-input v-model="form.title" />
+        <el-input v-model="form.title"/>
       </el-form-item>
-    
+
       <el-form-item label="项目内容">
-        <el-input v-model="form.content" type="textarea" :rows="24" />
+        <el-input v-model="form.content" type="textarea" :rows="24"/>
       </el-form-item>
 
       <el-form-item label="项目链接">
-        <el-input v-model="form.link" />
+        <el-input v-model="form.link"/>
       </el-form-item>
 
       <el-form-item>
@@ -23,10 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import {reactive} from 'vue'
 import axios from 'axios'
 import useRoute from '@/hooks/useRoute'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import useCheckLogin from '@/hooks/useCheckLogin'
 
 const form = reactive({
@@ -40,20 +40,20 @@ const onSubmit = () => {
   useCheckLogin().then(res => {
     if (res) {
       ElMessageBox.confirm(
-        `是否确认要添加项目? `, 
-        '提示', 
-        {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        axios.post(`${useRoute.BackEnd}/projects`, null, { params: form })
-        .then(res => {
-          ElMessage({
-            type: 'success',
-            message: '添加成功'
-          })
-        }).catch(err => {
+          `是否确认要添加项目? `,
+          '提示',
+          {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+        axios.post(`${useRoute.BackEnd}/projects`, null, {params: form})
+            .then(() => {
+              ElMessage({
+                type: 'success',
+                message: '添加成功'
+              })
+            }).catch(() => {
           ElMessage({
             type: 'error',
             message: '抱歉，出了点问题，请稍后再试'
@@ -78,26 +78,32 @@ const onSubmit = () => {
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .body {
   display: flex;
   justify-content: center;
   padding-top: 5rem;
 }
+
 .form {
   width: 40rem;
 }
+
 .body:deep(.el-form-item__label) {
   color: $font-color-dark;
 }
+
 .body:deep(.el-input__wrapper) {
   border: 2px solid white;
   border-radius: 0;
   box-shadow: none;
   background-color: transparent;
 }
+
 .body:deep(.el-input__inner) {
   color: $font-color-dark;
 }
+
 .body:deep(.el-textarea__inner) {
   background-color: transparent;
   box-shadow: none;
@@ -107,14 +113,17 @@ const onSubmit = () => {
   min-height: 30rem !important;
   max-height: 30rem !important;
 }
+
 .body:deep(.is-focus) {
   box-shadow: none;
   border: 2px solid;
   border-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%) 1;
 }
+
 .body:deep(.el-textarea__inner:focus) {
   border-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%) 1;
 }
+
 .body:deep(.el-form-item__content) {
   display: flex;
   justify-content: end;

@@ -15,6 +15,7 @@ const {articleInfo} = defineProps({articleInfo: Object})
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .title {
   background-image: $font-color-selected-dark;
   background-clip: text;
@@ -22,6 +23,7 @@ const {articleInfo} = defineProps({articleInfo: Object})
   font-size: $font-size-title;
   font-weight: $font-weight-big;
 }
+
 .content {
   color: $font-color-dark;
   font-size: $font-size-body;
