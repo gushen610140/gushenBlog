@@ -28,32 +28,30 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive} from 'vue'
+import {ref, reactive, onMounted} from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
 import BlogLogin from '@/components/BlogUser/BlogLogin.vue'
 import UserInfoTable from '@/components/BlogUser/UserInfoTable.vue'
-import useRoute from '@/hooks/useRoute.ts'
-import axios from 'axios'
+import useUserInfo from "@/hooks/AsyncRequest/useUserInfo.ts";
+import UserInfo from "@/type/UserInfo.ts";
+import {error} from "@/hooks/useMessage.ts";
+
+const showUserName = () => {
+  useUserInfo().then((res: UserInfo) => {
+    userInfo.username = res.username;
+  }).catch((err) => {
+    error(err.message);
+  });
+}
 
 const userInfo = reactive({
-  username: '夜刀神狗',
+  username: "",
   avatar: ""
 })
 
-let token = localStorage.getItem('token')
-if (token) {
-  axios.get(`${useRoute.BackEnd}/user`, {
-    params: {
-      token: localStorage.getItem('token')
-    }
-  }).then(res => {
-    if (res.data.status === 200) {
-      const userData = JSON.parse(res.data.message)
-      userInfo.username = userData.username
-    }
-  })
-}
-
+onMounted(() => {
+  showUserName();
+})
 
 let drawer = ref(false)
 let isLogin = ref(false)
@@ -70,6 +68,7 @@ const handleDrawer = () => {
 }
 
 const triggerLogin = () => {
+  showUserName();
   drawer.value = false
   isLogin.value = true
 }

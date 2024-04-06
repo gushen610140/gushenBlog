@@ -63,7 +63,7 @@ const deleteArticle = (id) => {
         type: 'warning'
       }).then(() => {
     axios.delete(`${useRoute.BackEnd}/articles`, {params: {id}})
-        .then(res => {
+        .then(() => {
           ElMessage({
             type: 'success',
             message: '删除成功'
@@ -71,7 +71,7 @@ const deleteArticle = (id) => {
           articleList.value = articleList.value.filter(article => article.id !== id)
           drawer.value = false
           selectedArticle.value = {}
-        }).catch(err => {
+        }).catch(() => {
       ElMessage({
         type: 'error',
         message: '抱歉，出了点问题，请稍后再试'

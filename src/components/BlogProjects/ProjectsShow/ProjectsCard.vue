@@ -1,93 +1,85 @@
 <template>
-  <div class="article-card">
-
+  <el-card
+      class="card"
+      @mouseenter="hoverState.isHover = true"
+      @mouseleave="hoverState.isHover = false"
+  >
     <div class="info">
-
-      <div class="title" @click="openProjects(projectInfo.link)">
-        {{ projectInfo.title }}
+      <div class="title" @click="openProjects()">
+        {{ props.projectInfo.title }}
       </div>
-
       <div class="content">
-        {{ projectInfo.content }}
+        {{ props.projectInfo.content }}
       </div>
-
     </div>
 
     <transition name="del">
       <el-icon
           class="delete"
           :size="20"
-          @click="deleteProject(projectInfo.id)"
-          v-if="hoverState.hover && hoverState.hoverid === projectInfo.id">
+          @click="deleteProject()"
+          v-if="hoverState.isHover">
         <Delete/>
       </el-icon>
     </transition>
 
-  </div>
+  </el-card>
 </template>
 
 <script setup lang="ts">
 import axios from 'axios'
 import useRoute from "@/hooks/useRoute.ts"
-import {ElMessage, ElMessageBox} from 'element-plus'
+import {ElMessageBox} from 'element-plus'
 import useCheckLogin from "@/hooks/useCheckLogin.ts"
+import {error, success, info} from "@/hooks/useMessage.ts"
+import ProjectInfo from "@/type/ProjectInfo.ts";
+import {reactive} from "vue";
 import {Delete} from "@element-plus/icons-vue";
 
-const {projectInfo, hoverState} = defineProps({projectInfo: Object, hoverState: Object})
+const props = defineProps<{ projectInfo: ProjectInfo }>()
+const hoverState = reactive({
+  isHover: false,
+})
 
-function openProjects(link) {
+function openProjects() {
   useCheckLogin().then(res => {
     if (res) {
-      window.open(link)
+      window.open(props.projectInfo.link);
     } else {
-      ElMessage({
-        type: 'error',
-        message: '请先登录'
-      })
+      error('请先进行登录');
     }
+  }).catch(err => {
+    error(err.message);
   })
 }
 
 const emit = defineEmits(['triggerDeleteProject'])
-const deleteProject = (id) => {
+const deleteProject = () => {
 
   useCheckLogin().then(res => {
     if (res) {
       ElMessageBox.confirm(
-          `项目 ${projectInfo.title} 将被删除，是否继续? `,
+          `项目 ${props.projectInfo.title} 将被删除，是否继续? `,
           '提示',
           {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-        axios.delete(`${useRoute.BackEnd}/projects`, {params: {id}})
+        axios.delete(`${useRoute.BackEnd}/projects`, {params: {id: props.projectInfo.id}})
             .then(() => {
-              ElMessage({
-                type: 'success',
-                message: '删除成功'
-              })
+              success('删除成功');
               emit('triggerDeleteProject')
             }).catch(() => {
-          ElMessage({
-            type: 'error',
-            message: '抱歉，出了点问题，请稍后再试'
-          })
+          error('出了点小问题，请稍后再试')
         })
       }).catch(() => {
-        ElMessage({
-          type: 'info',
-          message: '已取消删除'
-        })
+        info('已取消删除')
       })
     } else {
-      ElMessage({
-        type: 'error',
-        message: '请先登录'
-      })
+      error('请先进行登录')
     }
   })
-
 }
 
 </script>
@@ -116,14 +108,21 @@ const deleteProject = (id) => {
   margin-left: 1rem;
 }
 
-.article-card {
+.card {
+  border: none;
+  background-color: $box-background-color-dark;
+  margin: 3rem 0;
   position: relative;
+
+  card:hover {
+    box-shadow: $box-shadow-hover;
+  }
 }
 
 .delete {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 1rem;
+  right: 1rem;
   color: $font-color-dark;
   cursor: pointer;
   transition: $transition-regular;
