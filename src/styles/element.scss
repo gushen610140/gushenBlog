@@ -1,34 +1,5 @@
 @import "@/styles/variables.scss";
 
-.el-menu {
-  background: transparent;
-  border: none !important;
-
-  .el-menu-item {
-    border-bottom: none;
-    color: $font-color-dark;
-    font-size: $font-size-body;
-    font-weight: $font-weight-big;
-    padding: 0 10px;
-    background-color: transparent;
-  }
-
-  .el-menu-item.is-active {
-    color: transparent !important;
-    background-image: $font-color-selected-dark;
-    background-clip: text;
-    border-bottom: none;
-  }
-
-  .el-menu-item:not(.is-disabled):focus,
-  .el-menu-item:not(.is-disabled):hover {
-    color: transparent !important;
-    background-image: $font-color-selected-dark;
-    background-clip: text;
-    background-color: transparent;
-  }
-}
-
 :global(.el-button) {
   color: $font-color-dark;
   background-color: $button-bacc;

@@ -17,12 +17,12 @@ const routes = [
             {
                 path: "projects",
                 name: "projects",
-                component: () => import("@/components/Pages/BlogProjects.vue")
+                component: () => import("@/views/pages/BlogProjects.vue")
             },
             {
                 path: "articles",
                 name: "articles",
-                component: () => import("@/components/Pages/BlogArticles.vue")
+                component: () => import("@/views/pages/BlogArticles.vue")
             },
             {
                 path: "mood",
@@ -32,7 +32,7 @@ const routes = [
             {
                 path: "me",
                 name: "me",
-                component: () => import("@/components/Pages/BlogMe.vue"),
+                component: () => import("@/views/pages/BlogPost.vue"),
                 redirect: "/me/projects",
                 children: [
                     {

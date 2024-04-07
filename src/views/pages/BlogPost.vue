@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-body">
     <el-row>
       <el-col :span="1"></el-col>
       <el-col :span="4">

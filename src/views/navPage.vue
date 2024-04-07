@@ -1,8 +1,15 @@
 <template>
-  <div class="welcome">
+  <div class="page-body">
     <div class="title">gushen Blog</div>
-    <ul class="nav">
-      <li v-for="item in navList" :key="item.path" @click="goMenu(item.path)">{{ item.label }}</li>
+    <ul class="navigator">
+      <li
+          v-for="item in navList"
+          :key="item.path"
+          @click="router.push(item.path)"
+          class="item"
+      >
+        {{ item.label }}
+      </li>
     </ul>
   </div>
 </template>
@@ -23,26 +30,18 @@ const navList = [
     path: "/articles"
   },
   {
-    label: "心情",
-    path: "/mood"
-  },
-  {
-    label: "与我",
+    label: "发表",
     path: "/me"
   }
 ]
-
-const goMenu: (path: string) => void = (path) => {
-  router.push(path)
-}
 
 </script>
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
 
-.welcome {
-  padding-top: 40vh;
+.page-body {
+  margin: 40vh auto;
 }
 
 .title {
@@ -50,25 +49,28 @@ const goMenu: (path: string) => void = (path) => {
   margin-bottom: 1rem;
 }
 
-.nav {
+.navigator {
   height: 3rem;
-  border: solid 2px $font-color-dark;
+  box-shadow: $box-shadow-border-light;
   border-radius: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   font-size: $font-size-body;
   font-weight: $font-weight-big;
-
-  li {
-    cursor: pointer;
-    transition: $transition-regular;
-  }
-
-  li:hover {
-    color: transparent;
-    background-image: $font-color-selected-dark;
-    background-clip: text;
-  }
 }
+
+.item {
+  cursor: pointer;
+  transition: $transition-slow;
+  color: transparent;
+  background-image: $gradient-colorful;
+  background-clip: text;
+  background-size: 200%;
+}
+
+.item:hover {
+  background-position: -2rem;
+}
+
 </style>

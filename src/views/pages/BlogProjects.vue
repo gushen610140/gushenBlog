@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="page-body">
     <el-row>
       <el-col :span="1"></el-col>
       <el-col :span="16">
-        <ArticlesShow></ArticlesShow>
+        <ProjectsShow></ProjectsShow>
       </el-col>
       <el-col :span="1"></el-col>
       <el-col :span="6">
@@ -14,10 +14,9 @@
 </template>
 
 <script setup lang="ts">
+import ProjectsShow from "@/components/BlogProjects/ProjectsShow.vue"
 import ProjectsMe from "@/components/BlogProjects/ProjectsMe.vue"
-import ArticlesShow from "@/components/BlogArticles/ArticlesShow.vue"
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -1,56 +1,53 @@
 <template>
   <div class="header-box" :class="headerState.headerClass">
-    <el-row>
-      <el-col :span="24">
-        <el-menu
-            mode="horizontal"
-            class="nav-menu"
-            :default-active="activeMenu"
-            @select="handleSelect"
-        >
-          <div class="flex-grow"></div>
-          <el-menu-item index="/projects">
-            项目
-          </el-menu-item>
-          <el-menu-item index="/articles">
-            文章
-          </el-menu-item>
-          <el-menu-item index="/mood">
-            心情
-          </el-menu-item>
-          <el-menu-item index="/me">
-            与我
-          </el-menu-item>
-        </el-menu>
-      </el-col>
-    </el-row>
+    <ul class="navigator">
+      <li
+          v-for="item in navList"
+          :key="item.path"
+          @click="router.push(item.path)"
+          class="item"
+          :class="{select: isSelect}"
+      >
+        {{item.label}}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, reactive} from 'vue'
-import {useRoute, useRouter} from 'vue-router'
+import {onMounted, reactive, ref} from 'vue'
+import {useRouter, useRoute} from 'vue-router'
 
-const route = useRoute()
 const router = useRouter()
+const route = useRoute()
 
-// 菜单默认选择
-const activeMenu = computed(() => {
-  let curRoute = route.path
-  if (curRoute === '/me/projects' || curRoute === '/me/articles') {
-    curRoute = '/me'
+const navList = [
+  {
+    name: 'projects',
+    label: "项目",
+    path: "/projects"
+  },
+  {
+    name: 'articles',
+    label: "文章",
+    path: "/articles"
+  },
+  {
+    name: 'post',
+    label: "发表",
+    path: "/me"
   }
-  return curRoute
-})
+]
+let isSelect = ref(false)
+
+const getPath = () => {
+  console.log(route.path)
+}
 
 const headerState = reactive({
   startScrollTop: 0,
   headerClass: "",
 })
-
-const handleSelect = (index: any) => {
-  router.push(index)
-}
 
 // 处理滚动事件
 const handleScroll = () => {
@@ -77,17 +74,38 @@ const handleScroll = () => {
 // 我屈服了，不用 v-on 绑定 scroll 了
 onMounted(() => {
   window.addEventListener("scroll", handleScroll)
+  getPath()
 })
 
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/element.scss";
+@import '@/styles/variables';
 
-.nav-menu {
+.navigator {
   height: 50px;
   background-color: $box-background-color-dark;
+  box-shadow: $box-shadow-border;
   border-radius: 20px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.item {
+  font-size: $font-size-body;
+  font-weight: $font-weight-big;
+  margin-left: 2rem;
+  cursor: pointer;
+  color: transparent;
+  background-image: $gradient-colorful;
+  background-size: 200%;
+  background-clip: text;
+  transition: $transition-slow;
+}
+
+.item:hover {
+  background-position: -2rem;
 }
 
 // #region 处理 header 的滚动动画与对应类
