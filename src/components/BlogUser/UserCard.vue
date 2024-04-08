@@ -30,9 +30,9 @@
 <script setup lang="ts">
 import {ref, reactive, onMounted} from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
-import BlogLogin from '@/components/BlogUser/BlogLogin.vue'
+import BlogLogin from '@/components/BlogUser/UserLoginTable.vue'
 import UserInfoTable from '@/components/BlogUser/UserInfoTable.vue'
-import useUserInfo from "@/hooks/AsyncRequest/useUserInfo.ts";
+import useUserInfo from "@/hooks/AsyncRequest/User/useUserInfo.ts";
 import UserInfo from "@/type/UserInfo.ts";
 import {error} from "@/hooks/useMessage.ts";
 

@@ -28,8 +28,8 @@
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/element.scss";
-@import "@/styles/variables.scss";
+@import "@/styles/element";
+@import "@/styles/variables";
 
 .blog-footer {
   margin-top: 5rem;

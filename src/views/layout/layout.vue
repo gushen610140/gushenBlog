@@ -8,14 +8,14 @@
 
 <script setup lang="ts">
 
-import BlogHeader from "@/components/Layout/BlogHeader.vue"
-import BlogBody from "@/components/Layout/BlogBody.vue"
-import BlogFooter from "@/components/Layout/BlogFooter.vue"
+import BlogHeader from "@/views/layout/BlogHeader.vue"
+import BlogBody from "@/views/layout/BlogBody.vue"
+import BlogFooter from "@/views/layout/BlogFooter.vue"
 
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
+@import "@/styles/variables";
 
 .layout {
   // 宽度不能设置为 100% 防止出现横向滚动条

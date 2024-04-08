@@ -1,7 +1,7 @@
 import {createRouter, createWebHashHistory} from "vue-router"
 
-import navPage from "@/views/navPage.vue"
-import layout from "@/views/layout.vue"
+import navPage from "@/views/pages/navPage.vue"
+import layout from "@/views/layout/layout.vue"
 
 const routes = [
     {
@@ -25,15 +25,10 @@ const routes = [
                 component: () => import("@/views/pages/BlogArticles.vue")
             },
             {
-                path: "mood",
-                name: "mood",
-                component: () => import("@/components/Pages/BlogMood.vue")
-            },
-            {
-                path: "me",
-                name: "me",
+                path: "post",
+                name: "post",
                 component: () => import("@/views/pages/BlogPost.vue"),
-                redirect: "/me/projects",
+                redirect: "/post/projects",
                 children: [
                     {
                         path: "projects",
@@ -44,18 +39,6 @@ const routes = [
                         component: () => import("@/components/BlogMe/Panels/PostArticles.vue")
                     }
                 ]
-            },
-            {
-                path: "user",
-                name: "user",
-                component: () => import("@/components/Pages/BlogUser.vue"),
-                redirect: "/user/login",
-                children: [
-                    {
-                        path: "login",
-                        component: () => import("@/components/BlogUser/BlogLogin.vue")
-                    }
-                ],
             }
         ]
     }

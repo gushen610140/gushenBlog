@@ -1,22 +1,19 @@
 <template>
   <div class="my-info">
-    <el-avatar :size="50" :src="avatar"></el-avatar>
+    <el-avatar :size="50" src="/myAvatar.jpg"></el-avatar>
     <div class="name">剑霜寒</div>
     <el-button @click="goGitee" type="info" class="button">My Gitee</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import avatar from "@/assets/Images/myAvatar.jpg"
-
 function goGitee() {
   window.open("https://gitee.com/gushenfree");
 }
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
-@import "@/styles/element.scss";
+@import "@/styles/variables";
 
 .my-info {
   display: flex;

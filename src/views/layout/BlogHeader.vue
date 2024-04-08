@@ -4,52 +4,57 @@
       <li
           v-for="item in navList"
           :key="item.path"
-          @click="router.push(item.path)"
+          @click="handleClick(item.path)"
           class="item"
-          :class="{select: isSelect}"
+          :class="{selected: item.isSelect}"
       >
-        {{item.label}}
+        {{ item.label }}
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted, reactive, ref} from 'vue'
+import {onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 
-const navList = [
+const navList = reactive([
   {
-    name: 'projects',
     label: "项目",
-    path: "/projects"
+    path: "/projects",
+    isSelect: false
   },
   {
-    name: 'articles',
     label: "文章",
-    path: "/articles"
+    path: "/articles",
+    isSelect: false
   },
   {
-    name: 'post',
     label: "发表",
-    path: "/me"
+    path: "/post",
+    isSelect: false
   }
-]
-let isSelect = ref(false)
+])
 
-const getPath = () => {
-  console.log(route.path)
+const changeSelect = (path: string) => {
+  navList.forEach(item => {
+    item.isSelect = item.path == path
+  })
 }
 
+const handleClick = (path: string) => {
+  router.push(path)
+  changeSelect(path)
+}
+
+// 处理滚动事件
 const headerState = reactive({
   startScrollTop: 0,
   headerClass: "",
 })
-
-// 处理滚动事件
 const handleScroll = () => {
   // 获取当前滚动位置
   let scrollTop = document.documentElement.scrollTop
@@ -71,16 +76,15 @@ const handleScroll = () => {
   headerState.startScrollTop = scrollTop;
 }
 
-// 我屈服了，不用 v-on 绑定 scroll 了
 onMounted(() => {
   window.addEventListener("scroll", handleScroll)
-  getPath()
+  changeSelect(route.path)
 })
 
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables';
+@import '@/styles/variables.scss';
 
 .navigator {
   height: 50px;
@@ -98,13 +102,17 @@ onMounted(() => {
   margin-left: 2rem;
   cursor: pointer;
   color: transparent;
-  background-image: $gradient-colorful;
+  background-image: $gradient-colorful-transition;
   background-size: 200%;
   background-clip: text;
   transition: $transition-slow;
 }
 
 .item:hover {
+  background-position: -2rem;
+}
+
+.selected {
   background-position: -2rem;
 }
 

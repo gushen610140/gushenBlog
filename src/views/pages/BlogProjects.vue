@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import ProjectsShow from "@/components/BlogProjects/ProjectsShow.vue"
-import ProjectsMe from "@/components/BlogProjects/ProjectsMe.vue"
+import ProjectsShow from "@/components/BlogProjects/ProjectsContainer.vue"
+import ProjectsMe from "@/views/layout/RightAside.vue"
 </script>
 
 <style lang="scss" scoped>

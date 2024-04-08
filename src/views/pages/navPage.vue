@@ -31,14 +31,14 @@ const navList = [
   },
   {
     label: "发表",
-    path: "/me"
+    path: "/post"
   }
 ]
 
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
+@import "@/styles/variables";
 
 .page-body {
   margin: 40vh auto;
@@ -64,7 +64,7 @@ const navList = [
   cursor: pointer;
   transition: $transition-slow;
   color: transparent;
-  background-image: $gradient-colorful;
+  background-image: $gradient-colorful-transition;
   background-clip: text;
   background-size: 200%;
 }

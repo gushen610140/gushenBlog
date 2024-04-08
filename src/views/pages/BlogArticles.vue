@@ -7,15 +7,15 @@
       </el-col>
       <el-col :span="1"></el-col>
       <el-col :span="6">
-        <ProjectsMe></ProjectsMe>
+        <RightAside></RightAside>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script setup lang="ts">
-import ProjectsMe from "@/components/BlogProjects/ProjectsMe.vue"
-import ArticlesShow from "@/components/BlogArticles/ArticlesShow.vue"
+import RightAside from "@/views/layout/RightAside.vue"
+import ArticlesShow from "@/components/BlogArticles/ArticlesContainer.vue"
 </script>
 
 <style lang="scss" scoped>

@@ -41,6 +41,14 @@ $box-shadow-border: 0px 0px 2px #909399c0;
 // 渐变色背景
 $gradient-colorful: linear-gradient(
                 90deg,
+                rgb(67, 174, 255),
+                rgb(160, 131, 237),
+                rgb(239, 122, 200),
+                rgb(254, 134, 159),
+                rgb(255, 167, 69),
+);
+$gradient-colorful-transition: linear-gradient(
+                90deg,
                 rgb(255, 255, 255),
                 rgb(255, 255, 255),
                 rgb(255, 255, 255),

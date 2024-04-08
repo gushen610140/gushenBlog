@@ -14,14 +14,14 @@
 
 <script setup>
 
-import MyInfo from "@/components/BlogProjects/ProjectsMe/MyInfo.vue"
-import BlogInfo from "@/components/BlogProjects/ProjectsMe/BlogInfo.vue"
-import UserInfoCard from "@/components/BlogUser/UserInfoCard.vue"
+import MyInfo from "@/components/BlogInfo/MyInfo.vue"
+import BlogInfo from "@/components/BlogInfo/BlogInfo.vue"
+import UserInfoCard from "@/components/BlogUser/UserCard.vue"
 
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
+@import "@/styles/variables";
 
 .cards {
   border: none;
