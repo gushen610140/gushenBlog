@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-body">
+  <div class="post-container">
     <router-view></router-view>
   </div>
 </template>
@@ -9,17 +9,16 @@
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/variables.scss";
+@import "@/styles/variables";
 
-.panel-body {
+.post-container {
   background-color: $box-background-color-dark;
+  box-shadow: $box-shadow-border-dark;
   width: inherit;
-  height: 800px;
-  box-shadow: $box-shadow-normal;
   transition: $transition-regular;
 }
 
-.panel-body:hover {
-  box-shadow: $box-shadow-hover;
+.post-container:hover {
+  box-shadow: $box-shadow-border-light;
 }
 </style>

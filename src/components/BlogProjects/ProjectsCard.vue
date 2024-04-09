@@ -91,7 +91,7 @@ const removeProject = () => {
 }
 
 .title {
-  background-image: $font-color-selected-dark;
+  background-image: $gradient-colorful;
   background-clip: text;
   color: $font-color-dark;
   font-size: $font-size-title;

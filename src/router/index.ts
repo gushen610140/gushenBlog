@@ -32,11 +32,11 @@ const routes = [
                 children: [
                     {
                         path: "projects",
-                        component: () => import("@/components/BlogMe/Panels/PostProjects.vue")
+                        component: () => import("@/components/BlogPost/Panels/PostProjects.vue")
                     },
                     {
                         path: "articles",
-                        component: () => import("@/components/BlogMe/Panels/PostArticles.vue")
+                        component: () => import("@/components/BlogPost/Panels/PostArticles.vue")
                     }
                 ]
             }

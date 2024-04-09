@@ -41,7 +41,8 @@ const navList = reactive([
 
 const changeSelect = (path: string) => {
   navList.forEach(item => {
-    item.isSelect = item.path == path
+    const rootPath = '/' + path.split('/')[1]
+    item.isSelect = item.path == rootPath
   })
 }
 
