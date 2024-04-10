@@ -38,6 +38,7 @@ import ArticleInfo from "@/type/ArticleInfo.ts";
 import useArticlesInfo from "@/hooks/AsyncRequest/Article/getArticles.ts";
 import deleteArticle from "@/hooks/AsyncRequest/Article/deleteArticle.ts"
 import {error, success, info} from "@/hooks/useMessage.ts";
+import ResponseInfo from "@/type/ResponseInfo.ts";
 
 let drawer = ref(false)
 const articleList = ref<ArticleInfo[]>([])
@@ -76,10 +77,15 @@ const removeArticle = () => {
         type: 'warning'
       })
       .then(() => {
-        deleteArticle(clickedArticle.value.id).then(res => {
-          success(res)
-          articleList.value = articleList.value.filter(article => article.id !== clickedArticle.value.id)
-          drawer.value = false
+        deleteArticle(clickedArticle.value.id).then((res: ResponseInfo) => {
+          if (res.status == 200) {
+            success(res.message)
+            articleList.value = articleList.value.filter(article => article.id !== clickedArticle.value.id)
+            drawer.value = false
+          } else if (res.status == 401 || res.status == 402) {
+            error(res.message)
+            drawer.value = false
+          }
         }).catch(err => {
           error(err.message)
         })

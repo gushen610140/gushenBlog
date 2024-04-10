@@ -34,6 +34,7 @@ import ProjectInfo from "@/type/ProjectInfo.ts";
 import {ref} from "vue";
 import {Delete} from "@element-plus/icons-vue";
 import deleteProject from "@/hooks/AsyncRequest/Projects/deleteProject.ts";
+import ResponseInfo from "@/type/ResponseInfo.ts";
 
 const props = defineProps<{ projectInfo: ProjectInfo }>()
 const isHover = ref(false)
@@ -63,9 +64,13 @@ const removeProject = () => {
             type: 'warning'
           })
           .then(() => {
-            deleteProject(props.projectInfo.id).then(res => {
-              success(res);
-              emit('projectDeleted')
+            deleteProject(props.projectInfo.id).then((res: ResponseInfo) => {
+              if (res.status == 200) {
+                success(res.message)
+                emit('projectDeleted')
+              } else if (res.status == 401 || res.status == 402) {
+                error(res.message)
+              }
             }).catch(err => {
               error(err.message)
             })
