@@ -4,19 +4,40 @@
       <li
           v-for="item in navList"
           :key="item.path"
-          @click="handleClick(item.path)"
-          class="item"
           :class="{selected: item.isSelect}"
+          class="item"
+          @click="handleClick(item.path)"
       >
         {{ item.label }}
       </li>
     </ul>
+    <div style="flex-grow: 1"></div>
+    <el-popover
+        placement="bottom"
+        :width="400"
+        effect="dark"
+        trigger="click"
+    >
+      <template #reference>
+        <el-icon
+            style="margin-right: 2rem; cursor: pointer"
+            :size="20"
+            v-show="isFold"
+        >
+          <More/>
+        </el-icon>
+      </template>
+      <RightAside></RightAside>
+    </el-popover>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted, reactive} from 'vue'
+import {computed, onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
+import {More} from "@element-plus/icons-vue";
+import {useStore} from "vuex";
+import RightAside from "@/views/layout/RightAside.vue";
 
 const router = useRouter()
 const route = useRoute()
@@ -77,6 +98,11 @@ const handleScroll = () => {
   headerState.startScrollTop = scrollTop;
 }
 
+const store = useStore()
+let isFold = computed(() => {
+  return store.state.windowSize < 1024
+})
+
 onMounted(() => {
   window.addEventListener("scroll", handleScroll)
   changeSelect(route.path)
@@ -87,11 +113,16 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import '@/styles/variables.scss';
 
-.navigator {
+.header-box {
+  display: flex;
   height: 50px;
   background-color: $box-background-color-dark;
   box-shadow: $box-shadow-border;
   border-radius: 20px;
+  align-items: center;
+}
+
+.navigator {
   display: flex;
   justify-content: start;
   align-items: center;

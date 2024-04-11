@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import {useStore} from "vuex";
+
+const store = useStore()
+
+// 控制响应式全局变化的窗体大小，用vuex保存
+window.onresize = () => {
+  store.commit('setWindowSize', window.innerWidth)
+}
+
 </script>
 
 <template>

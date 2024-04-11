@@ -7,6 +7,8 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 // 引入 el-icon
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+// 引入 vuex
+import store from '@/store'
 
 // 以根目录下的 app 组件为根组件
 const app = createApp(App)
@@ -14,6 +16,7 @@ const app = createApp(App)
 // 安装插件
 app.use(router)
 app.use(ElementPlus)
+app.use(store)
 
 // 注册 el-icon
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
