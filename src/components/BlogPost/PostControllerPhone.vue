@@ -1,22 +1,10 @@
-<template>
-  <ul class="container">
-    <li
-        v-for="item in postList"
-        :key="item.path"
-        @click="router.push(item.path); changeSelect(item.path)"
-        class="item"
-        :class="{selected: item.isSelect}"
-    >
-      {{ item.name }}
-    </li>
-  </ul>
-</template>
-
 <script setup lang="ts">
-import {useRouter, useRoute} from 'vue-router';
-import {onMounted, reactive} from "vue";
 
-const router = useRouter(), route = useRoute()
+import {onMounted, reactive} from "vue";
+import {useRoute, useRouter} from "vue-router";
+
+const router = useRouter()
+const route = useRoute()
 
 const postList = reactive([
   {
@@ -43,27 +31,35 @@ onMounted(() => {
 
 </script>
 
-<style lang="scss" scoped>
-@import "@/styles/variables";
+<template>
+  <ul class="container">
+    <li
+        v-for="item in postList"
+        :key="item.path"
+        @click="router.push(item.path); changeSelect(item.path)"
+        class="item"
+        :class="{selected: item.isSelect}"
+    >
+      {{ item.name }}
+    </li>
+  </ul>
+</template>
 
+<style scoped lang="scss">
+@import "@/styles/variables";
 .container {
-  background-color: $box-background-color-dark;
-  height: 40rem;
+  height: 15rem;
   padding-top: 1rem;
   transition: $transition-regular;
-  box-shadow: $box-shadow-border-dark;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.container:hover {
-  box-shadow: $box-shadow-border-light;
-}
-
 .item {
   cursor: pointer;
   margin-top: 2rem;
+  font-size: $font-size-title-small;
   font-weight: $font-weight-big;
   color: transparent;
   background-image: $gradient-colorful-transition;

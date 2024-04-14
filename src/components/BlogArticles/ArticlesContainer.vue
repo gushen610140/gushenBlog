@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{containerResponsive: containerResponsive}">
     <div
         class="cards"
         v-for="article in articleList"
@@ -13,6 +13,7 @@
         v-model="drawer"
         :title="clickedArticle.title"
         direction="ltr"
+        :size="drawerWidth"
     >
       <div class="content">
         {{ clickedArticle.content }}
@@ -30,7 +31,7 @@
 
 <script setup lang="ts">
 import ArticlesCard from "@/components/BlogArticles/ArticlesCard.vue"
-import {onMounted, ref} from "vue"
+import {computed, onMounted, ref} from "vue"
 import {ElMessageBox} from "element-plus"
 import useCheckLogin from "@/hooks/useCheckLogin.ts"
 import {Delete} from "@element-plus/icons-vue";
@@ -39,6 +40,7 @@ import useArticlesInfo from "@/hooks/AsyncRequest/Article/getArticles.ts";
 import deleteArticle from "@/hooks/AsyncRequest/Article/deleteArticle.ts"
 import {error, success, info} from "@/hooks/useMessage.ts";
 import ResponseInfo from "@/type/ResponseInfo.ts";
+import {useStore} from "vuex";
 
 let drawer = ref(false)
 const articleList = ref<ArticleInfo[]>([])
@@ -95,6 +97,19 @@ const removeArticle = () => {
       })
 }
 
+const store = useStore()
+let containerResponsive = computed(() => {
+  return store.state.windowSize < 1024
+})
+
+let drawerWidth = computed(() => {
+  if (store.state.windowSize > 1024) {
+    return "45%"
+  } else {
+    return "80%"
+  }
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -107,6 +122,10 @@ const removeArticle = () => {
   row-gap: 1rem;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.containerResponsive {
+  grid-template-columns: 1fr;
 }
 
 .cards {

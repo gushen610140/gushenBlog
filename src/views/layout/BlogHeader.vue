@@ -14,8 +14,8 @@
     <div style="flex-grow: 1"></div>
     <el-popover
         placement="bottom"
-        :width="400"
-        effect="dark"
+        :width="popoverWidth"
+        :effect="'dark'"
         trigger="click"
     >
       <template #reference>
@@ -24,10 +24,12 @@
             :size="20"
             v-show="isFold"
         >
-          <More/>
+          <User v-show="!changeIcon" />
+          <Operation v-show="changeIcon" />
         </el-icon>
       </template>
-      <RightAside></RightAside>
+      <RightAside v-show="!changeIcon"></RightAside>
+      <PostControllerPhone v-show="changeIcon"></PostControllerPhone>
     </el-popover>
   </div>
 </template>
@@ -35,9 +37,10 @@
 <script setup lang="ts">
 import {computed, onMounted, reactive} from 'vue'
 import {useRouter, useRoute} from 'vue-router'
-import {More} from "@element-plus/icons-vue";
+import {Operation, User} from "@element-plus/icons-vue";
 import {useStore} from "vuex";
 import RightAside from "@/views/layout/RightAside.vue";
+import PostControllerPhone from "@/components/BlogPost/PostControllerPhone.vue";
 
 const router = useRouter()
 const route = useRoute()
@@ -108,6 +111,20 @@ onMounted(() => {
   changeSelect(route.path)
 })
 
+let changeIcon = computed(() => {
+  const rootPath = '/' + route.path.split('/')[1]
+  return rootPath == '/post';
+})
+
+let popoverWidth = computed(() => {
+  const rootPath = '/' + route.path.split('/')[1]
+  if (rootPath == '/post') {
+    return 150
+  } else {
+    return 300
+  }
+})
+
 </script>
 
 <style lang="scss" scoped>
@@ -148,7 +165,6 @@ onMounted(() => {
   background-position: -2rem;
 }
 
-// #region 处理 header 的滚动动画与对应类
 .hide-header {
   animation-name: hideHeader;
   animation-duration: 0.8s;
@@ -178,7 +194,5 @@ onMounted(() => {
     transform: translateY(-52px);
   }
 }
-
-// #endregion
 
 </style>

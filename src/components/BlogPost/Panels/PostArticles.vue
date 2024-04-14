@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <el-form :model="form" label-width="auto" class="form">
+
+    <div class="title">发表文章</div>
+
+    <el-form :model="form" class="form">
 
       <el-form-item label="标题">
         <el-input v-model="form.title"/>
@@ -64,13 +67,20 @@ const onSubmit = () => {
 @import "@/styles/element";
 
 .container {
+  flex-direction: column;
   display: flex;
   justify-content: center;
-  padding-top: 5rem;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: $font-size-title-small;
 }
 
 .form {
-  width: 45rem;
+  width: 80%;
 }
 
 .button-container {

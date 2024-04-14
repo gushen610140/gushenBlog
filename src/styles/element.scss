@@ -1,57 +1,53 @@
 @import "@/styles/variables.scss";
 
 :global(.el-button) {
-  color: $font-color-dark;
-  background-color: $button-bacc;
-  border: none;
+  color: $font-color-dark !important;
+  background-color: $button-bacc !important;
+  border: none !important;
 }
 
 :global(.el-button:hover) {
-  color: $font-color-dark;
-  background-color: $button-bacc-hover;
-  border: none;
+  color: $font-color-dark !important;
+  background-color: $button-bacc-hover !important;
+  border: none !important;
 }
 
 :global(.el-button:focus) {
-  color: $font-color-dark;
-  background-color: $button-bacc-hover;
-  border: none;
+  color: $font-color-dark !important;
+  background-color: $button-bacc-hover !important;
+  border: none !important;
 }
 
 :global(.el-message-box__headerbtn:hover .el-message-box__close) {
-  color: $font-color-dark;
+  color: $font-color-dark !important;
 }
 
 :global(.el-message) {
-  background-color: $background-color-dark;
-  border: none;
-  box-shadow: $box-shadow-normal;
+  background-color: $background-color-dark !important;
+  border: none !important;
+  box-shadow: $box-shadow-normal !important;
 }
 
 :global(.el-drawer__close-btn:hover .el-drawer__close) {
-  color: $font-color-dark;
+  color: $font-color-dark !important;
 }
 
 :global(.el-drawer) {
-  background-color: $background-color-dark;
+  background-color: $background-color-dark !important;
 }
 
 :global(.el-drawer__title) {
-  color: $font-color-dark;
-  font-weight: $font-weight-big;
-  font-size: $font-size-title;
-}
-
-:global(.el-drawer) {
-  width: 40% !important;
+  color: $font-color-dark !important;
+  font-weight: $font-weight-big !important;
+  font-size: $font-size-title !important;
 }
 
 :global(.el-descriptions__title) {
-  color: $font-color-dark;
+  color: $font-color-dark !important;
 }
 
 :global(.el-descriptions__body) {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 :global(.el-descriptions__label) {
@@ -63,51 +59,51 @@
 }
 
 :global(.el-message-box) {
-  background-color: $background-color-dark;
+  background-color: $background-color-dark !important;
 }
 
 :global(.el-message-box__title) {
-  color: $font-color-dark;
+  color: $font-color-dark !important;
 }
 
 :global(.el-message-box__content) {
-  color: $font-color-dark;
+  color: $font-color-dark !important;
 }
 
 :global(.el-form-item__label) {
-  color: $font-color-dark;
-  font-size: $font-size-body;
+  color: $font-color-dark !important;
+  font-size: $font-size-body !important;
 }
 
 :global(.el-input__wrapper) {
-  background-color: $background-color-dark;
-  box-shadow: $box-shadow-border;
+  background-color: $background-color-dark !important;
+  box-shadow: $box-shadow-border !important;
 }
 
 :global(.el-input__wrapper:hover) {
-  box-shadow: $box-shadow-hover;
+  box-shadow: $box-shadow-hover !important;
 }
 
 :global(.el-input__wrapper.is-focus) {
-  box-shadow: $box-shadow-hover;
+  box-shadow: $box-shadow-hover !important;
 }
 
 :global(.el-input__inner) {
-  color: $font-color-dark;
+  color: $font-color-dark !important;
 }
 
 :global(.el-textarea__inner) {
-  background-color: $background-color-dark;
-  box-shadow: $box-shadow-border;
-  color: $font-color-dark;
+  background-color: $background-color-dark !important;
+  box-shadow: $box-shadow-border !important;
+  color: $font-color-dark !important;
 }
 
 :global(.el-textarea__inner:hover) {
-  box-shadow: $box-shadow-hover;
+  box-shadow: $box-shadow-hover !important;
 }
 
 :global(.el-textarea__inner:focus) {
-  box-shadow: $box-shadow-hover;
+  box-shadow: $box-shadow-hover !important;
 }
 
 :global(.is-disabled .el-input__wrapper) {

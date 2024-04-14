@@ -9,7 +9,7 @@
         :effect="'dark'"
     >
       <template #reference>
-        <img class="avatar" src="/userAvatars/1774342760620937218.jpg" @click="handleDrawer" alt="头像">
+        <img class="avatar" src="/userAvatars/unknown.png" @click="handleDrawer" alt="头像">
       </template>
     </el-popover>
     <div v-if="isLogin" class="name">欢迎您，{{ userInfo.username }}！</div>
@@ -21,6 +21,7 @@
       v-model="drawer"
       title="个人信息"
       direction="rtl"
+      :size="drawerWidth"
   >
     <BlogLogin @triggerLogin="triggerLogin" v-if="!isLogin"></BlogLogin>
     <UserInfoTable @triggerExit="triggerExit" v-if="isLogin"></UserInfoTable>
@@ -28,13 +29,14 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onMounted} from 'vue'
+import {ref, reactive, onMounted, computed} from 'vue'
 import useCheckLogin from '@/hooks/useCheckLogin.ts'
 import BlogLogin from '@/components/BlogUser/UserLoginTable.vue'
 import UserInfoTable from '@/components/BlogUser/UserInfoTable.vue'
 import useUserInfo from "@/hooks/AsyncRequest/User/useUserInfo.ts";
 import UserInfo from "@/type/UserInfo.ts";
 import {error} from "@/hooks/useMessage.ts";
+import {useStore} from "vuex";
 
 const showUserName = () => {
   useUserInfo().then((res: UserInfo) => {
@@ -77,6 +79,15 @@ const triggerExit = () => {
   drawer.value = false
   isLogin.value = false
 }
+
+const store = useStore()
+let drawerWidth = computed(() => {
+  if (store.state.windowSize > 1024) {
+    return "45%"
+  } else {
+    return "85%"
+  }
+})
 
 </script>
 
