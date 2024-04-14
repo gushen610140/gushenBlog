@@ -4,6 +4,7 @@
     <el-switch
         v-model="isLogin"
         class="switcher"
+        :class="{switcherPhone: switcherPhone}"
         size="large"
         inline-prompt
         style="--el-switch-on-color: #5B5A54; --el-switch-off-color: #443B3A"
@@ -52,9 +53,10 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import {reactive, ref} from 'vue'
+import {computed, reactive, ref} from 'vue'
 import useRoute from "@/hooks/useRoute.ts"
 import {ElMessage} from 'element-plus'
+import {useStore} from "vuex";
 
 let isLogin = ref(true)
 
@@ -70,6 +72,11 @@ const registerForm = reactive({
   code: '',
   name: '',
   password: ''
+})
+
+const store = useStore()
+let switcherPhone = computed(() => {
+  return store.state.windowSize < 1024
 })
 
 // 登录
@@ -141,6 +148,7 @@ const onRegister = () => {
   display: flex;
   justify-content: center;
   position: relative;
+  margin-top: 2rem;
 }
 
 .form-style {
@@ -169,7 +177,16 @@ const onRegister = () => {
 
 .switcher {
   position: absolute;
-  right: 5rem;
-  top: -5px;
+  right: 10rem;
+  top: -3rem;
+  z-index: 1;
 }
+
+.switcherPhone {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 1;
+}
+
 </style>
