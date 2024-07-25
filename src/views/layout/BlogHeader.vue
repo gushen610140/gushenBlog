@@ -1,28 +1,28 @@
 <template>
-  <div class="header-box" :class="headerState.headerClass">
-    <ul class="navigator">
+  <div ref="header" class="header">
+    <ul style="display: flex">
       <li
-          v-for="item in navList"
-          :key="item.path"
-          :class="{selected: item.isSelect}"
-          class="item"
-          @click="handleClick(item.path)"
+        v-for="navItem in navList"
+        :key="navItem.path"
+        :class="{ nav_item_selected: navItem.isSelect }"
+        class="nav_item"
+        @click="changePage(navItem.path)"
       >
-        {{ item.label }}
+        {{ navItem.label }}
       </li>
     </ul>
     <div style="flex-grow: 1"></div>
     <el-popover
-        placement="bottom"
-        :width="popoverWidth"
-        :effect="'dark'"
-        trigger="click"
+      :effect="'dark'"
+      :width="popoverWidth"
+      placement="bottom"
+      trigger="click"
     >
       <template #reference>
         <el-icon
-            style="margin-right: 2rem; cursor: pointer"
-            :size="20"
-            v-show="isFold"
+          v-show="isFold"
+          :size="20"
+          style="margin-right: 2rem; cursor: pointer"
         >
           <User v-show="!changeIcon" />
           <Operation v-show="changeIcon" />
@@ -34,165 +34,133 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import {computed, onMounted, reactive} from 'vue'
-import {useRouter, useRoute} from 'vue-router'
-import {Operation, User} from "@element-plus/icons-vue";
-import {useStore} from "vuex";
+<script lang="ts" setup>
+import { computed, onMounted, reactive, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { Operation, User } from "@element-plus/icons-vue";
+import { useStore } from "vuex";
 import RightAside from "@/views/layout/RightAside.vue";
 import PostControllerPhone from "@/components/BlogPost/PostControllerPhone.vue";
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
+// 导航栏
+const header = ref<HTMLDivElement | null>();
 const navList = reactive([
   {
     label: "项目",
     path: "/projects",
-    isSelect: false
+    isSelect: false,
   },
   {
     label: "文章",
     path: "/articles",
-    isSelect: false
+    isSelect: false,
   },
   {
     label: "发表",
     path: "/post",
-    isSelect: false
-  }
-])
+    isSelect: false,
+  },
+]);
 
-const changeSelect = (path: string) => {
-  navList.forEach(item => {
-    const rootPath = '/' + path.split('/')[1]
-    item.isSelect = item.path == rootPath
-  })
-}
+// 根据路径更新高亮的导航项
+const updateSelect = () => {
+  const curRoute = route.path.match(/^\/([a-zA-Z0-9\-_]+)(\/)?/)![1];
+  navList.forEach((item) => {
+    item.isSelect = item.path === "/" + curRoute;
+  });
+};
 
-const handleClick = (path: string) => {
-  router.push(path)
-  changeSelect(path)
-}
+onMounted(() => {
+  // header 随滚动隐藏
+  window.addEventListener("scroll", handleScroll);
+  // 初始化选中
+  updateSelect();
+});
 
-// 处理滚动事件
+// 点击导航栏时页面变化
+const changePage = (path: string) => {
+  router.push(path).then(() => {
+    updateSelect();
+  });
+};
+
+// 处理滚动
 const headerState = reactive({
   startScrollTop: 0,
   headerClass: "",
-})
+});
 const handleScroll = () => {
-  // 获取当前滚动位置
-  let scrollTop = document.documentElement.scrollTop
-  // 获取开始滚动的位置
+  let scrollTop = document.documentElement.scrollTop;
   if (scrollTop <= 50) {
-    // 50 以内保持固定
-    headerState.headerClass = "fixed-header";
+    header.value!.style.transform = "translateY(0)";
     headerState.startScrollTop = scrollTop;
     return;
   }
-  // 向上滚动
   if (headerState.startScrollTop > scrollTop) {
-    headerState.headerClass = "fixed-header";
-    // 向下滚动
+    header.value!.style.transform = "translateY(0)";
   } else if (headerState.startScrollTop <= scrollTop) {
-    headerState.headerClass = "hide-header";
+    header.value!.style.transform = "translateY(-3rem)";
   }
-  // 重置开始滚动位置
   headerState.startScrollTop = scrollTop;
-}
+};
 
-const store = useStore()
-let isFold = computed(() => {
-  return store.state.windowSize < 1024
-})
-
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll)
-  changeSelect(route.path)
-})
+// 处理响应式
+const store = useStore();
+let isFold = computed(() => store.state.windowSize < 1024);
 
 let changeIcon = computed(() => {
-  const rootPath = '/' + route.path.split('/')[1]
-  return rootPath == '/post';
-})
+  const rootPath = "/" + route.path.split("/")[1];
+  return rootPath == "/post";
+});
 
 let popoverWidth = computed(() => {
-  const rootPath = '/' + route.path.split('/')[1]
-  if (rootPath == '/post') {
-    return 150
+  const rootPath = "/" + route.path.split("/")[1];
+  if (rootPath == "/post") {
+    return 150;
   } else {
-    return 300
+    return 300;
   }
-})
-
+});
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 
-.header-box {
+.header {
+  position: fixed;
+  // 元素开启 fixed 后可能会造成不透明度问题
+  z-index: 1;
+  width: 95vw;
   display: flex;
-  height: 50px;
-  background-color: $box-background-color-dark;
-  box-shadow: $box-shadow-border;
-  border-radius: 20px;
   align-items: center;
+  height: 3rem;
+  background-color: $background_color_box_dark;
+  box-shadow: $box_shadow_regular_dark;
+  border-radius: 1rem;
+  transition: $transition_slow;
+  transform: translateY(0);
 }
 
-.navigator {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-}
-
-.item {
+.nav_item {
   font-size: $font-size-body;
   font-weight: $font-weight-big;
-  margin-left: 2rem;
+  margin: 0 1rem;
   cursor: pointer;
+  // 将 color 设置透明以显示背景图片
   color: transparent;
-  background-image: $gradient-colorful-transition;
-  background-size: 200%;
+  background-image: $background_image_regular;
   background-clip: text;
-  transition: $transition-slow;
+  transition: $transition_slow;
+  // 现代化技术 css filter (IE: ?)
+  // 以此制作背景图片的透明度过渡
+  // 利用极端亮度制作白色效果
+  filter: brightness(2);
 }
 
-.item:hover {
-  background-position: -2rem;
+.nav_item_selected {
+  filter: none;
 }
-
-.selected {
-  background-position: -2rem;
-}
-
-.hide-header {
-  animation-name: hideHeader;
-  animation-duration: 0.8s;
-  animation-fill-mode: forwards;
-}
-
-.fixed-header {
-  animation-name: showHeader;
-  animation-duration: 0.8s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes showHeader {
-  0% {
-    transform: translateY(-52px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes hideHeader {
-  0% {
-    transform: translateY(0px);
-  }
-  100% {
-    transform: translateY(-52px);
-  }
-}
-
 </style>

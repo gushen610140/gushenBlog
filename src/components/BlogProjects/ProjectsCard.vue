@@ -1,8 +1,8 @@
 <template>
   <el-card
-      class="card"
-      @mouseenter="isHover = true"
-      @mouseleave="isHover = false"
+    class="card"
+    @mouseenter="isHover = true"
+    @mouseleave="isHover = false"
   >
     <div class="info">
       <div class="title" @click="openProjects()">
@@ -14,76 +14,75 @@
     </div>
 
     <transition name="del">
-      <el-icon
-          class="delete"
-          :size="20"
-          @click="removeProject"
-          v-if="isHover">
-        <Delete/>
+      <el-icon v-if="isHover" :size="20" class="delete" @click="removeProject">
+        <Delete />
       </el-icon>
     </transition>
-
   </el-card>
 </template>
 
-<script setup lang="ts">
-import {ElMessageBox} from 'element-plus'
-import useCheckLogin from "@/hooks/useCheckLogin.ts"
-import {error, success, info} from "@/hooks/useMessage.ts"
+<script lang="ts" setup>
+import { ElMessageBox } from "element-plus";
+import useCheckLogin from "@/hooks/useCheckLogin.ts";
+import { error, info, success } from "@/hooks/useMessage.ts";
 import ProjectInfo from "@/type/ProjectInfo.ts";
-import {ref} from "vue";
-import {Delete} from "@element-plus/icons-vue";
+import { ref } from "vue";
+import { Delete } from "@element-plus/icons-vue";
 import deleteProject from "@/hooks/AsyncRequest/Projects/deleteProject.ts";
 import ResponseInfo from "@/type/ResponseInfo.ts";
 
-const props = defineProps<{ projectInfo: ProjectInfo }>()
-const isHover = ref(false)
+const props = defineProps<{ projectInfo: ProjectInfo }>();
+const isHover = ref(false);
 
 function openProjects() {
-  useCheckLogin().then(res => {
-    if (res) {
-      window.open(props.projectInfo.link);
-    } else {
-      error('请先进行登录');
-    }
-  }).catch(err => {
-    error(err.message);
-  })
+  useCheckLogin()
+    .then((res) => {
+      if (res) {
+        window.open(props.projectInfo.link);
+      } else {
+        error("请先进行登录");
+      }
+    })
+    .catch((err) => {
+      error(err.message);
+    });
 }
 
-const emit = defineEmits(['projectDeleted'])
+const emit = defineEmits(["projectDeleted"]);
 const removeProject = () => {
-  useCheckLogin().then(res => {
+  useCheckLogin().then((res) => {
     if (res) {
       ElMessageBox.confirm(
-          `项目 ${props.projectInfo.title} 将被删除，是否继续? `,
-          '提示',
-          {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          })
-          .then(() => {
-            deleteProject(props.projectInfo.id).then((res: ResponseInfo) => {
+        `项目 ${props.projectInfo.title} 将被删除，是否继续? `,
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        },
+      )
+        .then(() => {
+          deleteProject(props.projectInfo.id)
+            .then((res: ResponseInfo) => {
               if (res.status == 200) {
-                success(res.message)
-                emit('projectDeleted')
+                success(res.message);
+                emit("projectDeleted");
               } else if (res.status == 401 || res.status == 402) {
-                error(res.message)
+                error(res.message);
               }
-            }).catch(err => {
-              error(err.message)
             })
-          })
-          .catch(() => {
-            info('已取消删除')
-          })
+            .catch((err) => {
+              error(err.message);
+            });
+        })
+        .catch(() => {
+          info("已取消删除");
+        });
     } else {
-      error('请先进行登录')
+      error("请先进行登录");
     }
-  })
-}
-
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -114,7 +113,7 @@ const removeProject = () => {
   background-color: $box-background-color-dark;
   margin: 3rem 0;
   position: relative;
-  transition: $transition-slow;
+  transition: $transition_slow;
 }
 
 .card:hover {
@@ -127,7 +126,7 @@ const removeProject = () => {
   right: 1rem;
   color: $font-color-dark;
   cursor: pointer;
-  transition: $transition-regular;
+  transition: $transition_regular;
 }
 
 .del-enter-active,
@@ -147,5 +146,4 @@ const removeProject = () => {
   opacity: 1;
   transform: translateX(0); /* 设置最终状态为正常位置 */
 }
-
 </style>

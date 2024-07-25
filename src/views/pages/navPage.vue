@@ -3,10 +3,10 @@
     <div class="title">gushen Blog</div>
     <ul class="navigator">
       <li
-          v-for="item in navList"
-          :key="item.path"
-          @click="router.push(item.path)"
-          class="item"
+        v-for="item in navList"
+        :key="item.path"
+        class="item"
+        @click="router.push(item.path)"
       >
         {{ item.label }}
       </li>
@@ -14,27 +14,25 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { useRouter } from "vue-router";
 
-import {useRouter} from "vue-router"
-
-const router = useRouter()
+const router = useRouter();
 
 const navList = [
   {
     label: "项目",
-    path: "/projects"
+    path: "/projects",
   },
   {
     label: "文章",
-    path: "/articles"
+    path: "/articles",
   },
   {
     label: "发表",
-    path: "/post"
-  }
-]
-
+    path: "/post",
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -62,7 +60,7 @@ const navList = [
 
 .item {
   cursor: pointer;
-  transition: $transition-slow;
+  transition: $transition_slow;
   color: transparent;
   background-image: $gradient-colorful-transition;
   background-clip: text;
@@ -72,5 +70,4 @@ const navList = [
 .item:hover {
   background-position: -2rem;
 }
-
 </style>

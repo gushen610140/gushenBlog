@@ -1,56 +1,57 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import { onMounted, reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-import {onMounted, reactive} from "vue";
-import {useRoute, useRouter} from "vue-router";
-
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
 const postList = reactive([
   {
-    name: '发表项目',
-    path: '/post/projects',
-    isSelect: false
+    name: "发表项目",
+    path: "/post/projects",
+    isSelect: false,
   },
   {
-    name: '发表文章',
-    path: '/post/articles',
-    isSelect: false
-  }
-])
+    name: "发表文章",
+    path: "/post/articles",
+    isSelect: false,
+  },
+]);
 
 const changeSelect = (path: string) => {
-  postList.forEach(item => {
-    item.isSelect = item.path == path
-  })
-}
+  postList.forEach((item) => {
+    item.isSelect = item.path == path;
+  });
+};
 
 onMounted(() => {
-  changeSelect(route.path)
-})
-
+  changeSelect(route.path);
+});
 </script>
 
 <template>
   <ul class="container">
     <li
-        v-for="item in postList"
-        :key="item.path"
-        @click="router.push(item.path); changeSelect(item.path)"
-        class="item"
-        :class="{selected: item.isSelect}"
+      v-for="item in postList"
+      :key="item.path"
+      :class="{ selected: item.isSelect }"
+      class="item"
+      @click="
+        router.push(item.path);
+        changeSelect(item.path);
+      "
     >
       {{ item.name }}
     </li>
   </ul>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "@/styles/variables";
 .container {
   height: 15rem;
   padding-top: 1rem;
-  transition: $transition-regular;
+  transition: $transition_regular;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -65,7 +66,7 @@ onMounted(() => {
   background-image: $gradient-colorful-transition;
   background-size: 200%;
   background-clip: text;
-  transition: $transition-slow;
+  transition: $transition_slow;
 }
 
 .item:hover {

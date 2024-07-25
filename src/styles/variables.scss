@@ -26,10 +26,11 @@ $button-bacc: #909399c0;
 $button-bacc-hover: #b1b3b8b0;
 $box-shadow-normal: 0px 0px 12px rgba(0, 0, 0, 0.12);
 $box-shadow-hover: 0 0 5px $font-color-dark;
+$background_color_box_dark: #2a2a2a;
 
 // 动画变换标准
-$transition-regular: all 150ms ease;
-$transition-slow: all 500ms ease;
+$transition_regular: all 150ms ease;
+$transition_slow: all 500ms ease;
 
 // 页面布局
 $layout-width: 95vw;
@@ -38,6 +39,8 @@ $layout-width: 95vw;
 $box-shadow-border-light: 0px 0px 5px rgba(255, 255, 255, 0.87);
 $box-shadow-border: 0px 0px 2px #909399c0;
 $box-shadow-border-dark: 0px 0px 12px rgba(0, 0, 0, 0.12);
+$box_shadow_regular_light: 0 0 0.1rem #a4a4a4;
+$box_shadow_regular_dark: 0 0 0.1rem #0c0c0c;
 
 // 渐变色背景
 $gradient-colorful: linear-gradient(
@@ -55,6 +58,14 @@ $gradient-colorful-transition: linear-gradient(
                 rgb(255, 255, 255),
                 rgb(255, 255, 255),
                 rgb(255, 255, 255),
+                rgb(67, 174, 255),
+                rgb(160, 131, 237),
+                rgb(239, 122, 200),
+                rgb(254, 134, 159),
+                rgb(255, 167, 69),
+);
+$background_image_regular: linear-gradient(
+                90deg,
                 rgb(67, 174, 255),
                 rgb(160, 131, 237),
                 rgb(239, 122, 200),

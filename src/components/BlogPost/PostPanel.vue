@@ -4,9 +4,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 @import "@/styles/variables";
@@ -15,7 +13,7 @@
   background-color: $box-background-color-dark;
   box-shadow: $box-shadow-border-dark;
   width: inherit;
-  transition: $transition-regular;
+  transition: $transition_regular;
 }
 
 .post-container:hover {
