@@ -40,7 +40,7 @@ import BlogLogin from "@/components/BlogUser/UserLoginTable.vue";
 import UserInfoTable from "@/components/BlogUser/UserInfoTable.vue";
 import useUserInfo from "@/hooks/AsyncRequest/User/useUserInfo.ts";
 import UserInfo from "@/type/UserInfo.ts";
-import { error } from "@/hooks/useMessage.ts";
+import { noticeError } from "@/hooks/useNoticeMessageHook.ts";
 import { useStore } from "vuex";
 
 const showUserName = () => {
@@ -49,7 +49,7 @@ const showUserName = () => {
       userInfo.username = res.username;
     })
     .catch((err) => {
-      error(err.message);
+      noticeError(err.message);
     });
 };
 
@@ -102,7 +102,7 @@ let drawerWidth = computed(() => {
 @import "@/styles/element.scss";
 
 .name {
-  color: $font-color-dark;
+  color: $font_color_white;
   margin-left: 3rem;
 }
 

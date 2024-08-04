@@ -1,52 +1,31 @@
-import {createRouter, createWebHashHistory} from "vue-router"
-
-import navPage from "@/views/pages/navPage.vue"
-import layout from "@/views/layout/layout.vue"
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
-    {
-        path: "/",
-        name: "Nav",
-        component: navPage
-    },
-    {
-        path: "/",
-        name: "Layout",
-        component: layout,
-        children: [
-            {
-                path: "projects",
-                name: "projects",
-                component: () => import("@/views/pages/BlogProjects.vue")
-            },
-            {
-                path: "articles",
-                name: "articles",
-                component: () => import("@/views/pages/BlogArticles.vue")
-            },
-            {
-                path: "post",
-                name: "post",
-                component: () => import("@/views/pages/BlogPost.vue"),
-                redirect: "/post/projects",
-                children: [
-                    {
-                        path: "projects",
-                        component: () => import("@/components/BlogPost/Panels/PostProjects.vue")
-                    },
-                    {
-                        path: "articles",
-                        component: () => import("@/components/BlogPost/Panels/PostArticles.vue")
-                    }
-                ]
-            }
-        ]
-    }
-]
+  {
+    path: "/",
+    component: () => import("@/pages/NavPage.vue"),
+  },
+  {
+    path: "/projects",
+    component: () => import("@/pages/ProjectPage.vue"),
+  },
+  {
+    path: "/articles",
+    component: () => import("@/pages/ArticlePage.vue"),
+  },
+  {
+    path: "/my",
+    component: () => import("@/pages/MyPage.vue"),
+  },
+  {
+    path: "/login",
+    component: () => import("@/pages/LoginPage.vue"),
+  },
+];
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes
-})
+  history: createWebHashHistory(),
+  routes,
+});
 
-export default router
+export default router;

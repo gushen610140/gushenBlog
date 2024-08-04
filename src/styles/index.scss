@@ -3,10 +3,10 @@
 :root {
   // 遵循了 ElementPlus 的字体家族
   font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-  line-height: $font-line-height-regular;
+  line-height: $line_height_regular;
 
-  color: $font-color-dark;
-  font-weight: $font-weight-regular;
+  color: $font_color_white;
+  font-weight: $font_weight_regular;
   background-color: $background-color-dark;
 
   // 浏览器自动优化字体
@@ -20,6 +20,4 @@ body {
   // 弹性布局使 layout 居中
   display: flex;
   justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
 }

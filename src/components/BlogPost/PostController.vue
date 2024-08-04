@@ -64,10 +64,10 @@ onMounted(() => {
   box-shadow: $box-shadow-border-light;
 }
 
-.item {
+.nav_item {
   cursor: pointer;
   margin-top: 2rem;
-  font-weight: $font-weight-big;
+  font-weight: $font_weight_big;
   color: transparent;
   background-image: $gradient-colorful-transition;
   background-size: 200%;

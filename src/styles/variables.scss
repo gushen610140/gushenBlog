@@ -1,23 +1,27 @@
 // 字体行高
-$font-line-height-compact: 1.3;
-$font-line-height-regular: 1.5;
-$font-line-height-loose: 1.7;
+$line_height_small: 1.3;
+$line_height_regular: 1.5;
+$line_height_big: 1.7;
 
 // 字体大小
-$font-size-supplement: 0.5rem;
-$font-size-body-small: 0.8rem;
-$font-size-body: 1rem;
-$font-size-title-small: 1.5rem;
-$font-size-title: 2rem;
-$font-size-title-large: 3rem;
+$font_size_very_small: 0.5rem;
+$font_size_small: 0.8rem;
+$font_size_regular: 1rem;
+$font_size_little_big: 1.5rem;
+$font_size_big: 2rem;
+$font_size_very_big: 3rem;
 
-// 字体样式
-$font-weight-small: 200;
-$font-weight-regular: 400;
-$font-weight-big: 600;
+// 字体权重
+$font_weight_small: 200;
+$font_weight_regular: 400;
+$font_weight_big: 600;
+
+// 字体颜色
+$color_regular: #ffffff80;
+$color_small: #c2c2c2;
 
 // 深色模式下颜色
-$font-color-dark: rgba(255, 255, 255, 0.87);
+$font_color_white: rgba(255, 255, 255, 0.87);
 $font-color-selected-dark: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%); // 属于background-image 属性，配合 background-clip:text 使用
 $background-color-dark: #242424;
 $background-color-dark-disabled: #333333;
@@ -25,7 +29,7 @@ $box-background-color-dark: #33333330;
 $button-bacc: #909399c0;
 $button-bacc-hover: #b1b3b8b0;
 $box-shadow-normal: 0px 0px 12px rgba(0, 0, 0, 0.12);
-$box-shadow-hover: 0 0 5px $font-color-dark;
+$box-shadow-hover: 0 0 5px $font_color_white;
 $background_color_box_dark: #2a2a2a;
 
 // 动画变换标准
@@ -33,13 +37,13 @@ $transition_regular: all 150ms ease;
 $transition_slow: all 500ms ease;
 
 // 页面布局
-$layout-width: 95vw;
+$layout_width: 95vw;
 
 // box-shadow 型边框
 $box-shadow-border-light: 0px 0px 5px rgba(255, 255, 255, 0.87);
 $box-shadow-border: 0px 0px 2px #909399c0;
 $box-shadow-border-dark: 0px 0px 12px rgba(0, 0, 0, 0.12);
-$box_shadow_regular_light: 0 0 0.1rem #a4a4a4;
+$box_shadow_regular_light: 0 0 0.5rem #a4a4a4;
 $box_shadow_regular_dark: 0 0 0.1rem #0c0c0c;
 
 // 渐变色背景
@@ -72,3 +76,5 @@ $background_image_regular: linear-gradient(
                 rgb(254, 134, 159),
                 rgb(255, 167, 69),
 );
+
+// TODO 全局主题色变化

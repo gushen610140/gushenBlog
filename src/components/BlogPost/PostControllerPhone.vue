@@ -48,7 +48,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "@/styles/variables";
-.container {
+.right_aside_container {
   height: 15rem;
   padding-top: 1rem;
   transition: $transition_regular;
@@ -60,8 +60,8 @@ onMounted(() => {
 .item {
   cursor: pointer;
   margin-top: 2rem;
-  font-size: $font-size-title-small;
-  font-weight: $font-weight-big;
+  font-size: $font_size_little_big;
+  font-weight: $font_weight_big;
   color: transparent;
   background-image: $gradient-colorful-transition;
   background-size: 200%;
