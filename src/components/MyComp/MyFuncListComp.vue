@@ -1,23 +1,62 @@
 <script lang="ts" setup>
-import { User } from "@element-plus/icons-vue";
+import { changePageHook } from "@/hooks/useChangePageHook.js";
 </script>
 
 <template>
   <div class="function_container">
-    <button class="value">
-      <User />
+    <div
+      :class="{ function_selected: $route.path === '/my' }"
+      class="user_profile function_item"
+      @click="changePageHook('/my')"
+    >
       <span>个人资料</span>
-    </button>
+    </div>
+    <div
+      :class="{ function_selected: $route.path === '/my/user_like_article' }"
+      class="user_like_article function_item"
+      @click="changePageHook('/my/user_like_article')"
+    >
+      <span>收藏文章</span>
+    </div>
+    <div
+      :class="{ function_selected: $route.path === '/my/article_manage' }"
+      class="user_like_article function_item"
+      @click="changePageHook('/my/article_manage')"
+    >
+      <span>文章管理</span>
+    </div>
+    <div
+      :class="{ function_selected: $route.path === '/my/project_manage' }"
+      class="user_like_article function_item"
+      @click="changePageHook('/my/project_manage')"
+    >
+      <span>项目管理</span>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import "@/styles/variables.scss";
+
 .function_container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.function_item {
+  height: 2.5rem;
   background-color: $background_color_box_dark;
-  justify-content: center;
   border-radius: 1rem;
+  line-height: 2.5rem;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  transition: $transition_slow;
+}
+
+.function_selected {
+  box-shadow: $box_shadow_vivid;
 }
 </style>

@@ -16,6 +16,24 @@ const routes = [
   {
     path: "/my",
     component: () => import("@/pages/MyPage.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("@/components/MyComp/MyInfoComp.vue"),
+      },
+      {
+        path: "user_like_article",
+        component: () => import("@/components/MyComp/MyLikeArticleComp.vue"),
+      },
+      {
+        path: "article_manage",
+        component: () => import("@/components/MyComp/MyArticleManageComp.vue"),
+      },
+      {
+        path: "project_manage",
+        component: () => import("@/components/MyComp/MyProjectManageComp.vue"),
+      },
+    ],
   },
   {
     path: "/login",
