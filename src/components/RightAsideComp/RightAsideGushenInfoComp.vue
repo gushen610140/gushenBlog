@@ -2,13 +2,13 @@
   <div class="my-info">
     <el-avatar :size="50" src="/myAvatar.jpg"></el-avatar>
     <div class="name">剑霜寒</div>
-    <el-button class="button" type="info" @click="goGitee">My Gitee</el-button>
+    <button class="button" @click="goGitee">Github</button>
   </div>
 </template>
 
 <script lang="ts" setup>
 function goGitee() {
-  window.open("https://gitee.com/gushenfree");
+  window.open("https://github.com/gushen610140");
 }
 </script>
 
@@ -39,6 +39,19 @@ function goGitee() {
 }
 
 .button {
+  height: 2rem;
+  width: 6rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
   margin-top: 10px;
+  background-color: $background_color_box_dark;
+  transition: $transition_slow;
+  box-shadow: $box_shadow_regular_dark;
+  color: $color_regular;
+}
+
+.button:hover {
+  box-shadow: $box_shadow_vivid;
 }
 </style>
