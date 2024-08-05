@@ -1,124 +1,96 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import GsInputUI from "@/components/GsUI/form/GsInputUI.vue";
+import { onMounted, ref } from "vue";
+import { getUserInfoAPI, updateUserInfoAPI } from "@/api/UserAPI.ts";
+import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
+
+const userUpdateInfo = ref<UserUpdateInfoVO>({
+  nickname: "",
+  email: "",
+});
+
+onMounted(() => {
+  getUserInfoAPI()
+    .then((res) => {
+      userUpdateInfo.value.nickname = res.data.nickname;
+      userUpdateInfo.value.email = res.data.email;
+    })
+    .catch(() => {
+      noticeError("请先登录");
+    });
+});
+
+const updateProfileEvent = () => {
+  updateUserInfoAPI(userUpdateInfo.value).then((res) => {
+    if (res.code === 200) {
+      noticeSuccess(res.message);
+    } else {
+      noticeError(res.message);
+    }
+  });
+};
+</script>
 
 <template>
-  <div class="card">
-    <div class="bg uwu"></div>
-    <div class="bg"></div>
-    <div class="content">
-      <div class="img">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"
-          ></path>
-        </svg>
+  <div class="my_info_container">
+    <div class="title">个人资料</div>
+    <el-divider style="border-color: #e3e3e3"></el-divider>
+    <div style="display: flex; gap: 8rem">
+      <div class="input_container">
+        <GsInputUI v-model="userUpdateInfo.nickname" label="昵称"></GsInputUI>
+        <GsInputUI v-model="userUpdateInfo.email" label="邮箱"></GsInputUI>
+        <div class="update_button" @click="updateProfileEvent">更新资料</div>
       </div>
-      <div class="h1">Johnathon<br />F. Stag</div>
-      <div class="p">
-        Professional human
-        <p>I do human things such as exist, eat foot, and work.</p>
+      <div class="avatar_edit">
+        <img
+          alt="avatar"
+          src="@/static/default_avatar.svg"
+          style="width: 100%"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.card {
-  position: relative;
-  width: 190px;
-  color: white;
-  height: 260px;
-  background: #444;
-  border-radius: 14px;
+@import "@/styles/variables";
+
+.my_info_container {
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: $background_color_box_dark;
 }
 
-.bg {
-  position: absolute;
-  z-index: -1;
-  inset: -4px;
-  border-radius: 16px;
-  overflow: hidden;
+.title {
+  font-size: $font_size_big;
+  margin-left: 2rem;
+  margin-top: 1rem;
 }
 
-.uwu {
-  filter: blur(8px);
-  transition: filter 0.3s;
+.input_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 2rem;
+  gap: 3rem;
 }
 
-.bg::before {
-  content: "";
-  position: absolute;
-  aspect-ratio: 1/1;
-  top: 50%;
-  left: 50%;
-  min-width: 150%;
-  min-height: 150%;
-  background-image: conic-gradient(
-    hsl(0, 100%, 50%),
-    hsl(30, 100%, 50%),
-    hsl(60, 100%, 50%),
-    hsl(90, 100%, 50%),
-    hsl(120, 100%, 50%),
-    hsl(150, 100%, 50%),
-    hsl(180, 100%, 50%),
-    hsl(210, 100%, 50%),
-    hsl(240, 100%, 60%),
-    hsl(270, 100%, 50%),
-    hsl(300, 100%, 50%),
-    hsl(330, 100%, 50%),
-    hsl(360, 100%, 50%)
-  );
-  animation: speeen 4s linear infinite;
-  transform-origin: 0% 0%;
-  transform: rotate(0deg) translate(-50%, -50%);
+.avatar_edit {
+  margin-top: 1rem;
+  width: 8rem;
 }
 
-@keyframes speeen {
-  from {
-    transform: rotate(0deg) translate(-50%, -50%);
-  }
-
-  to {
-    transform: rotate(360deg) translate(-50%, -50%);
-  }
-}
-
-.content {
-  position: relative;
-  padding: 14px 16px;
-}
-
-.img {
-  height: 5em;
-  width: 5em;
-  margin: auto;
-  background-color: #fff3;
-  border-radius: 1em;
-}
-
-.img svg {
-  height: 100%;
-  fill: white;
-}
-
-.content div {
+.update_button {
+  background-color: #238636;
   text-align: center;
+  width: 6rem;
+  height: 2rem;
+  line-height: 2rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  transition: $transition_slow;
 }
 
-.h1 {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  font-size: 1em;
-  font-weight: 600;
-}
-
-.p {
-  font-size: 0.75em;
-}
-
-.p p {
-  margin-top: 0.5em;
-  padding: 0.5em;
-  background-color: #0003;
-  border-radius: 1em;
+.update_button:hover {
+  box-shadow: 0 0 0.5rem #238636;
 }
 </style>

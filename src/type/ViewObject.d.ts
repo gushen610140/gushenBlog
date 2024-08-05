@@ -29,3 +29,8 @@ declare interface UserVO {
   email: string;
   avatar: string;
 }
+
+declare interface UserUpdateInfoVO {
+  nickname: string;
+  email: string;
+}

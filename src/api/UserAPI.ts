@@ -14,3 +14,11 @@ export const getUserInfoAPI = () => {
     method: "GET",
   });
 };
+
+export const updateUserInfoAPI = (userUpdateInfoVO: UserUpdateInfoVO) => {
+  return http<string>({
+    url: "/user/update",
+    method: "PUT",
+    data: userUpdateInfoVO,
+  });
+};

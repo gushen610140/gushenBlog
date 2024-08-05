@@ -24,15 +24,9 @@
 <script lang="ts" setup>
 import { ElMessageBox } from "element-plus";
 import useCheckLogin from "@/hooks/useCheckLogin.ts";
-import {
-  notice,
-  noticeError,
-  noticeSuccess,
-} from "@/hooks/useNoticeMessageHook.ts";
+import { notice, noticeError } from "@/hooks/useNoticeMessageHook.ts";
 import { ref } from "vue";
 import { Delete } from "@element-plus/icons-vue";
-import deleteProject from "@/hooks/AsyncRequest/Projects/deleteProject.ts";
-import ResponseInfo from "@/type/ResponseInfo.ts";
 
 const props = defineProps<{ projectInfo: ProjectDO }>();
 const isHover = ref(false);
@@ -54,20 +48,7 @@ const removeProject = () => {
           type: "warning",
         },
       )
-        .then(() => {
-          deleteProject(props.projectInfo.id)
-            .then((res: ResponseInfo) => {
-              if (res.status == 200) {
-                noticeSuccess(res.message);
-                emit("projectDeleted");
-              } else if (res.status == 401 || res.status == 402) {
-                noticeError(res.message);
-              }
-            })
-            .catch((err) => {
-              noticeError(err.message);
-            });
-        })
+        .then(() => {})
         .catch(() => {
           notice("已取消删除");
         });

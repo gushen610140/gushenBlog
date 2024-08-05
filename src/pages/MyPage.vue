@@ -10,7 +10,7 @@ import Header from "@/components/LayoutComp/Header.vue";
     <el-col :offset="1" :span="4">
       <MyFuncListComp></MyFuncListComp>
     </el-col>
-    <el-col :offset="3" :span="16">
+    <el-col :offset="2" :span="16">
       <router-view></router-view>
     </el-col>
   </el-row>
