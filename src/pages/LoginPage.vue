@@ -16,7 +16,7 @@ const handleLogin = () => {
     if (res.code == 200) {
       localStorage.setItem("token", res.data);
       noticeSuccess(res.message);
-      changePageHook("/projects");
+      changePageHook("/articles");
     } else {
       noticeError(res.message);
     }

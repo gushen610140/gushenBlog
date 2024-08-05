@@ -3,6 +3,7 @@ import GsInputUI from "@/components/GsUI/form/GsInputUI.vue";
 import { onMounted, ref } from "vue";
 import { getUserInfoAPI, updateUserInfoAPI } from "@/api/UserAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
+import { changePageHook } from "@/hooks/useChangePageHook.ts";
 
 const userUpdateInfo = ref<UserUpdateInfoVO>({
   nickname: "",
@@ -17,17 +18,22 @@ onMounted(() => {
     })
     .catch(() => {
       noticeError("请先登录");
+      changePageHook("/login");
     });
 });
 
 const updateProfileEvent = () => {
-  updateUserInfoAPI(userUpdateInfo.value).then((res) => {
-    if (res.code === 200) {
-      noticeSuccess(res.message);
-    } else {
-      noticeError(res.message);
-    }
-  });
+  updateUserInfoAPI(userUpdateInfo.value)
+    .then((res) => {
+      if (res.code == 200) {
+        noticeSuccess(res.message);
+      } else {
+        noticeError(res.message);
+      }
+    })
+    .catch(() => {
+      noticeError("请先登录");
+    });
 };
 </script>
 

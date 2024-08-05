@@ -62,6 +62,7 @@ onMounted(() => {
       })
       .catch(() => {
         noticeError("登录状态已经过期，请重新登录");
+        changePageHook("/login");
       });
   }
 });
