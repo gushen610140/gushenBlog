@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import MyFuncListComp from "@/components/MyComp/MyFuncListComp.vue";
-import Header from "@/components/Layout/Header.vue";
+import Header from "@/components/LayoutComp/Header.vue";
 </script>
 
 <template>

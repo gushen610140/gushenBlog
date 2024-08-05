@@ -70,15 +70,15 @@ onMounted(() => {
 // 导航栏
 const navList = reactive([
   {
-    label: "项目",
-    path: "/projects",
-    isSelect: true,
-    isShow: true,
-  },
-  {
     label: "文章",
     path: "/articles",
     isSelect: false,
+    isShow: true,
+  },
+  {
+    label: "项目",
+    path: "/projects",
+    isSelect: true,
     isShow: true,
   },
   {

@@ -54,12 +54,12 @@ const handleLogin = () => {
 @import "@/styles/variables";
 
 .login_window {
-  margin: 10rem auto 0;
+  margin: 10rem auto 10rem;
   width: 60vw;
   height: 50vh;
   background-color: #2a2a2a;
   border-radius: 1rem;
-  box-shadow: $box_shadow_regular_dark;
+  box-shadow: $box_shadow_vivid;
   // 启动 BFC
   overflow: hidden;
 }

@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import RightAsideContainerComp from "@/components/RightAsideComp/RightAsideContainerComp.vue";
 import ArticleContainerComp from "@/components/ArticleComp/ArticlesContainerComp.vue";
-import Header from "@/components/Layout/Header.vue";
+import Header from "@/components/LayoutComp/Header.vue";
 </script>
 
 <style lang="scss" scoped></style>

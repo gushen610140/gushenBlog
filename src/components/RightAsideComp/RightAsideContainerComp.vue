@@ -1,13 +1,15 @@
 <template>
   <div class="right_aside_container">
-    <RightAsideGushenInfo></RightAsideGushenInfo>
-    <RightAsideBlogInfo></RightAsideBlogInfo>
+    <RightAsideGushenInfoComp></RightAsideGushenInfoComp>
+    <RightAsideBlogInfoComp></RightAsideBlogInfoComp>
+    <RightAsideBlogLawInfoComp></RightAsideBlogLawInfoComp>
   </div>
 </template>
 
 <script setup>
-import RightAsideGushenInfo from "@/components/RightAsideComp/RightAsideGushenInfo.vue";
-import RightAsideBlogInfo from "@/components/RightAsideComp/RightAsideBlogInfo.vue";
+import RightAsideGushenInfoComp from "@/components/RightAsideComp/RightAsideGushenInfoComp.vue";
+import RightAsideBlogInfoComp from "@/components/RightAsideComp/RightAsideBlogInfoComp.vue";
+import RightAsideBlogLawInfoComp from "@/components/RightAsideComp/RightAsideBlogLawInfoComp.vue";
 </script>
 
 <style lang="scss" scoped>
