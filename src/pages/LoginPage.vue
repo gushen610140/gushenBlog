@@ -25,6 +25,7 @@ const handleLogin = () => {
 </script>
 
 <template>
+  <div class="back_nav_page_btn" @click="changePageHook('/')">返回主页</div>
   <div class="login_window">
     <div style="margin-top: 4rem">
       <div class="title"><span class="title_content">用户登录</span></div>
@@ -44,7 +45,7 @@ const handleLogin = () => {
       <GsButtonLoginUI content="确认" @click="handleLogin"></GsButtonLoginUI>
     </div>
     <div class="more" style="display: flex; justify-content: center; gap: 1rem">
-      <div class="register">前往注册</div>
+      <div class="register" @click="changePageHook('/register')">前往注册</div>
       <div class="forget">忘记密码</div>
     </div>
   </div>
@@ -54,7 +55,7 @@ const handleLogin = () => {
 @import "@/styles/variables";
 
 .login_window {
-  margin: 10rem auto 10rem;
+  margin: 6rem auto 10rem;
   width: 60vw;
   height: 50vh;
   background-color: #2a2a2a;
@@ -87,23 +88,19 @@ const handleLogin = () => {
 
 .register {
   margin-top: 1rem;
-  color: #5b5a54;
   cursor: pointer;
   transition: $transition_regular;
-}
-
-.register:hover {
-  color: #ffff;
 }
 
 .forget {
   margin-top: 1rem;
-  color: #5b5a54;
   cursor: pointer;
   transition: $transition_regular;
 }
 
-.forget:hover {
-  color: #ffff;
+.back_nav_page_btn {
+  font-size: $font_size_big;
+  margin-top: 2rem;
+  cursor: pointer;
 }
 </style>

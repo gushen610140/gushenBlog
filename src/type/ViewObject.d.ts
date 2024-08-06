@@ -34,3 +34,11 @@ declare interface UserUpdateInfoVO {
   nickname: string;
   email: string;
 }
+
+declare interface UserRegisterVO {
+  email: string;
+  nickname: string;
+  password: string;
+  again_password: string;
+  verify_code: string;
+}

@@ -22,3 +22,11 @@ export const updateUserInfoAPI = (userUpdateInfoVO: UserUpdateInfoVO) => {
     data: userUpdateInfoVO,
   });
 };
+
+export const userRegisterAPI = (userRegisterVO: UserRegisterVO) => {
+  return http<string>({
+    url: "/user/register",
+    method: "POST",
+    data: userRegisterVO,
+  });
+};

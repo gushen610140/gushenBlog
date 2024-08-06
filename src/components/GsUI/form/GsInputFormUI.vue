@@ -44,6 +44,7 @@ const modelValue = defineModel();
   border: none;
   outline: none;
   padding: 0 7px;
+  box-sizing: border-box;
   border-radius: 6px;
   color: #fff;
   font-size: 15px;
@@ -57,10 +58,8 @@ const modelValue = defineModel();
 .input:focus {
   color: #fff;
   box-shadow:
-    3px 3px 10px rgba(0, 0, 0, 1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0, 0, 0, 1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+    3px 3px 5px rgba(0, 0, 0, 1),
+    -1px -1px 3px rgba(255, 255, 255, 0.4);
 }
 
 .container .input:valid ~ .label,
@@ -73,9 +72,7 @@ const modelValue = defineModel();
 .container .input:valid,
 .container .input:focus {
   box-shadow:
-    3px 3px 10px rgba(0, 0, 0, 1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0, 0, 0, 1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+    3px 3px 5px rgba(0, 0, 0, 1),
+    -1px -1px 3px rgba(255, 255, 255, 0.4);
 }
 </style>
