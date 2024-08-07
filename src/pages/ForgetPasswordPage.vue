@@ -1,23 +1,25 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import GsInputFromUI from "@/components/GsUI/form/GsInputFormUI.vue";
-import GsInputFormUI from "@/components/GsUI/form/GsInputFormUI.vue";
 import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
 import { changePageHook } from "@/hooks/useChangePageHook.ts";
 import { sendCodeAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
-import { userRegisterAPI } from "@/api/UserAPI.ts";
+import { userResetPassword } from "@/api/UserAPI.ts";
 
-const userRegisterVO = ref<UserRegisterVO>({
+const userForgetPasswordVO = ref<UserForgetPasswordVO>({
   email: "",
-  nickname: "",
-  password: "",
+  new_password: "",
   again_password: "",
   verify_code: "",
 });
 
 const sendCodeEvent = () => {
-  sendCodeAPI(userRegisterVO.value.email).then((res) => {
+  if (userForgetPasswordVO.value.email == "") {
+    noticeError("请先填写邮箱");
+    return;
+  }
+  sendCodeAPI(userForgetPasswordVO.value.email).then((res) => {
     if (res.data) {
       noticeSuccess("验证码发送成功，请查看您的邮箱");
     } else {
@@ -26,12 +28,27 @@ const sendCodeEvent = () => {
   });
 };
 
-const registerEvent = () => {
-  userRegisterAPI(userRegisterVO.value).then((res) => {
-    if (res.code == 200) {
-      localStorage.setItem("token", res.data);
+const resetPasswordEvent = () => {
+  if (
+    userForgetPasswordVO.value.email == "" ||
+    userForgetPasswordVO.value.new_password == "" ||
+    userForgetPasswordVO.value.again_password == "" ||
+    userForgetPasswordVO.value.verify_code == ""
+  ) {
+    noticeError("请先填写完整信息");
+    return;
+  }
+  if (
+    userForgetPasswordVO.value.new_password !=
+    userForgetPasswordVO.value.again_password
+  ) {
+    noticeError("两次密码不一致");
+    return;
+  }
+  userResetPassword(userForgetPasswordVO.value).then((res) => {
+    if (res.data) {
       noticeSuccess(res.message);
-      changePageHook("/articles");
+      changePageHook("/login");
     } else {
       noticeError(res.message);
     }
@@ -43,19 +60,19 @@ const registerEvent = () => {
   <div class="back_nav_page_btn" @click="changePageHook('/login')">
     返回登录
   </div>
-  <div class="register_window">
+  <div class="forget_password_window">
     <div style="margin-top: 4rem">
-      <div class="title"><span class="title_content">用户注册</span></div>
+      <div class="title"><span class="title_content">忘记密码</span></div>
     </div>
     <div class="input_area">
       <GsInputFromUI
-        v-model="userRegisterVO.email"
+        v-model="userForgetPasswordVO.email"
         label="邮箱"
         width="20rem"
       ></GsInputFromUI>
       <div style="width: 20rem; display: flex; gap: 1rem">
         <GsInputFromUI
-          v-model="userRegisterVO.verify_code"
+          v-model="userForgetPasswordVO.verify_code"
           label="验证码"
           width="12rem"
         ></GsInputFromUI>
@@ -66,24 +83,22 @@ const registerEvent = () => {
           @click="sendCodeEvent"
         ></GsButtonLoginUI>
       </div>
-      <GsInputFormUI
-        v-model="userRegisterVO.nickname"
-        label="昵称"
-        width="20rem"
-      ></GsInputFormUI>
       <GsInputFromUI
-        v-model="userRegisterVO.password"
-        label="密码"
+        v-model="userForgetPasswordVO.new_password"
+        label="新密码"
         type="password"
         width="20rem"
       ></GsInputFromUI>
       <GsInputFromUI
-        v-model="userRegisterVO.again_password"
-        label="确认密码"
+        v-model="userForgetPasswordVO.again_password"
+        label="确认新密码"
         type="password"
         width="20rem"
       ></GsInputFromUI>
-      <GsButtonLoginUI content="注册" @click="registerEvent"></GsButtonLoginUI>
+      <GsButtonLoginUI
+        content="重置密码"
+        @click="resetPasswordEvent"
+      ></GsButtonLoginUI>
     </div>
   </div>
 </template>
@@ -91,10 +106,10 @@ const registerEvent = () => {
 <style lang="scss" scoped>
 @import "@/styles/variables";
 
-.register_window {
-  margin: 4rem auto 4rem;
+.forget_password_window {
+  margin: 5rem auto 10rem;
   width: 60vw;
-  height: 70vh;
+  height: 60vh;
   background-color: #2a2a2a;
   border-radius: 1rem;
   box-shadow: $box_shadow_vivid;

@@ -40,3 +40,13 @@ export const userChangePasswordAPI = (
     data: userChangePasswordVO,
   });
 };
+
+export const userResetPassword = (
+  userForgetPasswordVO: UserForgetPasswordVO,
+) => {
+  return http<string>({
+    url: "/user/reset_password",
+    method: "PUT",
+    data: userForgetPasswordVO,
+  });
+};

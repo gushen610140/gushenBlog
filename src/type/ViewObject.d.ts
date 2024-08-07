@@ -49,3 +49,10 @@ declare interface UserChangePasswordVO {
   again_password: string;
   verify_code: string;
 }
+
+declare interface UserForgetPasswordVO {
+  email: string;
+  new_password: string;
+  again_password: string;
+  verify_code: string;
+}

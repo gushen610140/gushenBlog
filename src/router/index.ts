@@ -47,6 +47,10 @@ const routes = [
     path: "/register",
     component: () => import("@/pages/RegisterPage.vue"),
   },
+  {
+    path: "/forget_password",
+    component: () => import("@/pages/ForgetPasswordPage.vue"),
+  },
 ];
 
 const router = createRouter({

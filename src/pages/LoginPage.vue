@@ -46,7 +46,9 @@ const handleLogin = () => {
     </div>
     <div class="more" style="display: flex; justify-content: center; gap: 1rem">
       <div class="register" @click="changePageHook('/register')">前往注册</div>
-      <div class="forget">忘记密码</div>
+      <div class="forget" @click="changePageHook('/forget_password')">
+        忘记密码
+      </div>
     </div>
   </div>
 </template>
