@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-const { label, type, width } = defineProps<{
+const { label, type, width, disabled } = defineProps<{
   label?: string;
   type?: string;
   width?: string;
+  disabled?: boolean;
 }>();
 const modelValue = defineModel();
 </script>
@@ -11,6 +12,7 @@ const modelValue = defineModel();
   <div class="container">
     <input
       v-model="modelValue"
+      :disabled="disabled || false"
       :type="type || 'text'"
       autocomplete="off"
       class="input"
@@ -54,5 +56,11 @@ const modelValue = defineModel();
   box-shadow:
     3px 3px 10px rgba(0, 0, 0, 1),
     -1px -1px 6px rgba(255, 255, 255, 0.4);
+}
+
+.input:disabled {
+  background-color: rgba(107, 100, 100, 0.4);
+  box-shadow: 0 0 10px rgba(107, 100, 100, 0.4);
+  color: #a2a2a2;
 }
 </style>

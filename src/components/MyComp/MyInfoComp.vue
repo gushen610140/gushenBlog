@@ -43,8 +43,12 @@ const updateProfileEvent = () => {
     <el-divider style="border-color: #e3e3e3"></el-divider>
     <div style="display: flex; gap: 8rem">
       <div class="input_container">
+        <GsInputUI
+          v-model="userUpdateInfo.email"
+          :disabled="true"
+          label="邮箱"
+        ></GsInputUI>
         <GsInputUI v-model="userUpdateInfo.nickname" label="昵称"></GsInputUI>
-        <GsInputUI v-model="userUpdateInfo.email" label="邮箱"></GsInputUI>
         <div class="update_button" @click="updateProfileEvent">更新资料</div>
       </div>
       <div class="avatar_edit">
