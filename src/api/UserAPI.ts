@@ -41,12 +41,19 @@ export const userChangePasswordAPI = (
   });
 };
 
-export const userResetPassword = (
+export const userResetPasswordAPI = (
   userForgetPasswordVO: UserForgetPasswordVO,
 ) => {
   return http<string>({
     url: "/user/reset_password",
     method: "PUT",
     data: userForgetPasswordVO,
+  });
+};
+
+export const checkAdminAPI = () => {
+  return http<boolean>({
+    url: "/user/check_admin",
+    method: "GET",
   });
 };

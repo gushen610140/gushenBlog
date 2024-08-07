@@ -14,7 +14,7 @@ const closeViewWindow = () => {
   emit("closeViewWindow");
 };
 
-// TODO 文章预览时滑动相关问题
+// TODO 文章预览页面转化成Page
 </script>
 
 <template>

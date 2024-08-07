@@ -1,5 +1,19 @@
 <script lang="ts" setup>
 import { changePageHook } from "@/hooks/useChangePageHook.js";
+import { onMounted, ref } from "vue";
+import { checkAdminAPI } from "@/api/UserAPI.ts";
+
+const isAdmin = ref(false);
+
+onMounted(() => {
+  checkAdminAPI()
+    .then((res) => {
+      isAdmin.value = res.data;
+    })
+    .catch(() => {
+      isAdmin.value = false;
+    });
+});
 </script>
 
 <template>
@@ -26,6 +40,7 @@ import { changePageHook } from "@/hooks/useChangePageHook.js";
       <span>收藏文章</span>
     </div>
     <div
+      v-if="isAdmin"
       :class="{ function_selected: $route.path === '/my/article_manage' }"
       class="function_item"
       @click="changePageHook('/my/article_manage')"
@@ -33,6 +48,7 @@ import { changePageHook } from "@/hooks/useChangePageHook.js";
       <span>文章管理</span>
     </div>
     <div
+      v-if="isAdmin"
       :class="{ function_selected: $route.path === '/my/project_manage' }"
       class="function_item"
       @click="changePageHook('/my/project_manage')"

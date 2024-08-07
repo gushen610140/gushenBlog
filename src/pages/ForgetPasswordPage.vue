@@ -5,7 +5,7 @@ import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
 import { changePageHook } from "@/hooks/useChangePageHook.ts";
 import { sendCodeAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
-import { userResetPassword } from "@/api/UserAPI.ts";
+import { userResetPasswordAPI } from "@/api/UserAPI.ts";
 
 const userForgetPasswordVO = ref<UserForgetPasswordVO>({
   email: "",
@@ -45,7 +45,7 @@ const resetPasswordEvent = () => {
     noticeError("两次密码不一致");
     return;
   }
-  userResetPassword(userForgetPasswordVO.value).then((res) => {
+  userResetPasswordAPI(userForgetPasswordVO.value).then((res) => {
     if (res.data) {
       noticeSuccess(res.message);
       changePageHook("/login");
