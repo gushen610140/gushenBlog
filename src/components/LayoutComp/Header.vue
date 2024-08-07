@@ -17,11 +17,7 @@
       </li>
     </ul>
     <div style="flex: 1"></div>
-    <div
-      style="display: flex; align-items: center"
-      @mouseenter="showUsermore"
-      @mouseleave="hideUsermore"
-    >
+    <div style="display: flex; align-items: center">
       <div
         v-if="userNicknameComputed"
         class="username"
@@ -140,16 +136,6 @@ const userNicknameComputed = computed(() => {
   }
   return null;
 });
-
-// 用户二级菜单
-// TODO 用户更多选项在靠近时就可以弹出
-const usermoreRef = ref<HTMLDivElement | null>();
-const showUsermore = () => {
-  usermoreRef.value!.style.opacity = "1";
-};
-const hideUsermore = () => {
-  usermoreRef.value!.style.opacity = "0";
-};
 
 // 退出登录
 const logout = () => {
