@@ -42,3 +42,10 @@ declare interface UserRegisterVO {
   again_password: string;
   verify_code: string;
 }
+
+declare interface UserChangePasswordVO {
+  old_password: string;
+  new_password: string;
+  again_password: string;
+  verify_code: string;
+}

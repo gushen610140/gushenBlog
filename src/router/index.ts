@@ -33,6 +33,10 @@ const routes = [
         path: "project_manage",
         component: () => import("@/components/MyComp/MyProjectManageComp.vue"),
       },
+      {
+        path: "change_password",
+        component: () => import("@/components/MyComp/MyChangePasswordComp.vue"),
+      },
     ],
   },
   {

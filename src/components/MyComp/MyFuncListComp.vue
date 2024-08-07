@@ -6,28 +6,35 @@ import { changePageHook } from "@/hooks/useChangePageHook.js";
   <div class="function_container">
     <div
       :class="{ function_selected: $route.path === '/my' }"
-      class="user_profile function_item"
+      class="function_item"
       @click="changePageHook('/my')"
     >
       <span>个人资料</span>
     </div>
     <div
+      :class="{ function_selected: $route.path === '/my/change_password' }"
+      class="function_item"
+      @click="changePageHook('/my/change_password')"
+    >
+      <span>更改密码</span>
+    </div>
+    <div
       :class="{ function_selected: $route.path === '/my/user_like_article' }"
-      class="user_like_article function_item"
+      class="function_item"
       @click="changePageHook('/my/user_like_article')"
     >
       <span>收藏文章</span>
     </div>
     <div
       :class="{ function_selected: $route.path === '/my/article_manage' }"
-      class="user_like_article function_item"
+      class="function_item"
       @click="changePageHook('/my/article_manage')"
     >
       <span>文章管理</span>
     </div>
     <div
       :class="{ function_selected: $route.path === '/my/project_manage' }"
-      class="user_like_article function_item"
+      class="function_item"
       @click="changePageHook('/my/project_manage')"
     >
       <span>项目管理</span>

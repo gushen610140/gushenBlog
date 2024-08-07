@@ -9,3 +9,10 @@ export const sendCodeAPI = (email: string) => {
     },
   });
 };
+
+export const sendCodeByTokenAPI = () => {
+  return http<boolean>({
+    url: "/user/send_code_by_token",
+    method: "GET",
+  });
+};
