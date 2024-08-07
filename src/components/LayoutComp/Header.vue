@@ -22,7 +22,11 @@
       @mouseenter="showUsermore"
       @mouseleave="hideUsermore"
     >
-      <div v-if="userNicknameComputed" class="username">
+      <div
+        v-if="userNicknameComputed"
+        class="username"
+        @click="changePageHook('/my')"
+      >
         {{ userNicknameComputed }}
       </div>
       <div v-else class="login_button" @click="changePageHook('/login')">
