@@ -2,7 +2,11 @@
 import GsInputUI from "@/components/GsUI/form/GsInputUI.vue";
 import { onMounted, ref } from "vue";
 import { getUserInfoAPI, updateUserInfoAPI } from "@/api/UserAPI.ts";
-import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
+import {
+  notice,
+  noticeError,
+  noticeSuccess,
+} from "@/hooks/useNoticeMessageHook.ts";
 import { changePageHook } from "@/hooks/useChangePageHook.ts";
 
 const userUpdateInfo = ref<UserUpdateInfoVO>({
@@ -35,6 +39,12 @@ const updateProfileEvent = () => {
       noticeError("请先登录");
     });
 };
+
+const logoutEvent = () => {
+  notice("您已退出登录");
+  localStorage.removeItem("token");
+  changePageHook("/articles");
+};
 </script>
 
 <template>
@@ -49,7 +59,10 @@ const updateProfileEvent = () => {
           label="邮箱"
         ></GsInputUI>
         <GsInputUI v-model="userUpdateInfo.nickname" label="昵称"></GsInputUI>
-        <div class="update_button" @click="updateProfileEvent">更新资料</div>
+        <div style="display: flex">
+          <div class="update_btn" @click="updateProfileEvent">更新资料</div>
+          <div class="logout_btn" @click="logoutEvent">退出登录</div>
+        </div>
       </div>
       <div class="avatar_edit">
         <img
@@ -89,7 +102,7 @@ const updateProfileEvent = () => {
   width: 8rem;
 }
 
-.update_button {
+.update_btn {
   background-color: #238636;
   text-align: center;
   width: 6rem;
@@ -100,7 +113,23 @@ const updateProfileEvent = () => {
   transition: $transition_slow;
 }
 
-.update_button:hover {
+.update_btn:hover {
   box-shadow: 0 0 0.5rem #238636;
+}
+
+.logout_btn {
+  margin-left: 2rem;
+  background-color: #f85149;
+  text-align: center;
+  width: 6rem;
+  height: 2rem;
+  line-height: 2rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  transition: $transition_slow;
+}
+
+.logout_btn:hover {
+  box-shadow: 0 0 0.5rem #f85149;
 }
 </style>
