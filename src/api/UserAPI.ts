@@ -30,3 +30,13 @@ export const userRegisterAPI = (userRegisterVO: UserRegisterVO) => {
     data: userRegisterVO,
   });
 };
+
+export const userChangePasswordAPI = (
+  userChangePasswordVO: UserChangePasswordVO,
+) => {
+  return http<boolean>({
+    url: "/user/change_password",
+    method: "POST",
+    data: userChangePasswordVO,
+  });
+};
