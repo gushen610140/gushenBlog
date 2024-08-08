@@ -69,7 +69,6 @@ const removeProject = () => {
   background-color: $background_color_box_dark;
   position: relative;
   transition: $transition_slow;
-  height: 5rem;
 }
 
 .card_body:hover {

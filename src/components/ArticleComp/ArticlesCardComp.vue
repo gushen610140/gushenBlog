@@ -42,7 +42,6 @@ const isOpenViewWindow = ref(false);
   border: none;
   background-color: $background_color_box_dark;
   border-radius: 1rem;
-  height: 10rem;
   cursor: pointer;
   transition: $transition_slow;
 }
