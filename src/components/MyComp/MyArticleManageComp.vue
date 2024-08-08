@@ -47,15 +47,8 @@ const updateCurPageEvent = (curPage: number) => {
       style="margin-bottom: 1rem"
       @update:modelValue="updateCurPageEvent"
     ></v-pagination>
-    <table
-      style="
-        box-shadow: 0 0 1px #fff;
-        border-radius: 1rem;
-        padding: 1rem;
-        margin: 0 1rem;
-      "
-    >
-      <tr style="text-align: center">
+    <table style="padding: 1rem; margin: 0 1rem">
+      <tr style="text-align: center; height: 3rem; color: #b1b3b8">
         <td style="width: 10rem">文章标题</td>
         <td style="width: 5rem">作者</td>
         <td style="width: 15rem">发布时间</td>
