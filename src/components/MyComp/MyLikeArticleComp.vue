@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h1>My Like Article</h1>
+  <h1>功能开发中...</h1>
 </template>
 
 <style lang="scss" scoped></style>
