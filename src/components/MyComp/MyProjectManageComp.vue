@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+// TODO 完善项目管理组件
+</script>
 
 <template>ProjectManage</template>
 
