@@ -4,6 +4,7 @@ import {
   getArticleCountAPI,
   getArticleListByPageAPI,
 } from "@/api/ArticleAPI.ts";
+import { openPageHook } from "@/hooks/useRouterHook.ts";
 
 const articleList = ref<ArticleDO[]>([]);
 const pageConfig = ref({
@@ -39,6 +40,9 @@ const updateCurPageEvent = (curPage: number) => {
 <template>
   <div class="article_manage_container">
     <div class="title">文章管理</div>
+    <div class="btn publish" @click="openPageHook('/publish_article')">
+      发布新文章
+    </div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
     <v-pagination
       :length="pageConfig.totalPage"
@@ -93,6 +97,7 @@ const updateCurPageEvent = (curPage: number) => {
   border-radius: 1rem;
   padding: 1rem;
   background-color: $background_color_box_dark;
+  position: relative;
 }
 
 .title {
@@ -109,6 +114,15 @@ const updateCurPageEvent = (curPage: number) => {
   cursor: pointer;
   border-radius: 1rem;
   transition: $transition_slow;
+}
+
+.publish {
+  position: absolute;
+  right: 3rem;
+  top: 4rem;
+  background-color: #b7b7b7;
+  color: #3d3d3d;
+  width: 6rem;
 }
 
 .edit_btn {

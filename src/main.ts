@@ -16,6 +16,8 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 import "@mdi/font/css/materialdesignicons.css";
+// VuetifyProTipTap
+import { vuetifyProTipTap } from "@/tiptap";
 
 const vuetify = createVuetify({
   components,
@@ -37,6 +39,7 @@ app.use(router);
 app.use(ElementPlus);
 app.use(store);
 app.use(vuetify);
+app.use(vuetifyProTipTap);
 
 // 注册 el-icon
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
