@@ -13,3 +13,8 @@ export const changePageHook = (route: string, func?: () => void) => {
     }
   });
 };
+
+export const openPageHook = (route: string) => {
+  const routeIntactUrl = router.resolve(route);
+  window.open(routeIntactUrl.href, "_blank");
+};

@@ -66,7 +66,7 @@ const updateCurPageEvent = (curPage: number) => {
         "
       >
         <td>{{ articleItem.title }}</td>
-        <td>{{ articleItem.author_id }}</td>
+        <td>{{ articleItem.author_nickname }}</td>
         <td>{{ articleItem.publish_time }}</td>
         <td>{{ articleItem.comment_count }}</td>
         <td>{{ articleItem.like_count }}</td>

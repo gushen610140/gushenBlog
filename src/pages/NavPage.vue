@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { changePageHook } from "@/hooks/useChangePageHook.ts";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 
 const navList = [
   {

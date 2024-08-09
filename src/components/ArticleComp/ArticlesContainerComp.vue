@@ -1,6 +1,10 @@
 <template>
   <div class="article_container">
-    <div v-for="article in articleList" :key="article.id">
+    <div
+      v-for="article in articleList"
+      :key="article.id"
+      @click="openPageHook(`/article/${article.id}`)"
+    >
       <ArticlesCardComp :articleInfo="article"></ArticlesCardComp>
     </div>
   </div>
@@ -10,6 +14,7 @@
 import ArticlesCardComp from "@/components/ArticleComp/ArticlesCardComp.vue";
 import { onMounted, ref } from "vue";
 import { getArticleListAPI } from "@/api/ArticleAPI.ts";
+import { openPageHook } from "@/hooks/useRouterHook.ts";
 
 const articleList = ref<ArticleDO[]>([]);
 

@@ -54,6 +54,10 @@ const routes = [
     path: "/forget_password",
     component: () => import("@/pages/ForgetPasswordPage.vue"),
   },
+  {
+    path: "/article/:id",
+    component: () => import("@/pages/ViewArticlePage.vue"),
+  },
 ];
 
 const router = createRouter({

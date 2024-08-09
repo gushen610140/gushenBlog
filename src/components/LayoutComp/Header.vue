@@ -46,7 +46,7 @@ import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getUserInfoAPI } from "@/api/UserAPI.ts";
 import { notice, noticeError } from "@/hooks/useNoticeMessageHook.ts";
-import { changePageHook } from "@/hooks/useChangePageHook.ts"; // 页面初始化动作
+import { changePageHook } from "@/hooks/useRouterHook.ts"; // 页面初始化动作
 
 // 页面初始化动作
 onMounted(() => {

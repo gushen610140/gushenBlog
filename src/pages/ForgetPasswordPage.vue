@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import GsInputFromUI from "@/components/GsUI/form/GsInputFormUI.vue";
 import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
-import { changePageHook } from "@/hooks/useChangePageHook.ts";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 import { sendCodeAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { userResetPasswordAPI } from "@/api/UserAPI.ts";

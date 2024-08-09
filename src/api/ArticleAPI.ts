@@ -24,3 +24,13 @@ export const getArticleCountAPI = () => {
     method: "GET",
   });
 };
+
+export const getArticleByIdAPI = (id: string) => {
+  return http<ArticleDO>({
+    url: "/article/view",
+    method: "GET",
+    params: {
+      id,
+    },
+  });
+};

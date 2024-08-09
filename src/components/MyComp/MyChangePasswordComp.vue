@@ -5,7 +5,7 @@ import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
 import { sendCodeByTokenAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { userChangePasswordAPI } from "@/api/UserAPI.ts";
-import { changePageHook } from "@/hooks/useChangePageHook.ts";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 
 const userChangePasswordVO = ref<UserChangePasswordVO>({
   old_password: "",

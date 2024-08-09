@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { changePageHook } from "@/hooks/useChangePageHook.js";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 import { onMounted, ref } from "vue";
 import { checkAdminAPI } from "@/api/UserAPI.ts";
 

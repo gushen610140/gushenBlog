@@ -4,7 +4,7 @@ import GsInputFromUI from "@/components/GsUI/form/GsInputFormUI.vue";
 import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
 import { userLoginAPI } from "@/api/UserAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
-import { changePageHook } from "@/hooks/useChangePageHook.ts";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 
 const userLoginVO = ref<UserLoginVO>({
   email: "",

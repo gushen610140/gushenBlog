@@ -7,7 +7,7 @@ import {
   noticeError,
   noticeSuccess,
 } from "@/hooks/useNoticeMessageHook.ts";
-import { changePageHook } from "@/hooks/useChangePageHook.ts";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 
 const userUpdateInfo = ref<UserUpdateInfoVO>({
   nickname: "",

@@ -1,5 +1,5 @@
 <template>
-  <div class="card_body" @click="isOpenViewWindow = true">
+  <div class="card_body">
     <div class="title">
       {{ props.articleInfo.title }}
     </div>
@@ -7,18 +7,10 @@
       {{ computedSimpleContent }}
     </div>
   </div>
-  <Transition>
-    <ArticleViewComp
-      v-if="isOpenViewWindow"
-      :articleInfo="props.articleInfo"
-      @closeViewWindow="isOpenViewWindow = false"
-    ></ArticleViewComp>
-  </Transition>
 </template>
 
 <script lang="ts" setup>
-import ArticleViewComp from "@/components/ArticleComp/ArticleViewComp.vue";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{
   articleInfo: ArticleDO;
@@ -30,8 +22,6 @@ const computedSimpleContent = computed(() =>
     ? props.articleInfo.content.substring(0, 80) + "..."
     : props.articleInfo.content,
 );
-
-const isOpenViewWindow = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -63,16 +53,5 @@ const isOpenViewWindow = ref(false);
   font-size: $font_size_regular;
   margin-top: 0.5rem;
   text-indent: 1rem;
-}
-
-// 文章窗口出现动画
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 200ms ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
 }
 </style>
