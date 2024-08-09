@@ -34,3 +34,11 @@ export const getArticleByIdAPI = (id: string) => {
     },
   });
 };
+
+export const addArticleAPI = (articlePostVO: ArticlePostVO) => {
+  return http<boolean>({
+    url: "/article/add",
+    method: "POST",
+    data: articlePostVO,
+  });
+};

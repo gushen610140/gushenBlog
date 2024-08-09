@@ -20,6 +20,11 @@ declare interface ArticleDO {
   author_nickname: string;
 }
 
+declare interface ArticlePostVO {
+  title: string;
+  content: string;
+}
+
 declare interface ProjectDO {
   id: string;
   title: string;
