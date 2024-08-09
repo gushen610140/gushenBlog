@@ -22,6 +22,12 @@ const handleLogin = () => {
     }
   });
 };
+
+const handleLoginByEnterEvent = (e: KeyboardEvent) => {
+  if (e.key === "Enter") {
+    handleLogin();
+  }
+};
 </script>
 
 <template>
@@ -41,6 +47,7 @@ const handleLogin = () => {
         label="密码"
         type="password"
         width="20rem"
+        @keydown="handleLoginByEnterEvent"
       ></GsInputFromUI>
       <GsButtonLoginUI content="确认" @click="handleLogin"></GsButtonLoginUI>
     </div>
