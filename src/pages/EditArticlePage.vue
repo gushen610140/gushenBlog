@@ -51,12 +51,12 @@ const updateEvent = () => {
     if (res.data) {
       noticeBarProperty.value = {
         show: true,
-        text: "更新成功，五秒后返回管理页面",
+        text: "更新成功，三秒后返回管理页面",
         type: "success",
       };
       setTimeout(() => {
         changePageHook("/my/article_manage");
-      }, 5000);
+      }, 3000);
     } else {
       noticeBarProperty.value = {
         show: true,
