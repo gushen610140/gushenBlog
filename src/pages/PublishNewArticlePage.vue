@@ -61,13 +61,16 @@ const publishEvent = () => {
   <el-row style="height: 6rem"></el-row>
   <VApp id="app" theme="dark">
     <VContainer>
-      <v-alert
-        v-if="noticeBarProperty.show"
-        :text="noticeBarProperty.text"
-        :type="noticeBarProperty.type"
-        closable
-        style="margin-bottom: 1rem"
-      ></v-alert>
+      <v-slide-y-transition>
+        <v-alert
+          v-model="noticeBarProperty.show"
+          :text="noticeBarProperty.text"
+          :type="noticeBarProperty.type"
+          closable
+          style="margin-bottom: 1rem"
+          @click:close="noticeBarProperty.show = false"
+        ></v-alert>
+      </v-slide-y-transition>
       <v-text-field
         v-model="articlePostVO.title"
         label="文章标题"

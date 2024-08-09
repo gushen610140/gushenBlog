@@ -3,9 +3,7 @@
     <div class="title">
       {{ props.articleInfo.title }}
     </div>
-    <div class="content">
-      {{ computedSimpleContent }}
-    </div>
+    <div class="content" v-html="computedSimpleContent"></div>
   </div>
 </template>
 

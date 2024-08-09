@@ -32,7 +32,7 @@ onMounted(() => {
     <div class="title">{{ articleDO.title }}</div>
     <div class="author">文章作者: {{ articleDO.author_nickname }}</div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
-    <div class="content">{{ articleDO.content }}</div>
+    <div class="content" v-html="articleDO.content"></div>
   </div>
 </template>
 
@@ -46,6 +46,7 @@ onMounted(() => {
   border-radius: 1rem;
   background-color: $background_color_box_dark;
   position: relative;
+  word-wrap: break-word;
 }
 
 .title {
@@ -59,5 +60,9 @@ onMounted(() => {
   position: absolute;
   right: 3rem;
   top: 4.5rem;
+}
+
+.content {
+  padding: 1rem;
 }
 </style>

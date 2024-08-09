@@ -1,4 +1,3 @@
-import { markRaw } from "vue";
 import {
   BaseKit,
   Blockquote,
@@ -32,7 +31,8 @@ import {
   VuetifyViewer,
 } from "vuetify-pro-tiptap";
 import "vuetify-pro-tiptap/style.css";
-import SelectImage from "@/components/FunctionComp/SelectImage.vue";
+import { markRaw } from "vue";
+import SelectLocalImage from "@/components/FunctionComp/SelectLocalImage.vue";
 
 export const vuetifyProTipTap = createVuetifyProTipTap({
   lang: "zhHans",
@@ -66,13 +66,8 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
     Indent.configure({ divider: true }),
     Link,
     Image.configure({
-      imageTabs: [{ name: "SELECT", component: markRaw(SelectImage) }],
-      // hiddenTabs: ['upload'],
-      upload(file: File) {
-        const url = URL.createObjectURL(file);
-        console.log("mock upload api :>> ", url);
-        return Promise.resolve(url);
-      },
+      imageTabs: [{ name: "本地图片", component: markRaw(SelectLocalImage) }],
+      hiddenTabs: ["upload"],
     }),
     Video,
     Table.configure({ divider: true }),

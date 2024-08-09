@@ -4,7 +4,7 @@ import {
   getArticleCountAPI,
   getArticleListByPageAPI,
 } from "@/api/ArticleAPI.ts";
-import { openPageHook } from "@/hooks/useRouterHook.ts";
+import { changePageHook } from "@/hooks/useRouterHook.ts";
 
 const articleList = ref<ArticleDO[]>([]);
 const pageConfig = ref({
@@ -40,7 +40,7 @@ const updateCurPageEvent = (curPage: number) => {
 <template>
   <div class="article_manage_container">
     <div class="title">文章管理</div>
-    <div class="btn publish" @click="openPageHook('/publish_article')">
+    <div class="btn publish" @click="changePageHook('/publish_article')">
       发布新文章
     </div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
@@ -120,8 +120,8 @@ const updateCurPageEvent = (curPage: number) => {
   position: absolute;
   right: 3rem;
   top: 4rem;
-  background-color: #b7b7b7;
-  color: #3d3d3d;
+  background-color: #cbcbcb;
+  color: #2f2f2f;
   width: 6rem;
 }
 
