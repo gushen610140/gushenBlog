@@ -125,6 +125,10 @@ const updateCurPageEvent = (curPage: number) => {
   width: 6rem;
 }
 
+.publish:hover {
+  box-shadow: 0 0 0.5rem #cbcbcb;
+}
+
 .edit_btn {
   background-color: #238636;
 }
