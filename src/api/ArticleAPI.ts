@@ -42,3 +42,11 @@ export const addArticleAPI = (articlePostVO: ArticlePostVO) => {
     data: articlePostVO,
   });
 };
+
+export const updateArticleAPI = (articleUpdateVO: ArticleUpdateVO) => {
+  return http<boolean>({
+    url: "/article/update",
+    method: "PUT",
+    data: articleUpdateVO,
+  });
+};

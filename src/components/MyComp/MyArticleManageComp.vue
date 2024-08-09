@@ -82,7 +82,12 @@ const updateCurPageEvent = (curPage: number) => {
             height: 3rem;
           "
         >
-          <div class="btn edit_btn">编辑</div>
+          <div
+            class="btn edit_btn"
+            @click="changePageHook(`/edit_article/${articleItem.id}`)"
+          >
+            编辑
+          </div>
           <div class="btn del_btn">删除</div>
         </td>
       </tr>

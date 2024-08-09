@@ -25,6 +25,12 @@ declare interface ArticlePostVO {
   content: string;
 }
 
+declare interface ArticleUpdateVO {
+  id: string;
+  title: string;
+  content: string;
+}
+
 declare interface ProjectDO {
   id: string;
   title: string;

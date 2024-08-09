@@ -62,6 +62,10 @@ const routes = [
     path: "/publish_article",
     component: () => import("@/pages/PublishNewArticlePage.vue"),
   },
+  {
+    path: "/edit_article/:id",
+    component: () => import("@/pages/EditArticlePage.vue"),
+  },
 ];
 
 const router = createRouter({
