@@ -8,7 +8,7 @@ import {
 const projectList = ref<ProjectDO[]>([]);
 const pageConfig = ref({
   curPage: 1,
-  pageSize: 1,
+  pageSize: 10,
   totalPage: 0,
 });
 
@@ -47,12 +47,12 @@ const updateCurPageEvent = (curPage: number) => {
       style="margin-bottom: 1rem"
       @update:modelValue="updateCurPageEvent"
     ></v-pagination>
-    <table style="padding: 1rem; margin: 0 1rem">
+    <table style="padding: 1rem; margin: 0 1rem; width: 100%">
       <tr style="text-align: center; height: 2rem; color: #b1b3b8">
-        <td style="width: 8rem">项目标题</td>
-        <td style="width: 15rem">发布时间</td>
-        <td style="width: 10rem">链接</td>
-        <td style="width: 10rem">操作</td>
+        <td style="width: 20%">项目标题</td>
+        <td style="width: 30%">发布时间</td>
+        <td style="width: 30%">链接</td>
+        <td style="width: 20%">操作</td>
       </tr>
       <tr
         v-for="articleItem in projectList"

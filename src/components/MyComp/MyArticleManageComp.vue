@@ -51,14 +51,14 @@ const updateCurPageEvent = (curPage: number) => {
       style="margin-bottom: 1rem"
       @update:modelValue="updateCurPageEvent"
     ></v-pagination>
-    <table style="padding: 1rem; margin: 0 1rem">
+    <table style="padding: 1rem; margin: 0 1rem; width: 100%">
       <tr style="text-align: center; height: 2rem; color: #b1b3b8">
-        <td style="width: 10rem">文章标题</td>
-        <td style="width: 5rem">作者</td>
-        <td style="width: 15rem">发布时间</td>
-        <td style="width: 4rem">评论数</td>
-        <td style="width: 4rem">收藏数</td>
-        <td style="width: 10rem">操作</td>
+        <td style="width: 30%">文章标题</td>
+        <td style="width: 10%">作者</td>
+        <td style="width: 20%">发布时间</td>
+        <td style="width: 10%">评论数</td>
+        <td style="width: 10%">收藏数</td>
+        <td style="width: 20%">操作</td>
       </tr>
       <tr
         v-for="articleItem in articleList"
