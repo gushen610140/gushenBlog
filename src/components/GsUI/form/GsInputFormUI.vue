@@ -8,7 +8,7 @@ const modelValue = defineModel();
 </script>
 
 <template>
-  <div class="container">
+  <div class="input_container">
     <input
       v-model="modelValue"
       :type="type || 'text'"
@@ -21,7 +21,7 @@ const modelValue = defineModel();
 </template>
 
 <style lang="scss" scoped>
-.container {
+.input_container {
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -29,7 +29,7 @@ const modelValue = defineModel();
   color: white;
 }
 
-.container .label {
+.input_container .label {
   font-size: 15px;
   padding-left: 10px;
   position: absolute;
@@ -62,15 +62,15 @@ const modelValue = defineModel();
     -1px -1px 3px rgba(255, 255, 255, 0.4);
 }
 
-.container .input:valid ~ .label,
-.container .input:focus ~ .label {
+.input_container .input:valid ~ .label,
+.input_container .input:focus ~ .label {
   transition: 0.3s;
   padding-left: 2px;
   transform: translateY(-35px);
 }
 
-.container .input:valid,
-.container .input:focus {
+.input_container .input:valid,
+.input_container .input:focus {
   box-shadow:
     3px 3px 5px rgba(0, 0, 0, 1),
     -1px -1px 3px rgba(255, 255, 255, 0.4);
