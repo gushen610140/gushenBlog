@@ -50,3 +50,13 @@ export const updateArticleAPI = (articleUpdateVO: ArticleUpdateVO) => {
     data: articleUpdateVO,
   });
 };
+
+export const deleteArticleAPI = (id: string) => {
+  return http<boolean>({
+    url: "/article/delete",
+    method: "DELETE",
+    params: {
+      id,
+    },
+  });
+};

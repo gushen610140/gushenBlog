@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 import {
+  deleteArticleAPI,
   getArticleCountAPI,
   getArticleListByPageAPI,
 } from "@/api/ArticleAPI.ts";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
+import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 
 const articleList = ref<ArticleDO[]>([]);
 const pageConfig = ref({
@@ -34,6 +36,17 @@ const updatePageEvent = () => {
 const updateCurPageEvent = (curPage: number) => {
   pageConfig.value.curPage = curPage;
   updatePageEvent();
+};
+
+const deleteArticleEvent = (id: string) => {
+  deleteArticleAPI(id).then((res) => {
+    if (res.data) {
+      noticeSuccess("删除成功");
+      updatePageEvent();
+    } else {
+      noticeError("删除失败");
+    }
+  });
 };
 </script>
 
@@ -88,7 +101,31 @@ const updateCurPageEvent = (curPage: number) => {
           >
             编辑
           </div>
-          <div class="btn del_btn">删除</div>
+          <v-dialog max-width="500" persistent theme="dark">
+            <template v-slot:activator="{ props }">
+              <div class="btn del_btn" v-bind="props">删除</div>
+            </template>
+
+            <template v-slot:default="{ isActive }">
+              <v-card title="提示">
+                <v-card-text
+                  >您确定要删除 {{ articleItem.title }} 这篇文章吗?
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn text="取消" @click="isActive.value = false"></v-btn>
+                  <v-btn
+                    color="red"
+                    text="确认删除"
+                    variant="flat"
+                    @click="
+                      deleteArticleEvent(articleItem.id);
+                      isActive.value = false;
+                    "
+                  ></v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
         </td>
       </tr>
     </table>
