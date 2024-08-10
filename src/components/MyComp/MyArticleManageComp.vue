@@ -17,11 +17,6 @@ const pageConfig = ref({
 
 onMounted(() => {
   updatePageEvent();
-  getArticleCountAPI().then((res) => {
-    pageConfig.value.totalPage = Math.ceil(
-      res.data / pageConfig.value.pageSize,
-    );
-  });
 });
 
 const updatePageEvent = () => {
@@ -30,6 +25,15 @@ const updatePageEvent = () => {
     pageConfig.value.pageSize,
   ).then((res) => {
     articleList.value = res.data;
+  });
+  getArticleCountAPI().then((res) => {
+    pageConfig.value.totalPage = Math.ceil(
+      res.data / pageConfig.value.pageSize,
+    );
+    if (pageConfig.value.curPage > pageConfig.value.totalPage) {
+      pageConfig.value.curPage = pageConfig.value.totalPage;
+      updatePageEvent();
+    }
   });
 };
 
@@ -59,6 +63,7 @@ const deleteArticleEvent = (id: string) => {
     <el-divider style="border-color: #e3e3e3"></el-divider>
     <v-pagination
       :length="pageConfig.totalPage"
+      :model-value="pageConfig.curPage"
       density="compact"
       rounded="circle"
       style="margin-bottom: 1rem"
