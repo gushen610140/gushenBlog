@@ -5,6 +5,7 @@ import {
   deleteProjectAPI,
   getProjectCountAPI,
   getProjectListByPageAPI,
+  updateProjectAPI,
 } from "@/api/ProjectAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 
@@ -16,6 +17,13 @@ const pageConfig = ref({
 });
 
 const projectPostVO = ref<ProjectPostVO>({
+  title: "",
+  content: "",
+  link: "",
+});
+
+const projectUpdateVO = ref<ProjectUpdateVO>({
+  id: "",
   title: "",
   content: "",
   link: "",
@@ -65,6 +73,33 @@ const deleteProjectEvent = (id: string) => {
     if (res.data) {
       noticeSuccess(res.message);
       updatePageEvent();
+    } else {
+      noticeError(res.message);
+    }
+  });
+};
+
+const initProjectUpdateVOEvent = (projectDO: ProjectDO) => {
+  projectUpdateVO.value = {
+    id: projectDO.id,
+    title: projectDO.title,
+    content: projectDO.content,
+    link: projectDO.link,
+  };
+};
+
+const updateProjectEvent = (isActive: Ref<boolean>) => {
+  updateProjectAPI(projectUpdateVO.value).then((res) => {
+    if (res.data) {
+      noticeSuccess(res.message);
+      updatePageEvent();
+      projectUpdateVO.value = {
+        id: "",
+        title: "",
+        content: "",
+        link: "",
+      };
+      isActive.value = false;
     } else {
       noticeError(res.message);
     }
@@ -124,7 +159,38 @@ const deleteProjectEvent = (id: string) => {
         <td>{{ projectItem.publish_time }}</td>
         <td>{{ projectItem.link }}</td>
         <td style="display: flex; align-items: center; justify-content: center; height: 3rem">
-          <div class="btn edit_btn">编辑</div>
+          <!-- 编辑 -->
+          <v-dialog max-width="600" persistent theme="dark">
+            <template v-slot:activator="{ props }">
+              <div
+                class="btn edit_btn"
+                v-bind="props"
+                @click="initProjectUpdateVOEvent(projectItem)"
+              >
+                编辑
+              </div>
+            </template>
+
+            <template v-slot:default="{ isActive }">
+              <v-card title="编辑项目">
+                <v-card-text>
+                  <v-text-field v-model="projectUpdateVO.title" label="项目标题"></v-text-field>
+                  <v-text-field v-model="projectUpdateVO.content" label="项目内容"></v-text-field>
+                  <v-text-field v-model="projectUpdateVO.link" label="项目链接"></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn text="取消" @click="isActive.value = false"></v-btn>
+                  <v-btn
+                    color="blue"
+                    text="更新"
+                    variant="flat"
+                    @click="updateProjectEvent(isActive)"
+                  ></v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
+          <!-- 删除 -->
           <v-dialog max-width="500" persistent theme="dark">
             <template v-slot:activator="{ props }">
               <div class="btn del_btn" v-bind="props">删除</div>

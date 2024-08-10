@@ -45,6 +45,13 @@ declare interface ProjectPostVO {
   link: string;
 }
 
+declare interface ProjectUpdateVO {
+  id: string;
+  title: string;
+  content: string;
+  link: string;
+}
+
 declare interface UserVO {
   id: string;
   nickname: string;

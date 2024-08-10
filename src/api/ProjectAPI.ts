@@ -42,3 +42,11 @@ export const deleteProjectAPI = (id: string) => {
     },
   });
 };
+
+export const updateProjectAPI = (projectPostVO: ProjectPostVO) => {
+  return http<boolean>({
+    url: "/project/update",
+    method: "PUT",
+    data: projectPostVO,
+  });
+};
