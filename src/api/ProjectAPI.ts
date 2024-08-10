@@ -24,3 +24,11 @@ export const getProjectCountAPI = () => {
     method: "GET",
   });
 };
+
+export const addProjectAPI = (projectPostVO: ProjectPostVO) => {
+  return http<boolean>({
+    url: "/project/add",
+    method: "POST",
+    data: projectPostVO,
+  });
+};

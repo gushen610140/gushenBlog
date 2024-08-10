@@ -39,6 +39,12 @@ declare interface ProjectDO {
   publish_time: string;
 }
 
+declare interface ProjectPostVO {
+  title: string;
+  content: string;
+  link: string;
+}
+
 declare interface UserVO {
   id: string;
   nickname: string;

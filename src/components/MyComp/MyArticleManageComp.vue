@@ -1,10 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
-import {
-  deleteArticleAPI,
-  getArticleCountAPI,
-  getArticleListByPageAPI,
-} from "@/api/ArticleAPI.ts";
+import { deleteArticleAPI, getArticleCountAPI, getArticleListByPageAPI } from "@/api/ArticleAPI.ts";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 
@@ -20,16 +16,11 @@ onMounted(() => {
 });
 
 const updatePageEvent = () => {
-  getArticleListByPageAPI(
-    pageConfig.value.curPage,
-    pageConfig.value.pageSize,
-  ).then((res) => {
+  getArticleListByPageAPI(pageConfig.value.curPage, pageConfig.value.pageSize).then((res) => {
     articleList.value = res.data;
   });
   getArticleCountAPI().then((res) => {
-    pageConfig.value.totalPage = Math.ceil(
-      res.data / pageConfig.value.pageSize,
-    );
+    pageConfig.value.totalPage = Math.ceil(res.data / pageConfig.value.pageSize);
     if (pageConfig.value.curPage > pageConfig.value.totalPage) {
       pageConfig.value.curPage = pageConfig.value.totalPage;
       updatePageEvent();
@@ -45,10 +36,10 @@ const updateCurPageEvent = (curPage: number) => {
 const deleteArticleEvent = (id: string) => {
   deleteArticleAPI(id).then((res) => {
     if (res.data) {
-      noticeSuccess("删除成功");
+      noticeSuccess(res.message);
       updatePageEvent();
     } else {
-      noticeError("删除失败");
+      noticeError(res.message);
     }
   });
 };
@@ -57,9 +48,7 @@ const deleteArticleEvent = (id: string) => {
 <template>
   <div class="article_manage_container">
     <div class="title">文章管理</div>
-    <div class="btn publish" @click="changePageHook('/publish_article')">
-      发布新文章
-    </div>
+    <div class="btn publish" @click="changePageHook('/publish_article')">发布新文章</div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
     <v-pagination
       :length="pageConfig.totalPage"
@@ -81,29 +70,15 @@ const deleteArticleEvent = (id: string) => {
       <tr
         v-for="articleItem in articleList"
         :key="articleItem.id"
-        style="
-          height: 3rem;
-          box-shadow: 0 5px 1px -5px #fff;
-          text-align: center;
-        "
+        style="height: 3rem; box-shadow: 0 5px 1px -5px #fff; text-align: center"
       >
         <td>{{ articleItem.title }}</td>
         <td>{{ articleItem.author_nickname }}</td>
         <td>{{ articleItem.publish_time }}</td>
         <td>{{ articleItem.comment_count }}</td>
         <td>{{ articleItem.like_count }}</td>
-        <td
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 3rem;
-          "
-        >
-          <div
-            class="btn edit_btn"
-            @click="changePageHook(`/edit_article/${articleItem.id}`)"
-          >
+        <td style="display: flex; align-items: center; justify-content: center; height: 3rem">
+          <div class="btn edit_btn" @click="changePageHook(`/edit_article/${articleItem.id}`)">
             编辑
           </div>
           <v-dialog max-width="500" persistent theme="dark">
@@ -113,9 +88,7 @@ const deleteArticleEvent = (id: string) => {
 
             <template v-slot:default="{ isActive }">
               <v-card title="提示">
-                <v-card-text
-                  >您确定要删除 {{ articleItem.title }} 这篇文章吗?
-                </v-card-text>
+                <v-card-text>您确定要删除 {{ articleItem.title }} 这篇文章吗? </v-card-text>
                 <v-card-actions>
                   <v-btn text="取消" @click="isActive.value = false"></v-btn>
                   <v-btn
