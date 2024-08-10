@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { onMounted, Ref, ref } from "vue";
-import { addProjectAPI, getProjectCountAPI, getProjectListByPageAPI } from "@/api/ProjectAPI.ts";
+import {
+  addProjectAPI,
+  deleteProjectAPI,
+  getProjectCountAPI,
+  getProjectListByPageAPI,
+} from "@/api/ProjectAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 
 const projectList = ref<ProjectDO[]>([]);
@@ -54,6 +59,17 @@ const publishProjectEvent = (isActive: Ref<boolean>) => {
     }
   });
 };
+
+const deleteProjectEvent = (id: string) => {
+  deleteProjectAPI(id).then((res) => {
+    if (res.data) {
+      noticeSuccess(res.message);
+      updatePageEvent();
+    } else {
+      noticeError(res.message);
+    }
+  });
+};
 </script>
 
 <template>
@@ -100,16 +116,38 @@ const publishProjectEvent = (isActive: Ref<boolean>) => {
         <td style="width: 20%">操作</td>
       </tr>
       <tr
-        v-for="articleItem in projectList"
-        :key="articleItem.id"
+        v-for="projectItem in projectList"
+        :key="projectItem.id"
         style="height: 3rem; box-shadow: 0 5px 1px -5px #fff; text-align: center"
       >
-        <td>{{ articleItem.title }}</td>
-        <td>{{ articleItem.publish_time }}</td>
-        <td>{{ articleItem.link }}</td>
+        <td>{{ projectItem.title }}</td>
+        <td>{{ projectItem.publish_time }}</td>
+        <td>{{ projectItem.link }}</td>
         <td style="display: flex; align-items: center; justify-content: center; height: 3rem">
           <div class="btn edit_btn">编辑</div>
-          <div class="btn del_btn">删除</div>
+          <v-dialog max-width="500" persistent theme="dark">
+            <template v-slot:activator="{ props }">
+              <div class="btn del_btn" v-bind="props">删除</div>
+            </template>
+
+            <template v-slot:default="{ isActive }">
+              <v-card title="提示">
+                <v-card-text>您确定要删除 {{ projectItem.title }} 这个项目吗? </v-card-text>
+                <v-card-actions>
+                  <v-btn text="取消" @click="isActive.value = false"></v-btn>
+                  <v-btn
+                    color="red"
+                    text="确认删除"
+                    variant="flat"
+                    @click="
+                      deleteProjectEvent(projectItem.id);
+                      isActive.value = false;
+                    "
+                  ></v-btn>
+                </v-card-actions>
+              </v-card>
+            </template>
+          </v-dialog>
         </td>
       </tr>
     </table>
