@@ -2,8 +2,15 @@
 import Header from "@/components/LayoutComp/Header.vue";
 
 import { useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { getArticleByIdAPI } from "@/api/ArticleAPI.ts";
+import {
+  addLikeAPI,
+  checkIsLikedAPI,
+  getLikeCountFromArticleAPI,
+  removeLikeFromArticleAPI,
+} from "@/api/LikeAPI.ts";
+import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 
 const route = useRoute();
 
@@ -18,11 +25,47 @@ const articleDO = ref<ArticleDO>({
   author_nickname: "",
 });
 
+const likeCount = ref<number>(0);
+const isLike = ref<boolean>(false);
+const likeIconColorComp = computed(() => {
+  if (isLike.value) {
+    return "yellow";
+  } else {
+    return "none";
+  }
+});
+
 onMounted(() => {
   getArticleByIdAPI(route.params.id as string).then((res) => {
     articleDO.value = res.data;
   });
+  getLikeCountFromArticleAPI(route.params.id as string).then((res) => {
+    if (res.code == 200) likeCount.value = res.data;
+  });
+  checkIsLikedAPI(route.params.id as string).then((res) => {
+    isLike.value = res.data;
+  });
 });
+
+const addLikeEvent = () => {
+  addLikeAPI(articleDO.value.id).then((res) => {
+    if (res.data) {
+      likeCount.value++;
+      isLike.value = true;
+      noticeSuccess(res.message);
+    } else {
+      removeLikeFromArticleAPI(articleDO.value.id).then((res) => {
+        if (res.data) {
+          likeCount.value--;
+          isLike.value = false;
+          noticeSuccess(res.message);
+        } else {
+          noticeError(res.message);
+        }
+      });
+    }
+  });
+};
 </script>
 
 <template>
@@ -33,6 +76,16 @@ onMounted(() => {
     <div class="author">文章作者: {{ articleDO.author_nickname }}</div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
     <div class="content" v-html="articleDO.content"></div>
+    <v-divider></v-divider>
+    <div class="container flex justify-end mt-5">
+      <v-icon
+        :color="likeIconColorComp"
+        class="cursor-pointer"
+        icon="mdi-star"
+        @click="addLikeEvent"
+      ></v-icon>
+      <span class="ml-2 text-center">{{ likeCount }}</span>
+    </div>
   </div>
 </template>
 
@@ -41,7 +94,7 @@ onMounted(() => {
 
 .article_container {
   width: 80vw;
-  margin: 0 auto;
+  margin: 0 auto 5rem;
   padding: 2rem;
   border-radius: 1rem;
   background-color: $background_color_box_dark;
