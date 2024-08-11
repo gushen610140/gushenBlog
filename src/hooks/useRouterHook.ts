@@ -18,3 +18,7 @@ export const openPageHook = (route: string) => {
   const routeIntactUrl = router.resolve(route);
   window.open(routeIntactUrl.href, "_blank");
 };
+
+export const reloadPage = () => {
+  router.go(0);
+};

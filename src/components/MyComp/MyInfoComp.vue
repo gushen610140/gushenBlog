@@ -8,7 +8,7 @@ import {
   uploadAvatarAPI,
 } from "@/api/UserAPI.ts";
 import { notice, noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
-import { changePageHook } from "@/hooks/useRouterHook.ts";
+import { changePageHook, reloadPage } from "@/hooks/useRouterHook.ts";
 
 const userAvatar = ref<string>("");
 const userUpdateInfo = ref<UserUpdateInfoVO>({
@@ -36,6 +36,7 @@ const updateProfileEvent = () => {
     .then((res) => {
       if (res.code == 200) {
         noticeSuccess(res.message);
+        reloadPage();
       } else {
         noticeError(res.message);
       }
@@ -65,6 +66,7 @@ const updateAvatarEvent = (isActive: Ref<boolean>) => {
         isActive.value = false;
         userUpdateAvatar.value = null;
         noticeSuccess(res.message);
+        reloadPage();
       } else {
         noticeError(res.message);
       }

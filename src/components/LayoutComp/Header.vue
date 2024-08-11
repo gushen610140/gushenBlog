@@ -18,22 +18,19 @@
     </ul>
     <div style="flex: 1"></div>
     <div style="display: flex; align-items: center">
-      <div
-        v-if="userNicknameComputed"
-        class="username"
-        @click="changePageHook('/my')"
-      >
+      <div v-if="userNicknameComputed" class="username" @click="changePageHook('/my')">
         {{ userNicknameComputed }}
       </div>
       <div v-else class="login_button" @click="changePageHook('/login')">
         <span>登录 / 注册</span>
       </div>
-      <img
+      <v-avatar
+        :image="userInfo?.avatar"
         alt="avatar"
-        src="../../static/default_avatar.svg"
-        style="height: 1.8rem; cursor: pointer"
+        size="30"
+        style="cursor: pointer"
         @click="changePageHook('/my', updateSelect)"
-      />
+      ></v-avatar>
       <div ref="usermoreRef" class="usermore">
         <div class="logout" @click="logout">退出登录</div>
       </div>
