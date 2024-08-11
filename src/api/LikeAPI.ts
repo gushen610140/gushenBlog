@@ -25,7 +25,7 @@ export const getLikeListAPI = () => {
 
 export const getLikeCountFromArticleAPI = (article_id: string) => {
   return http<number>({
-    url: "/like/count",
+    url: "/like/count_from_article",
     method: "GET",
     params: { article_id },
   });
@@ -44,5 +44,27 @@ export const removeLikeFromArticleAPI = (article_id: string) => {
     url: "/like/remove_from_article",
     method: "DELETE",
     params: { article_id },
+  });
+};
+
+export const getLikeListByUserAPI = () => {
+  return http<LikeDO[]>({
+    url: "/like/list_by_user",
+    method: "GET",
+  });
+};
+
+export const getLikeCountFromUserAPI = () => {
+  return http<number>({
+    url: "/like/count_from_user",
+    method: "GET",
+  });
+};
+
+export const getLikeListByUserByPageAPI = (curPage: number, pageSize: number) => {
+  return http<LikeDO[]>({
+    url: "/like/list_by_user_by_page",
+    method: "GET",
+    params: { curPage, pageSize },
   });
 };

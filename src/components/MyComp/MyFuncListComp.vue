@@ -37,7 +37,7 @@ onMounted(() => {
       class="function_item"
       @click="changePageHook('/my/user_like_article')"
     >
-      <span>收藏文章</span>
+      <span>收藏管理</span>
     </div>
     <div
       v-if="isAdmin"
