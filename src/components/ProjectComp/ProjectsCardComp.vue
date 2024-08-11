@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="card_body"
-    @mouseenter="isHover = true"
-    @mouseleave="isHover = false"
-  >
+  <div class="card_body" @mouseenter="isHover = true" @mouseleave="isHover = false">
     <div class="info" @click="openProject">
       <div class="title">
         {{ props.projectInfo.title }}
@@ -12,50 +8,17 @@
         {{ props.projectInfo.content }}
       </div>
     </div>
-
-    <transition name="del">
-      <el-icon v-if="isHover" :size="20" class="delete" @click="removeProject">
-        <Delete />
-      </el-icon>
-    </transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ElMessageBox } from "element-plus";
-import useCheckLogin from "@/hooks/useCheckLogin.ts";
-import { notice, noticeError } from "@/hooks/useNoticeMessageHook.ts";
 import { ref } from "vue";
-import { Delete } from "@element-plus/icons-vue";
 
 const props = defineProps<{ projectInfo: ProjectDO }>();
 const isHover = ref(false);
 
 const openProject = () => {
   window.open(props.projectInfo.link);
-};
-
-const emit = defineEmits(["projectDeleted"]);
-const removeProject = () => {
-  useCheckLogin().then((res) => {
-    if (res) {
-      ElMessageBox.confirm(
-        `项目 ${props.projectInfo.title} 将被删除，是否继续? `,
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        },
-      )
-        .then(() => {})
-        .catch(() => {
-          notice("已取消删除");
-        });
-    } else {
-      noticeError("请先进行登录");
-    }
-  });
 };
 </script>
 
@@ -76,7 +39,6 @@ const removeProject = () => {
 }
 
 .info {
-  width: 70%;
   cursor: pointer;
   overflow: hidden;
 }
