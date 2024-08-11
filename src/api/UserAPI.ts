@@ -31,9 +31,7 @@ export const userRegisterAPI = (userRegisterVO: UserRegisterVO) => {
   });
 };
 
-export const userChangePasswordAPI = (
-  userChangePasswordVO: UserChangePasswordVO,
-) => {
+export const userChangePasswordAPI = (userChangePasswordVO: UserChangePasswordVO) => {
   return http<boolean>({
     url: "/user/change_password",
     method: "POST",
@@ -41,9 +39,7 @@ export const userChangePasswordAPI = (
   });
 };
 
-export const userResetPasswordAPI = (
-  userForgetPasswordVO: UserForgetPasswordVO,
-) => {
+export const userResetPasswordAPI = (userForgetPasswordVO: UserForgetPasswordVO) => {
   return http<string>({
     url: "/user/reset_password",
     method: "PUT",
@@ -55,5 +51,13 @@ export const checkAdminAPI = () => {
   return http<boolean>({
     url: "/user/check_admin",
     method: "GET",
+  });
+};
+
+export const updateAvatarAPI = (file: File) => {
+  return http<string>({
+    url: "/user/update_avatar",
+    method: "POST",
+    data: file,
   });
 };
