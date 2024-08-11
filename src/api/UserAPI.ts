@@ -54,10 +54,20 @@ export const checkAdminAPI = () => {
   });
 };
 
-export const updateAvatarAPI = (file: File) => {
+export const uploadAvatarAPI = (formData: FormData) => {
   return http<string>({
-    url: "/user/update_avatar",
+    url: "/file/upload",
     method: "POST",
-    data: file,
+    data: formData,
+  });
+};
+
+export const updateAvatarAPI = (avatar: string) => {
+  return http<boolean>({
+    url: "/user/update_avatar",
+    method: "PUT",
+    params: {
+      avatar,
+    },
   });
 };

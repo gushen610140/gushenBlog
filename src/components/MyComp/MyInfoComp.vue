@@ -1,7 +1,12 @@
 <script lang="ts" setup>
 import GsInputUI from "@/components/GsUI/form/GsInputUI.vue";
-import { onMounted, ref } from "vue";
-import { getUserInfoAPI, updateAvatarAPI, updateUserInfoAPI } from "@/api/UserAPI.ts";
+import { onMounted, Ref, ref } from "vue";
+import {
+  getUserInfoAPI,
+  updateAvatarAPI,
+  updateUserInfoAPI,
+  uploadAvatarAPI,
+} from "@/api/UserAPI.ts";
 import { notice, noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
 
@@ -46,23 +51,25 @@ const logoutEvent = () => {
   changePageHook("/articles");
 };
 
-const updateAvatarEvent = () => {
+const updateAvatarEvent = (isActive: Ref<boolean>) => {
   if (userUpdateAvatar.value == null) {
     noticeError("请先选择图片");
     return;
   }
-  updateAvatarAPI(userUpdateAvatar.value)
-    .then((res) => {
-      if (res.code == 200) {
-        userAvatar.value = res.data;
+  const formData = new FormData();
+  formData.append("file", userUpdateAvatar.value);
+  uploadAvatarAPI(formData).then((avatarUrlRes) => {
+    updateAvatarAPI(avatarUrlRes.data).then((res) => {
+      if (res.data) {
+        userAvatar.value = avatarUrlRes.data;
+        isActive.value = false;
+        userUpdateAvatar.value = null;
         noticeSuccess(res.message);
       } else {
         noticeError(res.message);
       }
-    })
-    .catch(() => {
-      noticeError("请先登录");
     });
+  });
 };
 </script>
 
@@ -106,7 +113,12 @@ const updateAvatarEvent = () => {
               </v-card-text>
               <v-card-actions>
                 <v-btn text="取消" @click="isActive.value = false"></v-btn>
-                <v-btn color="blue" text="确认" variant="flat" @click="updateAvatarEvent"></v-btn>
+                <v-btn
+                  color="blue"
+                  text="确认"
+                  variant="flat"
+                  @click="updateAvatarEvent(isActive)"
+                ></v-btn>
               </v-card-actions>
             </v-card>
           </template>
