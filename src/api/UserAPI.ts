@@ -56,7 +56,7 @@ export const checkAdminAPI = () => {
 
 export const uploadAvatarAPI = (formData: FormData) => {
   return http<string>({
-    url: "/file/upload",
+    url: "/file/upload_avatar",
     method: "POST",
     data: formData,
   });

@@ -60,3 +60,11 @@ export const deleteArticleAPI = (id: string) => {
     },
   });
 };
+
+export const uploadBlogImageAPI = (formData: FormData) => {
+  return http<string>({
+    url: "/file/upload_blogImage",
+    method: "POST",
+    data: formData,
+  });
+};

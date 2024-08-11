@@ -31,8 +31,7 @@ import {
   VuetifyViewer,
 } from "vuetify-pro-tiptap";
 import "vuetify-pro-tiptap/style.css";
-import { markRaw } from "vue";
-import SelectLocalImage from "@/components/FunctionComp/SelectLocalImage.vue";
+import { uploadBlogImageAPI } from "@/api/ArticleAPI.ts";
 
 export const vuetifyProTipTap = createVuetifyProTipTap({
   lang: "zhHans",
@@ -66,8 +65,14 @@ export const vuetifyProTipTap = createVuetifyProTipTap({
     Indent.configure({ divider: true }),
     Link,
     Image.configure({
-      imageTabs: [{ name: "本地图片", component: markRaw(SelectLocalImage) }],
-      hiddenTabs: ["upload"],
+      upload(file) {
+        return new Promise(async (resolve) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          const res = await uploadBlogImageAPI(formData);
+          resolve(res.data);
+        });
+      },
     }),
     Video,
     Table.configure({ divider: true }),
