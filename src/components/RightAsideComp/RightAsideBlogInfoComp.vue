@@ -22,7 +22,7 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { noticeError } from "@/hooks/useNoticeMessageHook.ts";
 import getRunTime from "@/hooks/getRunTime.ts";
-import useWeather from "@/hooks/getMyWeather.ts";
+import useWeather from "@/hooks/getMyWeatherHook.ts";
 import { getArticleListAPI } from "@/api/ArticleAPI.ts";
 import { getProjectListAPI } from "@/api/ProjectAPI.ts";
 
