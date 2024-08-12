@@ -11,6 +11,8 @@ import {
   removeLikeFromArticleAPI,
 } from "@/api/LikeAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
+import CommentContainerComp from "@/components/ArticleComp/CommentContainerComp.vue";
+import { addCommentRootAPI, getCommentCountFromArticleAPI } from "@/api/CommentAPI.ts";
 
 const route = useRoute();
 
@@ -35,6 +37,10 @@ const likeIconColorComp = computed(() => {
   }
 });
 
+const commentCount = ref<number>(0);
+const isOpenCommentArea = ref<boolean>(false);
+const commentContent = ref("");
+
 onMounted(() => {
   getArticleByIdAPI(route.params.id as string).then((res) => {
     articleDO.value = res.data;
@@ -44,6 +50,9 @@ onMounted(() => {
   });
   checkIsLikedAPI(route.params.id as string).then((res) => {
     isLike.value = res.data;
+  });
+  getCommentCountFromArticleAPI(route.params.id as string).then((res) => {
+    commentCount.value = res.data;
   });
 });
 
@@ -66,6 +75,23 @@ const addLikeEvent = () => {
     }
   });
 };
+
+const openCommentAreaEvent = () => {
+  isOpenCommentArea.value = !isOpenCommentArea.value;
+};
+
+const addCommentRootEvent = () => {
+  addCommentRootAPI(route.params.id as string, commentContent.value).then((res) => {
+    if (res.data) {
+      commentContent.value = "";
+      isOpenCommentArea.value = false;
+      commentCount.value++;
+      noticeSuccess(res.message);
+    } else {
+      noticeError(res.message);
+    }
+  });
+};
 </script>
 
 <template>
@@ -81,11 +107,29 @@ const addLikeEvent = () => {
       <v-icon
         :color="likeIconColorComp"
         class="cursor-pointer"
-        icon="mdi-star"
+        icon="mdi-thumb-up"
         @click="addLikeEvent"
       ></v-icon>
-      <span class="ml-2 text-center">{{ likeCount }}</span>
+      <span class="ml-1 text-center">{{ likeCount }}</span>
+      <v-icon
+        class="cursor-pointer ml-4"
+        icon="mdi-message-reply-text"
+        @click="openCommentAreaEvent"
+      ></v-icon>
+      <span class="ml-1 text-center">{{ commentCount }}</span>
     </div>
+    <v-expand-transition>
+      <div v-show="isOpenCommentArea">
+        <v-textarea v-model="commentContent" class="mt-5" label="撰写评论"></v-textarea>
+        <div class="flex justify-end">
+          <v-btn color="blue" text="发表" theme="dark" @click="addCommentRootEvent"></v-btn>
+        </div>
+      </div>
+    </v-expand-transition>
+    <CommentContainerComp
+      :article_id="route.params.id as string"
+      class="mt-5"
+    ></CommentContainerComp>
   </div>
 </template>
 
