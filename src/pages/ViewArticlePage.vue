@@ -40,6 +40,7 @@ const likeIconColorComp = computed(() => {
 const commentCount = ref<number>(0);
 const isOpenCommentArea = ref<boolean>(false);
 const commentContent = ref("");
+const commentContainerCompRef = ref<InstanceType<typeof CommentContainerComp>>();
 
 onMounted(() => {
   getArticleByIdAPI(route.params.id as string).then((res) => {
@@ -86,6 +87,9 @@ const addCommentRootEvent = () => {
       commentContent.value = "";
       isOpenCommentArea.value = false;
       commentCount.value++;
+      if (commentContainerCompRef.value) {
+        commentContainerCompRef.value.getCommentListFromArticleEvent();
+      }
       noticeSuccess(res.message);
     } else {
       noticeError(res.message);
@@ -127,6 +131,7 @@ const addCommentRootEvent = () => {
       </div>
     </v-expand-transition>
     <CommentContainerComp
+      ref="commentContainerCompRef"
       :article_id="route.params.id as string"
       class="mt-5"
     ></CommentContainerComp>

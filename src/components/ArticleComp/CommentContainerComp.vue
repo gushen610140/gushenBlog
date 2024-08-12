@@ -29,10 +29,14 @@ const commentList = ref<CommentDO[]>([
 const commentContent = ref("");
 
 onMounted(() => {
+  getCommentListFromArticleEvent();
+});
+
+const getCommentListFromArticleEvent = () => {
   getCommentListFromArticleAPI(props.article_id).then((res) => {
     commentList.value = res.data;
   });
-});
+};
 
 const removeCommentEvent = (id: string) => {
   removeCommentAPI(id).then((res) => {
@@ -49,9 +53,7 @@ const addCommentChildEvent = (parent_comment_id: string, to_comment_id: string) 
   addCommentChildAPI(props.article_id, to_comment_id, parent_comment_id, commentContent.value).then(
     (res) => {
       if (res.data) {
-        getCommentListFromArticleAPI(props.article_id).then((res) => {
-          commentList.value = res.data;
-        });
+        getCommentListFromArticleEvent();
         commentContent.value = "";
         noticeSuccess(res.message);
       } else {
@@ -60,6 +62,12 @@ const addCommentChildEvent = (parent_comment_id: string, to_comment_id: string) 
     },
   );
 };
+
+defineExpose<{
+  getCommentListFromArticleEvent: () => void;
+}>({
+  getCommentListFromArticleEvent,
+});
 </script>
 
 <template>
@@ -81,10 +89,13 @@ const addCommentChildEvent = (parent_comment_id: string, to_comment_id: string) 
               <template v-slot:default="{ isActive }">
                 <v-card>
                   <v-card-title>回复评论</v-card-title>
-                  <v-card-text><v-text-field></v-text-field></v-card-text>
+                  <v-card-text><v-text-field v-model="commentContent"></v-text-field></v-card-text>
                   <v-card-actions>
                     <v-btn text="取消" @click="isActive.value = false"></v-btn>
-                    <v-btn text="回复" @click="addCommentChildEvent"></v-btn>
+                    <v-btn
+                      text="回复"
+                      @click="addCommentChildEvent(commentItem.id, commentItem.id)"
+                    ></v-btn>
                   </v-card-actions>
                 </v-card>
               </template>
@@ -117,7 +128,7 @@ const addCommentChildEvent = (parent_comment_id: string, to_comment_id: string) 
                       <v-btn text="取消" @click="isActive.value = false"></v-btn>
                       <v-btn
                         text="回复"
-                        @click="addCommentChildEvent(commentItem.id, childCommentItem.id)"
+                        @click="addCommentChildEvent(childCommentItem.id, commentItem.id)"
                       ></v-btn>
                     </v-card-actions>
                   </v-card>
