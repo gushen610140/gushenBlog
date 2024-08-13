@@ -22,7 +22,7 @@ const commentList = ref<CommentDO[]>([
     user_avatar: "string",
     user_nickname: "string",
     to_comment_id: "string",
-    to_commnet_user_id: "string",
+    to_comment_user_nickname: "string",
   },
 ]);
 
