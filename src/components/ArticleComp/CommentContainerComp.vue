@@ -111,7 +111,8 @@ defineExpose<{
           <v-card v-if="childCommentItem.parent_comment_id == commentItem.id" class="ml-10">
             <v-card-actions>
               <v-avatar :image="childCommentItem.user_avatar"></v-avatar>
-              {{ childCommentItem.user_nickname }} 回复 {{ commentItem.user_nickname }}
+              {{ childCommentItem.user_nickname }} 回复
+              {{ childCommentItem.to_comment_user_nickname }}
               <v-icon
                 icon="mdi-trash-can"
                 @click="removeCommentEvent(childCommentItem.id)"
