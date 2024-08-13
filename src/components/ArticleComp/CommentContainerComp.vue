@@ -71,17 +71,44 @@ defineExpose<{
 </script>
 
 <template>
-  <v-app theme="dark">
+  <v-app class="bg-transparent" theme="dark">
     <div class="container">
       <template v-for="commentItem in commentList">
-        <v-card v-if="commentItem.parent_comment_id == 'root'">
+        <v-card v-if="commentItem.parent_comment_id == 'root'" class="mb-3 bg-transparent">
           <v-card-actions>
-            <v-avatar :image="commentItem.user_avatar"></v-avatar>
+            <v-avatar :image="commentItem.user_avatar" class="ml-5 mr-3" size="30"></v-avatar>
             {{ commentItem.user_nickname }}
-            <v-icon icon="mdi-trash-can" @click="removeCommentEvent(commentItem.id)"></v-icon>
+            <div class="flex-1"></div>
+            <v-dialog max-width="400">
+              <template #activator="{ props }">
+                <v-icon icon="mdi-trash-can" v-bind="props"></v-icon>
+              </template>
+              <template #default="{ isActive }">
+                <v-card>
+                  <v-card-title>确认删除</v-card-title>
+                  <v-card-text>您确定要删除这条评论吗</v-card-text>
+                  <v-card-actions>
+                    <v-btn text="取消" @click="isActive.value = false"></v-btn>
+                    <v-btn
+                      color="red"
+                      text="确认"
+                      variant="flat"
+                      @click="
+                        removeCommentEvent(commentItem.id);
+                        isActive.value = false;
+                      "
+                    ></v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
           </v-card-actions>
-          <v-card-text>{{ commentItem.content }}</v-card-text>
+
+          <v-card-text class="ml-12">{{ commentItem.content }}</v-card-text>
+
           <v-card-actions>
+            <span class="ml-5 text-gray-400">{{ commentItem.publish_time }}</span>
+            <div class="flex-1"></div>
             <v-dialog max-width="800">
               <template v-slot:activator="{ props }">
                 <v-btn text="回复" v-bind="props"></v-btn>
@@ -107,19 +134,52 @@ defineExpose<{
             </v-dialog>
           </v-card-actions>
         </v-card>
+
         <template v-for="childCommentItem in commentList">
-          <v-card v-if="childCommentItem.parent_comment_id == commentItem.id" class="ml-10">
+          <v-card
+            v-if="childCommentItem.parent_comment_id == commentItem.id"
+            class="ml-10 mb-2 bg-transparent"
+          >
             <v-card-actions>
-              <v-avatar :image="childCommentItem.user_avatar"></v-avatar>
-              {{ childCommentItem.user_nickname }} 回复
+              <v-avatar
+                :image="childCommentItem.user_avatar"
+                class="ml-5 mr-3"
+                size="30"
+              ></v-avatar>
+              {{ childCommentItem.user_nickname }}
+              <span>&nbsp;回复&nbsp;</span>
               {{ childCommentItem.to_comment_user_nickname }}
-              <v-icon
-                icon="mdi-trash-can"
-                @click="removeCommentEvent(childCommentItem.id)"
-              ></v-icon>
+              <div class="flex-1"></div>
+              <v-dialog max-width="400">
+                <template #activator="{ props }">
+                  <v-icon icon="mdi-trash-can" v-bind="props"></v-icon>
+                </template>
+                <template #default="{ isActive }">
+                  <v-card>
+                    <v-card-title>确认删除</v-card-title>
+                    <v-card-text>您确定要删除这条评论吗</v-card-text>
+                    <v-card-actions>
+                      <v-btn text="取消" @click="isActive.value = false"></v-btn>
+                      <v-btn
+                        color="red"
+                        text="确认"
+                        variant="flat"
+                        @click="
+                          removeCommentEvent(commentItem.id);
+                          isActive.value = false;
+                        "
+                      ></v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </template>
+              </v-dialog>
             </v-card-actions>
-            <v-card-text>{{ childCommentItem.content }}</v-card-text>
+
+            <v-card-text class="ml-12">{{ childCommentItem.content }}</v-card-text>
+
             <v-card-actions>
+              <span class="ml-5 text-gray-400">{{ commentItem.publish_time }}</span>
+              <div class="flex-1"></div>
               <v-dialog max-width="800">
                 <template v-slot:activator="{ props }">
                   <v-btn text="回复" v-bind="props"></v-btn>
