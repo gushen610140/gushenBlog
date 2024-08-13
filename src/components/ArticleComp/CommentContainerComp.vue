@@ -6,6 +6,7 @@ import {
   removeCommentAPI,
 } from "@/api/CommentAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
+import { checkStringIsSpace } from "@/hooks/useCheckSpaceHook.ts";
 
 const props = defineProps<{
   article_id: string;
@@ -50,6 +51,10 @@ const removeCommentEvent = (id: string) => {
 };
 
 const addCommentChildEvent = (to_comment_id: string, parent_comment_id: string) => {
+  if (checkStringIsSpace(commentContent.value)) {
+    noticeError("评论内容不能为空");
+    return;
+  }
   addCommentChildAPI(props.article_id, to_comment_id, parent_comment_id, commentContent.value).then(
     (res) => {
       if (res.data) {
@@ -165,7 +170,7 @@ defineExpose<{
                         text="确认"
                         variant="flat"
                         @click="
-                          removeCommentEvent(commentItem.id);
+                          removeCommentEvent(childCommentItem.id);
                           isActive.value = false;
                         "
                       ></v-btn>
