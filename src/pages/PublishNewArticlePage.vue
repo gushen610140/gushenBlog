@@ -4,6 +4,7 @@ import "vuetify/styles";
 import { VuetifyTiptap, VuetifyViewer } from "vuetify-pro-tiptap";
 import Header from "@/components/LayoutComp/Header.vue";
 import { addArticleAPI } from "@/api/ArticleAPI.ts";
+import { checkHtmlContentIsSpace } from "@/hooks/useCheckSpaceHook.ts";
 
 const articlePostVO = ref<ArticlePostVO>({
   title: "",
@@ -21,11 +22,9 @@ const noticeBarProperty = ref<{
 });
 
 const publishEvent = () => {
-  // TODO 检测内容是否真的为空
   if (
-    articlePostVO.value.title == "" ||
-    articlePostVO.value.content == "" ||
-    articlePostVO.value.content == "<p></p>"
+    checkHtmlContentIsSpace(articlePostVO.value.title) ||
+    checkHtmlContentIsSpace(articlePostVO.value.content)
   ) {
     noticeBarProperty.value = {
       show: true,
@@ -71,10 +70,7 @@ const publishEvent = () => {
           @click:close="noticeBarProperty.show = false"
         ></v-alert>
       </v-slide-y-transition>
-      <v-text-field
-        v-model="articlePostVO.title"
-        label="文章标题"
-      ></v-text-field>
+      <v-text-field v-model="articlePostVO.title" label="文章标题"></v-text-field>
       <VuetifyTiptap
         v-model="articlePostVO.content"
         :max-height="465"
@@ -88,9 +84,7 @@ const publishEvent = () => {
         <v-row>
           <v-col cols="11"></v-col>
           <v-col cols="1"
-            ><v-btn min-width="100%" variant="tonal" @click="publishEvent"
-              >发表</v-btn
-            ></v-col
+            ><v-btn min-width="100%" variant="tonal" @click="publishEvent">发表</v-btn></v-col
           >
         </v-row>
       </v-container>

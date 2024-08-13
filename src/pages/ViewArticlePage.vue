@@ -13,6 +13,7 @@ import {
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import CommentContainerComp from "@/components/ArticleComp/CommentContainerComp.vue";
 import { addCommentRootAPI, getCommentCountFromArticleAPI } from "@/api/CommentAPI.ts";
+import { checkStringIsSpace } from "@/hooks/useCheckSpaceHook.ts";
 
 const route = useRoute();
 
@@ -77,6 +78,10 @@ const addLikeEvent = () => {
 };
 
 const addCommentRootEvent = () => {
+  if (checkStringIsSpace(commentContent.value)) {
+    noticeError("评论内容不能为空");
+    return;
+  }
   addCommentRootAPI(route.params.id as string, commentContent.value).then((res) => {
     if (res.data) {
       commentContent.value = "";

@@ -6,6 +6,7 @@ import Header from "@/components/LayoutComp/Header.vue";
 import { getArticleByIdAPI, updateArticleAPI } from "@/api/ArticleAPI.ts";
 import { useRoute } from "vue-router";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
+import { checkHtmlContentIsSpace } from "@/hooks/useCheckSpaceHook.ts";
 
 const route = useRoute();
 
@@ -34,11 +35,9 @@ const noticeBarProperty = ref<{
 });
 
 const updateEvent = () => {
-  // TODO 检测内容是否真的为空
   if (
-    articleUpdateVO.value.title == "" ||
-    articleUpdateVO.value.content == "" ||
-    articleUpdateVO.value.content == "<p></p>"
+    checkHtmlContentIsSpace(articleUpdateVO.value.title) ||
+    checkHtmlContentIsSpace(articleUpdateVO.value.content)
   ) {
     noticeBarProperty.value = {
       show: true,
@@ -83,10 +82,7 @@ const updateEvent = () => {
           @click:close="noticeBarProperty.show = false"
         ></v-alert>
       </v-slide-y-transition>
-      <v-text-field
-        v-model="articleUpdateVO.title"
-        label="文章标题"
-      ></v-text-field>
+      <v-text-field v-model="articleUpdateVO.title" label="文章标题"></v-text-field>
       <VuetifyTiptap
         v-model="articleUpdateVO.content"
         :max-height="465"
@@ -100,9 +96,7 @@ const updateEvent = () => {
         <v-row>
           <v-col cols="11"></v-col>
           <v-col cols="1"
-            ><v-btn min-width="100%" variant="tonal" @click="updateEvent"
-              >更新</v-btn
-            ></v-col
+            ><v-btn min-width="100%" variant="tonal" @click="updateEvent">更新</v-btn></v-col
           >
         </v-row>
       </v-container>
