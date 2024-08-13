@@ -49,7 +49,7 @@ const removeCommentEvent = (id: string) => {
   });
 };
 
-const addCommentChildEvent = (parent_comment_id: string, to_comment_id: string) => {
+const addCommentChildEvent = (to_comment_id: string, parent_comment_id: string) => {
   addCommentChildAPI(props.article_id, to_comment_id, parent_comment_id, commentContent.value).then(
     (res) => {
       if (res.data) {
@@ -94,7 +94,10 @@ defineExpose<{
                     <v-btn text="取消" @click="isActive.value = false"></v-btn>
                     <v-btn
                       text="回复"
-                      @click="addCommentChildEvent(commentItem.id, commentItem.id)"
+                      @click="
+                        addCommentChildEvent(commentItem.id, commentItem.id);
+                        isActive.value = false;
+                      "
                     ></v-btn>
                   </v-card-actions>
                 </v-card>
@@ -103,7 +106,7 @@ defineExpose<{
           </v-card-actions>
         </v-card>
         <template v-for="childCommentItem in commentList">
-          <v-card v-if="childCommentItem.parent_comment_id == commentItem.id">
+          <v-card v-if="childCommentItem.parent_comment_id == commentItem.id" class="ml-10">
             <v-card-actions>
               <v-avatar :image="childCommentItem.user_avatar"></v-avatar>
               {{ childCommentItem.user_nickname }} 回复 {{ commentItem.user_nickname }}
@@ -128,7 +131,10 @@ defineExpose<{
                       <v-btn text="取消" @click="isActive.value = false"></v-btn>
                       <v-btn
                         text="回复"
-                        @click="addCommentChildEvent(childCommentItem.id, commentItem.id)"
+                        @click="
+                          addCommentChildEvent(childCommentItem.id, commentItem.id);
+                          isActive.value = false;
+                        "
                       ></v-btn>
                     </v-card-actions>
                   </v-card>
