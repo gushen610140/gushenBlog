@@ -93,7 +93,9 @@ defineExpose<{
                   <v-card-actions>
                     <v-btn text="取消" @click="isActive.value = false"></v-btn>
                     <v-btn
+                      color="blue"
                       text="回复"
+                      variant="flat"
                       @click="
                         addCommentChildEvent(commentItem.id, commentItem.id);
                         isActive.value = false;
@@ -130,7 +132,9 @@ defineExpose<{
                     <v-card-actions>
                       <v-btn text="取消" @click="isActive.value = false"></v-btn>
                       <v-btn
+                        color="blue"
                         text="回复"
+                        variant="flat"
                         @click="
                           addCommentChildEvent(childCommentItem.id, commentItem.id);
                           isActive.value = false;
