@@ -38,7 +38,6 @@ const likeIconColorComp = computed(() => {
 });
 
 const commentCount = ref<number>(0);
-const isOpenCommentArea = ref<boolean>(false);
 const commentContent = ref("");
 const commentContainerCompRef = ref<InstanceType<typeof CommentContainerComp>>();
 
@@ -77,15 +76,10 @@ const addLikeEvent = () => {
   });
 };
 
-const openCommentAreaEvent = () => {
-  isOpenCommentArea.value = !isOpenCommentArea.value;
-};
-
 const addCommentRootEvent = () => {
   addCommentRootAPI(route.params.id as string, commentContent.value).then((res) => {
     if (res.data) {
       commentContent.value = "";
-      isOpenCommentArea.value = false;
       commentCount.value++;
       if (commentContainerCompRef.value) {
         commentContainerCompRef.value.getCommentListFromArticleEvent();
@@ -115,21 +109,15 @@ const addCommentRootEvent = () => {
         @click="addLikeEvent"
       ></v-icon>
       <span class="ml-1 text-center">{{ likeCount }}</span>
-      <v-icon
-        class="cursor-pointer ml-4"
-        icon="mdi-message-reply-text"
-        @click="openCommentAreaEvent"
-      ></v-icon>
+      <v-icon class="ml-4" icon="mdi-message-reply-text"></v-icon>
       <span class="ml-1 text-center">{{ commentCount }}</span>
     </div>
-    <v-expand-transition>
-      <div v-show="isOpenCommentArea">
-        <v-textarea v-model="commentContent" class="mt-5" label="撰写评论"></v-textarea>
-        <div class="flex justify-end">
-          <v-btn color="blue" text="发表" theme="dark" @click="addCommentRootEvent"></v-btn>
-        </div>
+    <div>
+      <v-textarea v-model="commentContent" class="mt-5" label="撰写评论"></v-textarea>
+      <div class="flex justify-end">
+        <v-btn color="blue" text="发表" theme="dark" @click="addCommentRootEvent"></v-btn>
       </div>
-    </v-expand-transition>
+    </div>
     <CommentContainerComp
       ref="commentContainerCompRef"
       :article_id="route.params.id as string"
