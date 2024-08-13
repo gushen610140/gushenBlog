@@ -82,7 +82,7 @@ defineExpose<{
           </v-card-actions>
           <v-card-text>{{ commentItem.content }}</v-card-text>
           <v-card-actions>
-            <v-dialog>
+            <v-dialog max-width="800">
               <template v-slot:activator="{ props }">
                 <v-btn text="回复" v-bind="props"></v-btn>
               </template>
@@ -117,7 +117,7 @@ defineExpose<{
             </v-card-actions>
             <v-card-text>{{ childCommentItem.content }}</v-card-text>
             <v-card-actions>
-              <v-dialog>
+              <v-dialog max-width="800">
                 <template v-slot:activator="{ props }">
                   <v-btn text="回复" v-bind="props"></v-btn>
                 </template>
