@@ -1,25 +1,21 @@
 <template>
-  <div class="card_body">
+  <div class="card_body container h-44 overflow-hidden">
     <div class="title">
       {{ props.articleInfo.title }}
     </div>
-    <div class="content" v-html="computedSimpleContent"></div>
+    <div
+      class="overflow-hidden indent-4 mt-2 text-ellipsis mb-10"
+      v-html="articleInfo.content"
+    ></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-
 const props = defineProps<{
   articleInfo: ArticleDO;
 }>();
 
-// TODO 文字裁剪长度随高度变化
-const computedSimpleContent = computed(() =>
-  props.articleInfo.content.length > 80
-    ? props.articleInfo.content.substring(0, 80) + "..."
-    : props.articleInfo.content,
-);
+// TODO 文章简介
 </script>
 
 <style lang="scss" scoped>
@@ -44,12 +40,5 @@ const computedSimpleContent = computed(() =>
   color: transparent;
   font-size: $font_size_little_big;
   font-weight: $font_weight_big;
-}
-
-.content {
-  color: $font_color_white;
-  font-size: $font_size_regular;
-  margin-top: 0.5rem;
-  text-indent: 1rem;
 }
 </style>

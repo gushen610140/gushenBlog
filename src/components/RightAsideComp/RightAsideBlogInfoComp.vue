@@ -1,7 +1,7 @@
 <template>
   <div class="blog_info_container">
-    <div style="text-align: center">网站信息</div>
-    <ul>
+    <div class="text-center">网站信息</div>
+    <ul class="list-none">
       <li>
         <span>项目数量： {{ projectCount }}</span>
       </li>
@@ -21,8 +21,8 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { noticeError } from "@/hooks/useNoticeMessageHook.ts";
-import getRunTime from "@/hooks/getRunTime.ts";
-import useWeather from "@/hooks/getMyWeatherHook.ts";
+import getRunTime from "@/hooks/useRunTimeHook.ts";
+import useWeather from "@/hooks/useMyWeatherHook.ts";
 import { getArticleListAPI } from "@/api/ArticleAPI.ts";
 import { getProjectListAPI } from "@/api/ProjectAPI.ts";
 
@@ -72,15 +72,13 @@ onBeforeUnmount(() => {
 
 .blog_info_container {
   padding: 1rem;
-  height: 10rem;
   background-color: $background_color_box_dark;
   transition: $transition_slow;
   border-radius: 1rem;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   line-height: $line_height_big;
-  color: $color_small;
+  color: $font_color_white;
 }
 
 .blog_info_container:hover {

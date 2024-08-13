@@ -2,17 +2,15 @@
 
 <template>
   <div class="blog_law_container">
-    <div style="text-align: center">网站相关</div>
-    <ul>
+    <div class="text-center">网站相关</div>
+    <ul class="list-none">
       <li>
         <span>版权归属： © 2009-2019 Aliyun.com 版权所有</span>
       </li>
       <li>
         <span
           >备案信息：
-          <a href="https://beian.miit.gov.cn" target="_blank"
-            >浙ICP备2023048008号-1</a
-          ></span
+          <a href="https://beian.miit.gov.cn" target="_blank">浙ICP备2023048008号-1</a></span
         >
       </li>
       <li>
@@ -27,15 +25,13 @@
 
 .blog_law_container {
   padding: 1rem;
-  height: 10rem;
   background-color: $background_color_box_dark;
   transition: $transition_slow;
   border-radius: 1rem;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   line-height: $line_height_big;
-  color: $color_small;
+  color: $font_color_white;
 }
 
 .blog_law_container:hover {
@@ -43,14 +39,6 @@
 }
 
 a {
-  color: transparent;
-  background-image: $background_image_regular;
-  background-clip: text;
-  filter: brightness(4);
-  transition: $transition_regular;
-}
-
-a:hover {
-  filter: none;
+  color: $font_color_white;
 }
 </style>

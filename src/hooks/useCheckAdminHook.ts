@@ -1,7 +1,7 @@
 import { checkAdminAPI } from "@/api/UserAPI.ts";
 import { noticeError } from "@/hooks/useNoticeMessageHook.ts";
 
-export const routerCheckAdminHook = async () => {
+export const useCheckAdminHook = async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     return false;

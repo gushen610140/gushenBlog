@@ -10,12 +10,16 @@
 
   color: $font_color_white;
   font-weight: $font_weight_regular;
-  background-color: $background-color-dark;
+  background-color: $background_color_dark;
 
   // 浏览器自动优化字体
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  a {
+    color: rgb(8 145 178);
+  }
 }
 
 body {

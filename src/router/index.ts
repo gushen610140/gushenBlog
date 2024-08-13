@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { routerCheckAdminHook } from "@/hooks/routerCheckAdminHook.ts";
+import { useCheckAdminHook } from "@/hooks/useCheckAdminHook.ts";
 
 const routes = [
   {
     path: "/",
-    component: () => import("@/pages/NavPage.vue"),
+    redirect: "/articles",
   },
   {
     path: "/projects",
@@ -29,12 +29,12 @@ const routes = [
       {
         path: "article_manage",
         component: () => import("@/components/MyComp/MyArticleManageComp.vue"),
-        beforeEnter: routerCheckAdminHook,
+        beforeEnter: useCheckAdminHook,
       },
       {
         path: "project_manage",
         component: () => import("@/components/MyComp/MyProjectManageComp.vue"),
-        beforeEnter: routerCheckAdminHook,
+        beforeEnter: useCheckAdminHook,
       },
       {
         path: "change_password",

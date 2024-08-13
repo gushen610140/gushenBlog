@@ -1,5 +1,5 @@
 <template>
-  <div class="card_body" @mouseenter="isHover = true" @mouseleave="isHover = false">
+  <div class="card_body">
     <div class="info" @click="openProject">
       <div class="title">
         {{ props.projectInfo.title }}
@@ -12,10 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-
 const props = defineProps<{ projectInfo: ProjectDO }>();
-const isHover = ref(false);
 
 const openProject = () => {
   window.open(props.projectInfo.link);

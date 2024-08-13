@@ -17,8 +17,6 @@ window.onresize = () => {
 
 <style lang="scss">
 @import "@/styles/index.scss";
-@import "@/styles/base.scss";
-@import "@/styles/element.scss";
 
 .app {
   // 解决 margin 塌陷问题

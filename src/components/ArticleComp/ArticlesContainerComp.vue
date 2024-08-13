@@ -1,5 +1,5 @@
 <template>
-  <div class="article_container">
+  <div class="pb-5 pt-5 container grid grid-cols-2 gap-4">
     <div
       v-for="article in articleList"
       :key="article.id"
@@ -25,13 +25,4 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-@import "@/styles/variables.scss";
-
-.article_container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding: 1rem 0;
-}
-</style>
+<style lang="scss" scoped></style>
