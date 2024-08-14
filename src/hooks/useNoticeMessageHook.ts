@@ -1,37 +1,17 @@
-// 重新封装了 ElMessage 组件
+// 简单封装toast组件
 
-import { ElMessage } from "element-plus";
+import { useToast } from "vue-toastification";
 
-// TODO el-message 背景改成黑色
+const toast = useToast();
 
 export function noticeSuccess(message: string) {
-  ElMessage({
-    showClose: true,
-    type: "success",
-    message: message,
-  });
+  toast.success(message, { timeout: 4000 });
 }
 
 export function noticeError(message: string) {
-  ElMessage({
-    showClose: true,
-    type: "error",
-    message: message,
-  });
-}
-
-export function noticeWarning(message: string) {
-  ElMessage({
-    showClose: true,
-    type: "warning",
-    message: message,
-  });
+  toast.error(message, { timeout: 4000 });
 }
 
 export function notice(message: string) {
-  ElMessage({
-    showClose: true,
-    type: "info",
-    message: message,
-  });
+  toast.info(message, { timeout: 4000 });
 }

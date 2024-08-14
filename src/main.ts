@@ -18,6 +18,9 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 import "@mdi/font/css/materialdesignicons.css";
 // VuetifyProTipTap
 import { vuetifyProTipTap } from "@/tiptap";
+// VueToast
+import Toast, { POSITION } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 const vuetify = createVuetify({
   components,
@@ -40,6 +43,9 @@ app.use(ElementPlus);
 app.use(store);
 app.use(vuetify);
 app.use(vuetifyProTipTap);
+app.use(Toast, {
+  position: POSITION.BOTTOM_LEFT,
+});
 
 // 注册 el-icon
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
