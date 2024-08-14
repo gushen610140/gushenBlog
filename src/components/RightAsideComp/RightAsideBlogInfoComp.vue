@@ -23,8 +23,8 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 import { noticeError } from "@/hooks/useNoticeMessageHook.ts";
 import getRunTime from "@/hooks/useRunTimeHook.ts";
 import useWeather from "@/hooks/useMyWeatherHook.ts";
-import { getArticleListAPI } from "@/api/ArticleAPI.ts";
-import { getProjectListAPI } from "@/api/ProjectAPI.ts";
+import { getArticleCountAPI } from "@/api/ArticleAPI.ts";
+import { getProjectCountAPI } from "@/api/ProjectAPI.ts";
 
 const runTime = ref(getRunTime());
 const { weatherInfo, getWeatherInfo } = useWeather();
@@ -35,17 +35,17 @@ let timeInterval: any = null;
 let weatherInterval: any = null;
 
 onMounted(() => {
-  getArticleListAPI()
+  getArticleCountAPI()
     .then((res) => {
-      articleCount.value = res.data.length;
+      articleCount.value = res.data;
     })
     .catch((err) => {
       noticeError(err.message);
     });
 
-  getProjectListAPI()
+  getProjectCountAPI()
     .then((res) => {
-      projectCount.value = res.data.length;
+      projectCount.value = res.data;
     })
     .catch((err) => {
       noticeError(err.message);
