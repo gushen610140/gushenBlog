@@ -64,7 +64,6 @@ onMounted(() => {
   }
 });
 
-// TODO 将动态导航栏优化为静态
 // 导航栏
 const navList = reactive([
   {
