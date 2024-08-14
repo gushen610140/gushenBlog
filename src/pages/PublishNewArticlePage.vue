@@ -4,11 +4,12 @@ import "vuetify/styles";
 import { VuetifyTiptap, VuetifyViewer } from "vuetify-pro-tiptap";
 import Header from "@/components/LayoutComp/Header.vue";
 import { addArticleAPI } from "@/api/ArticleAPI.ts";
-import { checkHtmlContentIsSpace } from "@/hooks/useCheckSpaceHook.ts";
+import { checkHtmlContentIsSpace, checkStringIsSpace } from "@/hooks/useCheckSpaceHook.ts";
 
 const articlePostVO = ref<ArticlePostVO>({
   title: "",
   content: "",
+  introduction: "",
 });
 
 const noticeBarProperty = ref<{
@@ -23,12 +24,13 @@ const noticeBarProperty = ref<{
 
 const publishEvent = () => {
   if (
-    checkHtmlContentIsSpace(articlePostVO.value.title) ||
-    checkHtmlContentIsSpace(articlePostVO.value.content)
+    checkStringIsSpace(articlePostVO.value.title) ||
+    checkHtmlContentIsSpace(articlePostVO.value.content) ||
+    checkStringIsSpace(articlePostVO.value.introduction)
   ) {
     noticeBarProperty.value = {
       show: true,
-      text: "标题或内容不能为空",
+      text: "请填写完整的内容",
       type: "error",
     };
     return;
@@ -43,6 +45,7 @@ const publishEvent = () => {
       articlePostVO.value = {
         title: "",
         content: "",
+        introduction: "",
       };
     } else {
       noticeBarProperty.value = {
@@ -70,7 +73,16 @@ const publishEvent = () => {
           @click:close="noticeBarProperty.show = false"
         ></v-alert>
       </v-slide-y-transition>
-      <v-text-field v-model="articlePostVO.title" label="文章标题"></v-text-field>
+      <v-text-field
+        v-model="articlePostVO.title"
+        label="文章标题"
+        placeholder="建议在10个字符以内"
+      ></v-text-field>
+      <v-text-field
+        v-model="articlePostVO.introduction"
+        label="文章简介"
+        placeholder="建议在20-50个字符"
+      ></v-text-field>
       <VuetifyTiptap
         v-model="articlePostVO.content"
         :max-height="465"

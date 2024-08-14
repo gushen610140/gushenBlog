@@ -22,10 +22,9 @@ const articleDO = ref<ArticleDO>({
   title: "文章加载中，请稍候",
   content: "文章加载中，请稍候",
   publish_time: "",
-  comment_count: 0,
-  like_count: 0,
   author_id: "",
   author_nickname: "",
+  introduction: "文章加载中，请稍候",
 });
 
 const likeCount = ref<number>(0);
@@ -101,10 +100,13 @@ const addCommentRootEvent = () => {
   <Header></Header>
   <el-row style="height: 6rem"></el-row>
   <div class="article_container">
-    <div class="title">{{ articleDO.title }}</div>
+    <div class="title mb-8">{{ articleDO.title }}</div>
     <div class="author">文章作者: {{ articleDO.author_nickname }}</div>
-    <el-divider style="border-color: #e3e3e3"></el-divider>
-    <div class="content" v-html="articleDO.content"></div>
+    <div class="p-4 text-zinc-300 bg-neutral-700 rounded-lg ml-10 mr-10">
+      <v-icon icon="mdi-tooltip-text-outline"></v-icon>
+      {{ articleDO.introduction }}
+    </div>
+    <div class="p-10" v-html="articleDO.content"></div>
     <v-divider></v-divider>
     <div class="container flex justify-end mt-5">
       <v-icon
@@ -155,9 +157,5 @@ const addCommentRootEvent = () => {
   position: absolute;
   right: 3rem;
   top: 4.5rem;
-}
-
-.content {
-  padding: 1rem;
 }
 </style>

@@ -3,10 +3,9 @@
     <div class="title">
       {{ props.articleInfo.title }}
     </div>
-    <div
-      class="overflow-hidden indent-4 mt-2 text-ellipsis mb-10"
-      v-html="articleInfo.content"
-    ></div>
+    <div class="indent-4 text-ellipsis line-clamp-4 container mt-2">
+      {{ props.articleInfo.introduction }}
+    </div>
   </div>
 </template>
 
@@ -14,8 +13,6 @@
 const props = defineProps<{
   articleInfo: ArticleDO;
 }>();
-
-// TODO 文章简介
 </script>
 
 <style lang="scss" scoped>

@@ -3,8 +3,7 @@ declare interface ArticleDO {
   title: string;
   content: string;
   publish_time: string;
-  comment_count: number;
-  like_count: number;
+  introduction: string;
   author_id: string;
   author_nickname: string;
 }
@@ -12,10 +11,12 @@ declare interface ArticleDO {
 declare interface ArticlePostVO {
   title: string;
   content: string;
+  introduction: string;
 }
 
 declare interface ArticleUpdateVO {
   id: string;
   title: string;
   content: string;
+  introduction: string;
 }

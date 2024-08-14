@@ -6,7 +6,7 @@ import Header from "@/components/LayoutComp/Header.vue";
 import { getArticleByIdAPI, updateArticleAPI } from "@/api/ArticleAPI.ts";
 import { useRoute } from "vue-router";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
-import { checkHtmlContentIsSpace } from "@/hooks/useCheckSpaceHook.ts";
+import { checkHtmlContentIsSpace, checkStringIsSpace } from "@/hooks/useCheckSpaceHook.ts";
 
 const route = useRoute();
 
@@ -15,6 +15,7 @@ onMounted(() => {
     articleUpdateVO.value.id = res.data.id;
     articleUpdateVO.value.title = res.data.title;
     articleUpdateVO.value.content = res.data.content;
+    articleUpdateVO.value.introduction = res.data.introduction;
   });
 });
 
@@ -22,6 +23,7 @@ const articleUpdateVO = ref<ArticleUpdateVO>({
   id: "",
   title: "",
   content: "",
+  introduction: "",
 });
 
 const noticeBarProperty = ref<{
@@ -36,12 +38,13 @@ const noticeBarProperty = ref<{
 
 const updateEvent = () => {
   if (
-    checkHtmlContentIsSpace(articleUpdateVO.value.title) ||
-    checkHtmlContentIsSpace(articleUpdateVO.value.content)
+    checkStringIsSpace(articleUpdateVO.value.title) ||
+    checkHtmlContentIsSpace(articleUpdateVO.value.content) ||
+    checkStringIsSpace(articleUpdateVO.value.introduction)
   ) {
     noticeBarProperty.value = {
       show: true,
-      text: "标题或内容不能为空",
+      text: "请填写完整的内容",
       type: "error",
     };
     return;
@@ -82,7 +85,16 @@ const updateEvent = () => {
           @click:close="noticeBarProperty.show = false"
         ></v-alert>
       </v-slide-y-transition>
-      <v-text-field v-model="articleUpdateVO.title" label="文章标题"></v-text-field>
+      <v-text-field
+        v-model="articleUpdateVO.title"
+        label="文章标题"
+        placeholder="建议在10个字符以内"
+      ></v-text-field>
+      <v-text-field
+        v-model="articleUpdateVO.introduction"
+        label="文章简介"
+        placeholder="建议在20-50个字符"
+      ></v-text-field>
       <VuetifyTiptap
         v-model="articleUpdateVO.content"
         :max-height="465"
