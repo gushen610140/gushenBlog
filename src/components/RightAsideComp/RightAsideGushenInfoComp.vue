@@ -1,6 +1,6 @@
 <template>
   <div class="my-info">
-    <el-avatar :size="50" src="/myAvatar.jpg"></el-avatar>
+    <v-avatar :image="avatar" size="50"></v-avatar>
     <div class="name">剑霜寒</div>
     <div class="iconList flex gap-2">
       <svg
@@ -77,6 +77,8 @@
 </template>
 
 <script lang="ts" setup>
+import avatar from "@/static/myAvatar.jpg";
+
 function openNewPage(url: string) {
   window.open(url);
 }
