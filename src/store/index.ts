@@ -16,3 +16,16 @@ export const useWindowSizeStore = defineStore("windowSize", () => {
     isMobile,
   };
 });
+
+export const useUserStore = defineStore("user", () => {
+  const user = ref<UserVO>();
+
+  const setUser = (newUser: UserVO) => {
+    user.value = newUser;
+  };
+
+  return {
+    user,
+    setUser,
+  };
+});

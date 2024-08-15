@@ -2,10 +2,10 @@
 import { ref } from "vue";
 import GsInputFromUI from "@/components/GsUI/form/GsInputFormUI.vue";
 import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
-import { userLoginAPI } from "@/api/UserAPI.ts";
+import { getUserInfoAPI, userLoginAPI } from "@/api/UserAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
-import { useWindowSizeStore } from "@/store";
+import { useUserStore, useWindowSizeStore } from "@/store";
 
 const userLoginVO = ref<UserLoginVO>({
   email: "",
@@ -13,6 +13,7 @@ const userLoginVO = ref<UserLoginVO>({
 });
 
 const store = useWindowSizeStore();
+const userStore = useUserStore();
 
 const handleLogin = () => {
   userLoginAPI(userLoginVO.value).then((res) => {
@@ -23,6 +24,9 @@ const handleLogin = () => {
     } else {
       noticeError(res.message);
     }
+  });
+  getUserInfoAPI().then((res) => {
+    userStore.setUser(res.data);
   });
 };
 

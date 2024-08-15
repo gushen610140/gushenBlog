@@ -7,6 +7,8 @@ import {
 } from "@/api/CommentAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { checkStringIsSpace } from "@/hooks/useCheckSpaceHook.ts";
+import { useUserStore } from "@/store";
+import { getUserInfoAPI } from "@/api/UserAPI.ts";
 
 const props = defineProps<{
   article_id: string;
@@ -29,8 +31,13 @@ const commentList = ref<CommentDO[]>([
 
 const commentContent = ref("");
 
+const userStore = useUserStore();
+
 onMounted(() => {
   getCommentListFromArticleEvent();
+  getUserInfoAPI().then((res) => {
+    userStore.setUser(res.data);
+  });
 });
 
 const getCommentListFromArticleEvent = () => {
@@ -84,7 +91,7 @@ defineExpose<{
             <v-avatar :image="commentItem.user_avatar" class="ml-5 mr-3" size="30"></v-avatar>
             {{ commentItem.user_nickname }}
             <div class="flex-1"></div>
-            <v-dialog max-width="400">
+            <v-dialog v-if="userStore.user?.id == commentItem.user_id" max-width="400">
               <template #activator="{ props }">
                 <v-icon icon="mdi-trash-can" v-bind="props"></v-icon>
               </template>
