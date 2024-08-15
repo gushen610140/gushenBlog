@@ -7,8 +7,8 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 // 引入 el-icon
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-// 引入 vuex
-import store from "@/store";
+// 引入 pinia
+import { createPinia } from "pinia";
 // Vuetify
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
@@ -34,13 +34,15 @@ const vuetify = createVuetify({
   },
 });
 
+const pinia = createPinia();
+
 // 以根目录下的 app 组件为根组件
 const app = createApp(App);
 
 // 安装插件
 app.use(router);
 app.use(ElementPlus);
-app.use(store);
+app.use(pinia);
 app.use(vuetify);
 app.use(vuetifyProTipTap);
 app.use(Toast, {

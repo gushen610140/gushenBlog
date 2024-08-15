@@ -1,5 +1,8 @@
 <template>
-  <div class="pb-5 pt-5 container grid grid-cols-2 gap-4">
+  <div
+    :class="{ 'grid-cols-1': store.isMobile, 'grid-cols-2': !store.isMobile }"
+    class="pb-5 pt-5 container grid gap-4"
+  >
     <div
       v-for="article in articleList"
       :key="article.id"
@@ -15,8 +18,11 @@ import ArticlesCardComp from "@/components/ArticleComp/ArticlesCardComp.vue";
 import { onMounted, ref } from "vue";
 import { getArticleListAPI } from "@/api/ArticleAPI.ts";
 import { openPageHook } from "@/hooks/useRouterHook.ts";
+import { useWindowSizeStore } from "@/store";
 
 const articleList = ref<ArticleDO[]>([]);
+
+const store = useWindowSizeStore();
 
 onMounted(() => {
   getArticleListAPI().then((res) => {

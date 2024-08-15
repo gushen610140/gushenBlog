@@ -19,6 +19,6 @@ import RightAsideBlogLawInfoComp from "@/components/RightAsideComp/RightAsideBlo
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  padding: 1rem 0;
+  padding: 1rem;
 }
 </style>

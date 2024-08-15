@@ -14,6 +14,7 @@ import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import CommentContainerComp from "@/components/ArticleComp/CommentContainerComp.vue";
 import { addCommentRootAPI, getCommentCountFromArticleAPI } from "@/api/CommentAPI.ts";
 import { checkStringIsSpace } from "@/hooks/useCheckSpaceHook.ts";
+import { useWindowSizeStore } from "@/store";
 
 const route = useRoute();
 
@@ -40,6 +41,8 @@ const likeIconColorComp = computed(() => {
 const commentCount = ref<number>(0);
 const commentContent = ref("");
 const commentContainerCompRef = ref<InstanceType<typeof CommentContainerComp>>();
+
+const store = useWindowSizeStore();
 
 onMounted(() => {
   getArticleByIdAPI(route.params.id as string).then((res) => {
@@ -99,9 +102,9 @@ const addCommentRootEvent = () => {
 <template>
   <Header></Header>
   <el-row style="height: 6rem"></el-row>
-  <div class="article_container">
-    <div class="title mb-8">{{ articleDO.title }}</div>
-    <div class="author">文章作者: {{ articleDO.author_nickname }}</div>
+  <div :class="{ article_container_mobile: store.isMobile }" class="article_container">
+    <div class="title mb-8 text-center text-3xl">{{ articleDO.title }}</div>
+    <div class="author mb-8">文章作者: {{ articleDO.author_nickname }}</div>
     <div class="p-4 text-zinc-300 bg-neutral-700 rounded-lg ml-10 mr-10">
       <v-icon icon="mdi-tooltip-text-outline"></v-icon>
       {{ articleDO.introduction }}
@@ -142,20 +145,18 @@ const addCommentRootEvent = () => {
   padding: 2rem;
   border-radius: 1rem;
   background-color: $background_color_box_dark;
-  position: relative;
   word-wrap: break-word;
 }
 
-.title {
-  font-size: $font_size_big;
-  margin-left: 2rem;
+.article_container_mobile {
+  background-color: transparent;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .author {
   font-size: $font_size_regular;
   text-align: right;
-  position: absolute;
-  right: 3rem;
-  top: 4.5rem;
 }
 </style>

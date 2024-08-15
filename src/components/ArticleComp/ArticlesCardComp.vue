@@ -1,9 +1,9 @@
 <template>
-  <div class="card_body container h-44 overflow-hidden">
+  <div class="card_body container h-40 overflow-hidden">
     <div class="title">
       {{ props.articleInfo.title }}
     </div>
-    <div class="indent-4 text-ellipsis line-clamp-4 container mt-2">
+    <div class="indent-4 text-ellipsis line-clamp-2 container mt-2">
       {{ props.articleInfo.introduction }}
     </div>
   </div>

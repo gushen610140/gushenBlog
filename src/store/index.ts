@@ -1,20 +1,18 @@
-import {createStore} from "vuex";
+import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 
-export default createStore({
-    state() {
-        return {
-            windowSize: window.innerWidth
-        }
-    },
-    mutations: {
-        setWindowSize(state, size) {
-            state.windowSize = size
-        }
-    },
-    actions: {
+export const useWindowSizeStore = defineStore("windowSize", () => {
+  const windowSize = ref(window.innerWidth);
 
-    },
-    modules: {
+  const setWindowSize = (newWindowSize: number) => {
+    windowSize.value = newWindowSize;
+  };
 
-    }
-})
+  const isMobile = computed(() => windowSize.value < import.meta.env.VITE_MOBILE_SIZE);
+
+  return {
+    windowSize,
+    setWindowSize,
+    isMobile,
+  };
+});

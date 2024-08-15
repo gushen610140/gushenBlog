@@ -61,7 +61,7 @@ const removeLikeEvent = (id: string) => {
       style="margin-bottom: 1rem"
       @update:modelValue="updateCurPageEvent"
     ></v-pagination>
-    <table style="padding: 1rem; margin: 0 1rem; width: 100%">
+    <table style="padding: 1rem; width: 100%">
       <tr style="text-align: center; height: 2rem; color: #b1b3b8">
         <td style="width: 80%">文章标题</td>
         <td style="width: 20%">操作</td>

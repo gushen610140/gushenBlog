@@ -1,8 +1,17 @@
 <template>
   <div ref="headerRef" class="header_container">
-    <div class="website_logo" @click="router.push('/')">
+    <div v-if="!store.isMobile" class="website_logo" @click="router.push('/')">
       <span>GushenBlog</span>
     </div>
+    <v-menu v-else theme="dark">
+      <template v-slot:activator="{ props }">
+        <v-icon icon="mdi-menu" v-bind="props"></v-icon>
+      </template>
+      <v-card min-width="300">
+        <MyFuncListComp v-if="navList[3].isSelect"></MyFuncListComp>
+        <RightAsideContainerComp v-else></RightAsideContainerComp>
+      </v-card>
+    </v-menu>
     <div style="flex: 1"></div>
     <ul style="display: flex">
       <li
@@ -43,7 +52,10 @@ import { computed, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getUserInfoAPI } from "@/api/UserAPI.ts";
 import { notice, noticeError } from "@/hooks/useNoticeMessageHook.ts";
-import { changePageHook } from "@/hooks/useRouterHook.ts"; // 页面初始化动作
+import { changePageHook } from "@/hooks/useRouterHook.ts";
+import { useWindowSizeStore } from "@/store";
+import RightAsideContainerComp from "@/components/RightAsideComp/RightAsideContainerComp.vue";
+import MyFuncListComp from "@/components/MyComp/MyFuncListComp.vue"; // 页面初始化动作
 
 // 页面初始化动作
 onMounted(() => {
@@ -91,6 +103,9 @@ const navList = reactive([
     isShow: true,
   },
 ]);
+
+// 响应式
+const store = useWindowSizeStore();
 
 // 导航项高亮处理
 const router = useRouter();

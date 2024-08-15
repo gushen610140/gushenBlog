@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useStore } from "vuex";
+// 控制响应式全局变化的窗体大小，用pinia保存
+import { useWindowSizeStore } from "@/store";
 
-const store = useStore();
+const store = useWindowSizeStore();
 
-// 控制响应式全局变化的窗体大小，用vuex保存
 window.onresize = () => {
-  store.commit("setWindowSize", window.innerWidth);
+  store.setWindowSize(window.innerWidth);
 };
 </script>
 

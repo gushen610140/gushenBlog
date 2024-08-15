@@ -7,6 +7,7 @@ import { changePageHook } from "@/hooks/useRouterHook.ts";
 import { sendCodeAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { userRegisterAPI } from "@/api/UserAPI.ts";
+import { useWindowSizeStore } from "@/store";
 
 const userRegisterVO = ref<UserRegisterVO>({
   email: "",
@@ -15,6 +16,8 @@ const userRegisterVO = ref<UserRegisterVO>({
   again_password: "",
   verify_code: "",
 });
+
+const store = useWindowSizeStore();
 
 const sendCodeEvent = () => {
   sendCodeAPI(userRegisterVO.value.email).then((res) => {
@@ -40,19 +43,18 @@ const registerEvent = () => {
 </script>
 
 <template>
-  <div class="back_nav_page_btn" @click="changePageHook('/login')">
-    返回登录
-  </div>
-  <div class="register_window">
+  <v-icon
+    class="mt-4 ml-2 back_icon"
+    icon="mdi-undo-variant"
+    size="40"
+    @click="changePageHook('/login')"
+  ></v-icon>
+  <div :class="{ register_window_mobile: store.isMobile }" class="register_window">
     <div style="margin-top: 4rem">
       <div class="title"><span class="title_content">用户注册</span></div>
     </div>
     <div class="input_area">
-      <GsInputFromUI
-        v-model="userRegisterVO.email"
-        label="邮箱"
-        width="20rem"
-      ></GsInputFromUI>
+      <GsInputFromUI v-model="userRegisterVO.email" label="邮箱" width="20rem"></GsInputFromUI>
       <div style="width: 20rem; display: flex; gap: 1rem">
         <GsInputFromUI
           v-model="userRegisterVO.verify_code"
@@ -66,11 +68,7 @@ const registerEvent = () => {
           @click="sendCodeEvent"
         ></GsButtonLoginUI>
       </div>
-      <GsInputFormUI
-        v-model="userRegisterVO.nickname"
-        label="昵称"
-        width="20rem"
-      ></GsInputFormUI>
+      <GsInputFormUI v-model="userRegisterVO.nickname" label="昵称" width="20rem"></GsInputFormUI>
       <GsInputFromUI
         v-model="userRegisterVO.password"
         label="密码"
@@ -92,7 +90,7 @@ const registerEvent = () => {
 @import "@/styles/variables";
 
 .register_window {
-  margin: 4rem auto 4rem;
+  margin: 10vh auto 10vh;
   width: 60vw;
   height: 70vh;
   background-color: #2a2a2a;
@@ -100,6 +98,15 @@ const registerEvent = () => {
   box-shadow: $box_shadow_vivid;
   // 启动 BFC
   overflow: hidden;
+}
+
+.register_window_mobile {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  width: 90vw;
+  height: auto;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .input_area {
@@ -123,9 +130,12 @@ const registerEvent = () => {
   }
 }
 
-.back_nav_page_btn {
-  font-size: $font_size_big;
-  margin-top: 2rem;
-  cursor: pointer;
+.back_icon {
+  transition: $transition_slow;
+}
+
+.back_icon:hover {
+  text-shadow: $box_shadow_regular_light;
+  transform: scale(1.1);
 }
 </style>

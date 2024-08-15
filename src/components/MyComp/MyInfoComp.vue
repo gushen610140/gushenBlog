@@ -9,6 +9,7 @@ import {
 } from "@/api/UserAPI.ts";
 import { notice, noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { changePageHook, reloadPage } from "@/hooks/useRouterHook.ts";
+import { useWindowSizeStore } from "@/store";
 
 const userAvatar = ref<string>("");
 const userUpdateInfo = ref<UserUpdateInfoVO>({
@@ -17,6 +18,8 @@ const userUpdateInfo = ref<UserUpdateInfoVO>({
 });
 
 const userUpdateAvatar = ref<File | null>(null);
+
+const store = useWindowSizeStore();
 
 onMounted(() => {
   getUserInfoAPI()
@@ -76,11 +79,11 @@ const updateAvatarEvent = (isActive: Ref<boolean>) => {
 </script>
 
 <template>
-  <div class="my_info_container">
+  <div :class="{ my_info_container_mobile: store.isMobile }" class="my_info_container">
     <div class="title">个人资料</div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
-    <div style="display: flex; gap: 4rem">
-      <div class="input_container">
+    <div :class="{ mobile_flex: store.isMobile }" style="display: flex; gap: 4rem">
+      <div :class="{ input_container_mobile: store.isMobile }" class="input_container">
         <GsInputUI v-model="userUpdateInfo.email" :disabled="true" label="邮箱"></GsInputUI>
         <GsInputUI v-model="userUpdateInfo.nickname" label="昵称"></GsInputUI>
         <div style="display: flex">
@@ -88,7 +91,7 @@ const updateAvatarEvent = (isActive: Ref<boolean>) => {
           <div class="logout_btn" @click="logoutEvent">退出登录</div>
         </div>
       </div>
-      <div class="container flex items-center justify-start h-48 relative">
+      <div class="flex items-center justify-start h-48 relative">
         <v-avatar :image="userAvatar" size="150"></v-avatar>
         <v-dialog max-width="400" theme="dark">
           <template v-slot:activator="{ props }">
@@ -139,6 +142,10 @@ const updateAvatarEvent = (isActive: Ref<boolean>) => {
   background-color: $background_color_box_dark;
 }
 
+.my_info_container_mobile {
+  background-color: transparent;
+}
+
 .title {
   font-size: $font_size_big;
   margin-left: 2rem;
@@ -150,6 +157,17 @@ const updateAvatarEvent = (isActive: Ref<boolean>) => {
   grid-template-columns: 1fr;
   padding: 2rem;
   gap: 3rem;
+}
+
+.input_container_mobile {
+  padding: 2rem 1rem;
+}
+
+.mobile_flex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
 .update_btn {

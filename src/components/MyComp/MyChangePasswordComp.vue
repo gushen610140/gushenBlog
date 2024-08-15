@@ -6,6 +6,7 @@ import { sendCodeByTokenAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { userChangePasswordAPI } from "@/api/UserAPI.ts";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
+import { useWindowSizeStore } from "@/store";
 
 const userChangePasswordVO = ref<UserChangePasswordVO>({
   old_password: "",
@@ -13,6 +14,8 @@ const userChangePasswordVO = ref<UserChangePasswordVO>({
   again_password: "",
   verify_code: "",
 });
+
+const store = useWindowSizeStore();
 
 const sendCodeEvent = () => {
   sendCodeByTokenAPI().then((res) => {
@@ -33,8 +36,7 @@ const updatePasswordEvent = () => {
   ) {
     noticeError("请填写完整信息");
   } else if (
-    userChangePasswordVO.value.new_password !==
-    userChangePasswordVO.value.again_password
+    userChangePasswordVO.value.new_password !== userChangePasswordVO.value.again_password
   ) {
     noticeError("两次输入的密码不一致");
   } else {
@@ -51,22 +53,16 @@ const updatePasswordEvent = () => {
 </script>
 
 <template>
-  <div class="change_password_container">
+  <div
+    :class="{ change_password_container_mobile: store.isMobile }"
+    class="change_password_container"
+  >
     <div class="title">更改密码</div>
     <el-divider style="border-color: #e3e3e3"></el-divider>
-    <div class="input_container">
-      <GsInputUI
-        v-model="userChangePasswordVO.old_password"
-        label="原密码"
-      ></GsInputUI>
-      <GsInputUI
-        v-model="userChangePasswordVO.new_password"
-        label="新密码"
-      ></GsInputUI>
-      <GsInputUI
-        v-model="userChangePasswordVO.again_password"
-        label="重复新密码"
-      ></GsInputUI>
+    <div :class="{ input_container_mobile: store.isMobile }" class="input_container">
+      <GsInputUI v-model="userChangePasswordVO.old_password" label="原密码"></GsInputUI>
+      <GsInputUI v-model="userChangePasswordVO.new_password" label="新密码"></GsInputUI>
+      <GsInputUI v-model="userChangePasswordVO.again_password" label="重复新密码"></GsInputUI>
       <div style="width: 20rem; display: flex; gap: 1rem">
         <GsInputUI
           v-model="userChangePasswordVO.verify_code"
@@ -94,6 +90,10 @@ const updatePasswordEvent = () => {
   background-color: $background_color_box_dark;
 }
 
+.change_password_container_mobile {
+  background-color: transparent;
+}
+
 .title {
   font-size: $font_size_big;
   margin-left: 2rem;
@@ -105,6 +105,10 @@ const updatePasswordEvent = () => {
   grid-template-columns: 1fr;
   padding: 2rem;
   gap: 3rem;
+}
+
+.input_container_mobile {
+  padding: 2rem 1rem;
 }
 
 .update_btn {

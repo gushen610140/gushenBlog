@@ -92,14 +92,9 @@ const publishEvent = () => {
         markdown-theme="github"
         rounded
       />
-      <v-container>
-        <v-row>
-          <v-col cols="11"></v-col>
-          <v-col cols="1"
-            ><v-btn min-width="100%" variant="tonal" @click="publishEvent">发表</v-btn></v-col
-          >
-        </v-row>
-      </v-container>
+      <div class="mt-6 flex justify-end">
+        <v-btn class="w-20" variant="tonal" @click="publishEvent">发表</v-btn>
+      </div>
       <v-divider style="margin: 1rem 0"></v-divider>
       <VuetifyViewer :value="articlePostVO.content" markdown-theme="github" />
     </VContainer>

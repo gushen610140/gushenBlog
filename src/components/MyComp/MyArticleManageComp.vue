@@ -58,13 +58,11 @@ const deleteArticleEvent = (id: string) => {
       style="margin-bottom: 1rem"
       @update:modelValue="updateCurPageEvent"
     ></v-pagination>
-    <table style="padding: 1rem; margin: 0 1rem; width: 100%">
+    <table style="padding: 1rem; width: 100%">
       <tr style="text-align: center; height: 2rem; color: #b1b3b8">
         <td style="width: 30%">文章标题</td>
         <td style="width: 10%">作者</td>
         <td style="width: 20%">发布时间</td>
-        <td style="width: 10%">评论数</td>
-        <td style="width: 10%">收藏数</td>
         <td style="width: 20%">操作</td>
       </tr>
       <tr
@@ -75,8 +73,6 @@ const deleteArticleEvent = (id: string) => {
         <td>{{ articleItem.title }}</td>
         <td>{{ articleItem.author_nickname }}</td>
         <td>{{ articleItem.publish_time }}</td>
-        <td>{{ articleItem.comment_count }}</td>
-        <td>{{ articleItem.like_count }}</td>
         <td style="display: flex; align-items: center; justify-content: center; height: 3rem">
           <div class="btn edit_btn" @click="changePageHook(`/edit_article/${articleItem.id}`)">
             编辑

@@ -143,12 +143,11 @@ const updateProjectEvent = (isActive: Ref<boolean>) => {
       style="margin-bottom: 1rem"
       @update:modelValue="updateCurPageEvent"
     ></v-pagination>
-    <table style="padding: 1rem; margin: 0 1rem; width: 100%">
+    <table style="padding: 1rem; width: 100%">
       <tr style="text-align: center; height: 2rem; color: #b1b3b8">
-        <td style="width: 20%">项目标题</td>
-        <td style="width: 30%">发布时间</td>
-        <td style="width: 30%">链接</td>
-        <td style="width: 20%">操作</td>
+        <td>项目标题</td>
+        <td>发布时间</td>
+        <td>操作</td>
       </tr>
       <tr
         v-for="projectItem in projectList"
@@ -157,7 +156,6 @@ const updateProjectEvent = (isActive: Ref<boolean>) => {
       >
         <td>{{ projectItem.title }}</td>
         <td>{{ projectItem.publish_time }}</td>
-        <td>{{ projectItem.link }}</td>
         <td style="display: flex; align-items: center; justify-content: center; height: 3rem">
           <!-- 编辑 -->
           <v-dialog max-width="600" persistent theme="dark">

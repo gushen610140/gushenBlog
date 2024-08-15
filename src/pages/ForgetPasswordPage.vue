@@ -6,6 +6,7 @@ import { changePageHook } from "@/hooks/useRouterHook.ts";
 import { sendCodeAPI } from "@/api/MailAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { userResetPasswordAPI } from "@/api/UserAPI.ts";
+import { useWindowSizeStore } from "@/store";
 
 const userForgetPasswordVO = ref<UserForgetPasswordVO>({
   email: "",
@@ -13,6 +14,8 @@ const userForgetPasswordVO = ref<UserForgetPasswordVO>({
   again_password: "",
   verify_code: "",
 });
+
+const store = useWindowSizeStore();
 
 const sendCodeEvent = () => {
   if (userForgetPasswordVO.value.email == "") {
@@ -38,10 +41,7 @@ const resetPasswordEvent = () => {
     noticeError("请先填写完整信息");
     return;
   }
-  if (
-    userForgetPasswordVO.value.new_password !=
-    userForgetPasswordVO.value.again_password
-  ) {
+  if (userForgetPasswordVO.value.new_password != userForgetPasswordVO.value.again_password) {
     noticeError("两次密码不一致");
     return;
   }
@@ -57,10 +57,13 @@ const resetPasswordEvent = () => {
 </script>
 
 <template>
-  <div class="back_nav_page_btn" @click="changePageHook('/login')">
-    返回登录
-  </div>
-  <div class="forget_password_window">
+  <v-icon
+    class="mt-4 ml-2 back_icon"
+    icon="mdi-undo-variant"
+    size="40"
+    @click="changePageHook('/login')"
+  ></v-icon>
+  <div :class="{ forget_password_mobile_window: store.isMobile }" class="forget_password_window">
     <div style="margin-top: 4rem">
       <div class="title"><span class="title_content">忘记密码</span></div>
     </div>
@@ -95,10 +98,7 @@ const resetPasswordEvent = () => {
         type="password"
         width="20rem"
       ></GsInputFromUI>
-      <GsButtonLoginUI
-        content="重置密码"
-        @click="resetPasswordEvent"
-      ></GsButtonLoginUI>
+      <GsButtonLoginUI content="重置密码" @click="resetPasswordEvent"></GsButtonLoginUI>
     </div>
   </div>
 </template>
@@ -107,7 +107,7 @@ const resetPasswordEvent = () => {
 @import "@/styles/variables";
 
 .forget_password_window {
-  margin: 5rem auto 10rem;
+  margin: 10vh auto 10vh;
   width: 60vw;
   height: 60vh;
   background-color: #2a2a2a;
@@ -115,6 +115,13 @@ const resetPasswordEvent = () => {
   box-shadow: $box_shadow_vivid;
   // 启动 BFC
   overflow: hidden;
+}
+
+.forget_password_mobile_window {
+  width: 90vw;
+  height: auto;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .input_area {
@@ -138,9 +145,12 @@ const resetPasswordEvent = () => {
   }
 }
 
-.back_nav_page_btn {
-  font-size: $font_size_big;
-  margin-top: 2rem;
-  cursor: pointer;
+.back_icon {
+  transition: $transition_slow;
+}
+
+.back_icon:hover {
+  text-shadow: $box_shadow_regular_light;
+  transform: scale(1.1);
 }
 </style>

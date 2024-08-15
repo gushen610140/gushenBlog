@@ -5,11 +5,14 @@ import GsButtonLoginUI from "@/components/GsUI/form/GsButtonLoginUI.vue";
 import { userLoginAPI } from "@/api/UserAPI.ts";
 import { noticeError, noticeSuccess } from "@/hooks/useNoticeMessageHook.ts";
 import { changePageHook } from "@/hooks/useRouterHook.ts";
+import { useWindowSizeStore } from "@/store";
 
 const userLoginVO = ref<UserLoginVO>({
   email: "",
   password: "",
 });
+
+const store = useWindowSizeStore();
 
 const handleLogin = () => {
   userLoginAPI(userLoginVO.value).then((res) => {
@@ -31,17 +34,18 @@ const handleLoginByEnterEvent = (e: KeyboardEvent) => {
 </script>
 
 <template>
-  <div class="back_nav_page_btn" @click="changePageHook('/')">返回主页</div>
-  <div class="login_window">
+  <v-icon
+    class="mt-4 ml-2 home_icon"
+    icon="mdi-home"
+    size="40"
+    @click="changePageHook('/')"
+  ></v-icon>
+  <div :class="{ login_window_mobile: store.isMobile }" class="login_window">
     <div style="margin-top: 4rem">
       <div class="title"><span class="title_content">用户登录</span></div>
     </div>
     <div class="input_area">
-      <GsInputFromUI
-        v-model="userLoginVO.email"
-        label="邮箱"
-        width="20rem"
-      ></GsInputFromUI>
+      <GsInputFromUI v-model="userLoginVO.email" label="邮箱" width="20rem"></GsInputFromUI>
       <GsInputFromUI
         v-model="userLoginVO.password"
         label="密码"
@@ -51,11 +55,9 @@ const handleLoginByEnterEvent = (e: KeyboardEvent) => {
       ></GsInputFromUI>
       <GsButtonLoginUI content="确认" @click="handleLogin"></GsButtonLoginUI>
     </div>
-    <div class="more" style="display: flex; justify-content: center; gap: 1rem">
+    <div class="more mb-5" style="display: flex; justify-content: center; gap: 1rem">
       <div class="register" @click="changePageHook('/register')">前往注册</div>
-      <div class="forget" @click="changePageHook('/forget_password')">
-        忘记密码
-      </div>
+      <div class="forget" @click="changePageHook('/forget_password')">忘记密码</div>
     </div>
   </div>
 </template>
@@ -64,14 +66,21 @@ const handleLoginByEnterEvent = (e: KeyboardEvent) => {
 @import "@/styles/variables";
 
 .login_window {
-  margin: 6rem auto 10rem;
-  width: 60vw;
+  margin: 10vh auto 10vh;
+  width: 50vw;
   height: 50vh;
   background-color: #2a2a2a;
   border-radius: 1rem;
   box-shadow: $box_shadow_vivid;
   // 启动 BFC
   overflow: hidden;
+}
+
+.login_window_mobile {
+  width: 90vw;
+  height: auto;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .input_area {
@@ -107,9 +116,12 @@ const handleLoginByEnterEvent = (e: KeyboardEvent) => {
   transition: $transition_regular;
 }
 
-.back_nav_page_btn {
-  font-size: $font_size_big;
-  margin-top: 2rem;
-  cursor: pointer;
+.home_icon {
+  transition: $transition_slow;
+}
+
+.home_icon:hover {
+  text-shadow: $box_shadow_regular_light;
+  transform: scale(1.1);
 }
 </style>
